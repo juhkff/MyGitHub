@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/Introduction" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_Data/StaticData.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_JDBC/Conn.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_Process/LocalAddress.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_Process/TcpClient.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_Process/TcpServer.java" charset="UTF-16" />
+    <file url="file://$PROJECT_DIR$/src/live_UI/UI_HomePage.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_UI/UI_LiveRoom.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_UI/UI_Login.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_UI/UI_NetWorkConfig.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/live_UI/UI_Register.java" charset="UTF-8" />
+  </component>
+</project>
