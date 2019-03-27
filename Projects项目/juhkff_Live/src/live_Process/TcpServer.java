@@ -7,6 +7,8 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -98,24 +100,32 @@ public class TcpServer {
 							out.println("Succeed" + i);
 					}
 					out.println("GO");
-					OutputStream outputStream = this.client.getOutputStream();
+					// OutputStream outputStream = this.client.getOutputStream();
+					DataOutputStream dataOutputStream = new DataOutputStream(this.client.getOutputStream());
+					ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+					byte[] b;
 					int i = 0;
 					while (true) {
 						i++;
 						System.out.print("进行第" + i + "次截屏\t\t");
 						image = robot.createScreenCapture(scRectangle);
-						ImageIO.write(image, "JPG", outputStream);
+
+						ImageIO.write(image, "JPG", byteArrayOutputStream);
+						b = byteArrayOutputStream.toByteArray();
+
+						// ImageIO.write(image, "JPG", outputStream);
+						dataOutputStream.write(b);
+						Thread.sleep(1000);
 						/*
-						try {
-							Thread.sleep(500);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						*/
+						 * try { Thread.sleep(500); } catch (InterruptedException e) { // TODO
+						 * Auto-generated catch block e.printStackTrace(); }
+						 */
 						System.out.println(i + "次截屏成功");
 					}
 				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

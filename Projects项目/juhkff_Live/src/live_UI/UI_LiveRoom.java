@@ -3,6 +3,9 @@ package live_UI;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,11 +22,14 @@ import javax.swing.JPanel;
 public class UI_LiveRoom {
 	private inner_UI mainFrame;
 	private ImageInputStream imgInputStream = null;
+	private DataInputStream dataInputStream = null;
+	private ByteArrayInputStream byteArrayInputStream;
 	private BufferedImage img = null;
 
 	UI_LiveRoom(InputStream inputStream) {
 		try {
 			this.imgInputStream = ImageIO.createImageInputStream(inputStream);
+			this.dataInputStream = new DataInputStream(inputStream);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,20 +77,32 @@ public class UI_LiveRoom {
 
 			getContentPane().add(mainPanel);
 		}
-		
+
 		public void beginLive() {
 			try {
-				int i=0;
+				byte[] b = new byte[1024000];
+				int length;
+				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+				int i = 0;
 				while (true) {
-					img = ImageIO.read(imgInputStream);
-					if (img != null) {
-						System.out.println("进行第"+i+"次屏幕读取\t\t");
-						File file=new File("D:\\新建文件夹 (3)\\新建文件夹\\test.jpg");
-						//FileOutputStream fileOutputStream=new FileOutputStream(file);
-						ImageIO.write(img, "JPG", file);
-						//image.setIcon(new ImageIcon(img));
-						//image.repaint();
-						System.out.println("第"+i+"次屏幕读取成功");
+					length = 0;
+					while ((length = dataInputStream.read(b)) != -1) {
+						System.out.println(length);
+						byteArrayOutputStream.write(b, 0, length);
+						// }
+						// System.out.println("跳出循环");
+						byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+						img = ImageIO.read(/* imgInputStream */byteArrayInputStream);
+						if (img != null) {
+							System.out.println("进行第" + i + "次屏幕读取\t\t");
+							File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\test.jpg");
+							// FileOutputStream fileOutputStream=new FileOutputStream(file);
+							ImageIO.write(img, "JPG", file);
+							 image.setIcon(new ImageIcon(img));
+							 image.repaint();
+							System.out.println("第" + i + "次屏幕读取成功");
+						}
 					}
 				}
 			} catch (IOException e) {

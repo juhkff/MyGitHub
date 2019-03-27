@@ -15,6 +15,7 @@ import live_JDBC.Conn;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -192,28 +193,8 @@ public class UI_Login extends JFrame {
 					if (resultStr != null && resultStr.equals(passwordStr)) {
 						// 进入下个界面
 						dispose();
-						/*
-						 * UI_NetWorkConfig tempUI = new UI_NetWorkConfig(); tempUI.setTitle("请稍等...");
-						 * // tempUI.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-						 * tempUI.setResizable(true); tempUI.setLocationRelativeTo(null);
-						 * tempUI.setSize(300, 200); tempUI.setVisible(true); //tempUI.dispose();
-						 */
+						new UI_NetWorkConfig(userName);
 
-						JFrame ui_HomePage = new UI_HomePage(userName);
-						// ui_HomePage.setTitle("局域网直播工具-" + userName);
-						ui_HomePage.setTitle("网络配置中...");
-						// ui_Register.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-						// 设置窗口大小不可变
-						ui_HomePage.setResizable(false);
-						// 设置窗口打开居中
-						ui_HomePage.setLocationRelativeTo(null);
-						// 窗口大小
-						ui_HomePage.setSize(750, 500);
-						// 展示窗口
-						ui_HomePage.setVisible(true);
-
-						StaticData.getHOSTNAME();
-						ui_HomePage.setTitle("局域网直播工具-" + userName);
 					} else {
 						// 密码错误
 						noticeText.setText("密码错误，请重新输入密码");
