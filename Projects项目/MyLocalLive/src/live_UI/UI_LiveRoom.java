@@ -37,7 +37,7 @@ public class UI_LiveRoom {
         // this.imgInputStream = ImageIO.createImageInputStream(inputStream);
         this.dataInputStream = new DataInputStream(inputStream);
         this.mainFrame = new inner_UI();
-        mainFrame.setTitle(userName+"的直播间");
+        mainFrame.setTitle(userName + "的直播间");
         mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         // 设置窗口大小不可变
         mainFrame.setResizable(false);
@@ -156,14 +156,15 @@ public class UI_LiveRoom {
                             byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
                             byteArrayOutputStream.reset();
                             img = ImageIO.read(/* imgInputStream */byteArrayInputStream);
-                            if (img != null) {
-                                //System.out.println("进行第" + i + "次屏幕读取\t\t");
-                                // File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\test.jpg");
-                                // FileOutputStream fileOutputStream=new FileOutputStream(file);
-                                // ImageIO.write(img, "JPG", file);
-                                publish(img);
-                                //System.out.println("第" + i + "次屏幕读取成功");
-                            }
+                            //if (img != null) {        //?
+                            //System.out.println("进行第" + i + "次屏幕读取\t\t");
+                            // File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\test.jpg");
+                            // FileOutputStream fileOutputStream=new FileOutputStream(file);
+                            // ImageIO.write(img, "JPG", file);
+                            publish(img);
+                            //System.out.println("第" + i + "次屏幕读取成功");
+                            //}
+
                         }
                     }
                 }
