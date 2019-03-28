@@ -174,12 +174,15 @@ public class UI_LiveRoom {
             protected void process(List<BufferedImage> chunks) {
                 // TODO Auto-generated method stub
                 BufferedImage img = chunks.get(chunks.size() - 1);
+
                 index++;
                 System.out.println("进行第" + index + "次屏幕映射");
-                ImageIcon icon = new ImageIcon(img);
-                icon.setImage(icon.getImage().getScaledInstance(1760, 990, Image.SCALE_FAST));
-                image.setIcon(/* new ImageIcon(img) */icon);
-                System.out.println("第" + index + "次屏幕映射成功");
+                if(img!=null) {
+                    ImageIcon icon = new ImageIcon(img);
+                    icon.setImage(icon.getImage().getScaledInstance(1760, 990, Image.SCALE_FAST));
+                    image.setIcon(/* new ImageIcon(img) */icon);
+                    System.out.println("第" + index + "次屏幕映射成功");
+                }
             }
 
             /*

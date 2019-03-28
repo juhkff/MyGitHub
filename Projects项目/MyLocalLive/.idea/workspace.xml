@@ -50,8 +50,12 @@
       <file leaf-file-name="UI_LiveRoom.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/live_UI/UI_LiveRoom.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="162" column="63" lean-forward="true" selection-start-line="162" selection-start-column="63" selection-end-line="162" selection-end-column="63" />
+            <state relative-caret-position="250">
+              <caret line="189" column="35" lean-forward="true" selection-start-line="189" selection-start-column="35" selection-end-line="189" selection-end-column="35" />
+              <folding>
+                <element signature="e#2751#3795#0" expanded="true" />
+                <element signature="e#3794#3795#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -59,7 +63,7 @@
       <file leaf-file-name="UI_HomePage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/live_UI/UI_HomePage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
+            <state relative-caret-position="6821">
               <caret line="391" column="65" selection-start-line="391" selection-start-column="65" selection-end-line="391" selection-end-column="65" />
             </state>
           </provider>
@@ -80,7 +84,7 @@
       <file leaf-file-name="UI_Login.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/live_UI/UI_Login.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-924">
+            <state relative-caret-position="2793">
               <caret line="166" selection-start-line="166" selection-end-line="166" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -151,8 +155,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,7 +191,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -324,11 +328,12 @@
       <workItem from="1553779738610" duration="290000" />
       <workItem from="1553780052458" duration="2715000" />
       <workItem from="1553786522437" duration="396000" />
+      <workItem from="1553787417908" duration="715000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10619000" />
+    <option name="totallyTimeSpent" value="11334000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="835" extended-state="6" />
@@ -338,8 +343,8 @@
       <window_info anchor="bottom" id="Event Log" order="14" sideWeight="0.6191406" side_tool="true" weight="0.3628809" />
       <window_info anchor="bottom" id="JRebel Console" order="16" sideWeight="0.41992188" side_tool="true" weight="0.3628809" />
       <window_info anchor="right" id="Maven Projects" order="8" weight="0.3297587" />
-      <window_info anchor="bottom" id="JRebel Executor" order="16" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="JRebel Executor" order="16" />
       <window_info id="Capture Tool" order="7" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Database" order="7" weight="0.25938338" />
@@ -352,21 +357,21 @@
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.38085938" weight="0.3628809" />
       <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.38085938" visible="true" weight="0.3628809" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32825485" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.77492875" visible="true" weight="0.15820312" />
       <window_info id="JRebel" order="8" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="6" />
       <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info id="Web" order="6" sideWeight="0.22507122" side_tool="true" visible="true" weight="0.20509383" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="SQL Generator" order="0" weight="0.32905984" />
       <window_info anchor="bottom" id="Database Console" order="15" sideWeight="0.49731904" weight="0.33333334" />
       <window_info anchor="bottom" id="Find" order="2" sideWeight="0.49731904" weight="0.32905984" />
+      <window_info anchor="bottom" id="SQL Generator" order="0" weight="0.32905984" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="1" />
+      <window_info id="Web" order="6" sideWeight="0.22507122" side_tool="true" visible="true" weight="0.20509383" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32905984" />
       <window_info anchor="bottom" id="Application Servers" order="8" weight="0.32905984" />
@@ -379,6 +384,17 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/live_UI/UI_LiveRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2622">
+          <caret line="162" column="63" lean-forward="true" selection-start-line="162" selection-start-column="63" selection-end-line="162" selection-end-column="63" />
+          <folding>
+            <element signature="e#2751#3795#0" expanded="true" />
+            <element signature="e#3794#3795#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/live_UI/UI_Register.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
@@ -671,9 +687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/live_JDBC/package-info.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Introduction">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -746,14 +759,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/live_UI/UI_HomePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
+        <state relative-caret-position="6821">
           <caret line="391" column="65" selection-start-line="391" selection-start-column="65" selection-end-line="391" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/live_UI/UI_Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-924">
+        <state relative-caret-position="2793">
           <caret line="166" selection-start-line="166" selection-end-line="166" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -763,8 +776,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/live_UI/UI_LiveRoom.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="162" column="63" lean-forward="true" selection-start-line="162" selection-start-column="63" selection-end-line="162" selection-end-column="63" />
+        <state relative-caret-position="250">
+          <caret line="189" column="35" lean-forward="true" selection-start-line="189" selection-start-column="35" selection-end-line="189" selection-end-column="35" />
+          <folding>
+            <element signature="e#2751#3795#0" expanded="true" />
+            <element signature="e#3794#3795#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
