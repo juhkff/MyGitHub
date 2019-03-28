@@ -8,8 +8,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
-import com.mysql.cj.PreparedQuery;
-
 import live_Data.StaticData;
 import live_JDBC.Conn;
 

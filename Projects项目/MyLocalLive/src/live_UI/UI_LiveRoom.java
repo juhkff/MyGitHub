@@ -157,12 +157,12 @@ public class UI_LiveRoom {
                             byteArrayOutputStream.reset();
                             img = ImageIO.read(/* imgInputStream */byteArrayInputStream);
                             if (img != null) {
-                                System.out.println("进行第" + i + "次屏幕读取\t\t");
+                                //System.out.println("进行第" + i + "次屏幕读取\t\t");
                                 // File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\test.jpg");
                                 // FileOutputStream fileOutputStream=new FileOutputStream(file);
                                 // ImageIO.write(img, "JPG", file);
                                 publish(img);
-                                System.out.println("第" + i + "次屏幕读取成功");
+                                //System.out.println("第" + i + "次屏幕读取成功");
                             }
                         }
                     }

@@ -37,11 +37,15 @@ public class UI_HomePage extends JFrame {
     private Thread thread_broadSocket = null;
     private Thread thread_live = null;
 
+    private GetPacket_Watch getPacket_watch;
+    private GetPacket_Live getPacket_live;
+    private BroadSocket_Watch broadSocket_watch;
+
     // private Set<String> liveUserNameSet = new HashSet<>();
     private Map<String, RoomLabel> liveRoomMap = new HashMap<>();
 
-    private final String BROADCAST_IP = "230.0.0.1"; // 广播IP
-    private final int BROADCAST_INT_PORT = 40005; // 不同的port对应不同的socket发送端和接收端
+    private final String BROADCAST_IP = /*"230.0.0.1"*/"224.0.0.1"; // 广播IP
+    private final int BROADCAST_INT_PORT = /*40005*/6789; // 不同的port对应不同的socket发送端和接收端
 
     // private TcpServer tcpServer = new TcpServer(StaticData.getServerPort());
     private TcpServer tcpServer = new TcpServer();
@@ -97,16 +101,27 @@ public class UI_HomePage extends JFrame {
                 sPanel.setBackground(Color.LIGHT_GRAY);
                 sPanel.setBorder(new MatteBorder(2, 2, 2, 2, new Color(192, 192, 192)));
                 // 激活查询事件
-                if (thread_live != null)
+                if (getPacket_live != null) {
+                    getPacket_live.stop();
+                }
+                if (thread_live != null) {
                     thread_live.interrupt();
+                }
+                if (getPacket_watch != null) {
+                    getPacket_watch.stop();
+                }
                 if (thread_watch != null)
                     thread_watch.interrupt(); // ?
+                if (broadSocket_watch != null) {
+                    broadSocket_watch.stop();
+                }
                 if (thread_broadSocket != null)
                     thread_broadSocket.interrupt();
                 tcpServer.stopWork();
 
                 initialNetwork();
                 join();
+
                 thread_watch = startListenerThread_Watch();
                 thread_broadSocket = startListenerBroadThread_Watch();
                 thread_watch.start();
@@ -232,14 +247,19 @@ public class UI_HomePage extends JFrame {
         }
     }
 
-    class broadSocket_Watch implements Runnable {
+    class BroadSocket_Watch implements Runnable {
         private MulticastSocket socket;
         private DatagramPacket inPacket;
         private String[] message;
+        private boolean shouldStop = false;
 
-        public broadSocket_Watch(MulticastSocket socket) {
+        public BroadSocket_Watch(MulticastSocket socket) {
             super();
             this.socket = socket;
+        }
+
+        public void stop() {
+            this.shouldStop = true;
         }
 
         @Override
@@ -249,6 +269,8 @@ public class UI_HomePage extends JFrame {
                 inPacket = new DatagramPacket(new byte[1024], 1024);
                 try {
                     broadSocket.receive(inPacket);
+                    if (shouldStop)
+                        break;
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -264,10 +286,15 @@ public class UI_HomePage extends JFrame {
 
     class GetPacket_Watch implements Runnable { // 新建的线程,用于侦听
         private DatagramSocket socket;
+        private boolean shouldStop = false;
 
         public GetPacket_Watch(DatagramSocket socket) {
             super();
             this.socket = socket;
+        }
+
+        public void stop() {
+            this.shouldStop = true;
         }
 
         @Override
@@ -279,6 +306,8 @@ public class UI_HomePage extends JFrame {
                 try {
                     inPacket = new DatagramPacket(new byte[1024], 1024);
                     socket.receive(inPacket); // 接收广播信息并将信息封装到inPacket中
+                    if (shouldStop)
+                        break;
                     message = new String(inPacket.getData()).split("@");
                     // System.out.println(message);
                 } catch (Exception e) {
@@ -310,12 +339,17 @@ public class UI_HomePage extends JFrame {
         private String userName;
         private String liveName;
         private DatagramSocket socket;
+        private boolean shouldStop = false;
 
         public GetPacket_Live(String userName, String liveName, DatagramSocket socket) {
             super();
             this.userName = userName;
             this.liveName = liveName;
             this.socket = socket;
+        }
+
+        public void stop() {
+            this.shouldStop = true;
         }
 
         @Override
@@ -329,6 +363,9 @@ public class UI_HomePage extends JFrame {
                 try {
                     inPacket = new DatagramPacket(new byte[1024], 1024);
                     broadSocket.receive(inPacket); // 接收广播信息并将信息封装到inPacket中
+                    if (shouldStop) {
+                        break;
+                    }
                     message = new String(inPacket.getData()).split("@");
                     // System.out.println(message);
                 } catch (Exception e) {
@@ -349,7 +386,9 @@ public class UI_HomePage extends JFrame {
                                 // BROADCAST_INT_PORT);
                                 responsePacket = new DatagramPacket(b, b.length, inPacket.getAddress(), inPacket.getPort());
                                 this.socket.send(responsePacket);
-                                responsePacket = new DatagramPacket(b, b.length, requestUserIP, BROADCAST_INT_PORT);
+                                responsePacket = new DatagramPacket(b, b.length, requestUserIP, /*BROADCAST_INT_PORT*/inPacket.getPort());
+                                this.socket.send(responsePacket);
+                                responsePacket = new DatagramPacket(b, b.length, InetAddress.getByName("255.255.255.255"), inPacket.getPort());
                                 this.socket.send(responsePacket);
                             } catch (UnknownHostException e) {
                                 // TODO Auto-generated catch block
@@ -368,15 +407,18 @@ public class UI_HomePage extends JFrame {
     }
 
     Thread startListenerThread_Watch() {
-        return new Thread(new GetPacket_Watch(this.sender)); // 为观看方新建一个线程,用于循环侦听端口信息
+        this.getPacket_watch = new GetPacket_Watch(this.sender);
+        return new Thread(/*new GetPacket_Watch(this.sender)*/this.getPacket_watch); // 为观看方新建一个线程,用于循环侦听端口信息
     }
 
     Thread startListenerBroadThread_Watch() {
-        return new Thread(new broadSocket_Watch(this.broadSocket));
+        this.broadSocket_watch = new BroadSocket_Watch(this.broadSocket);
+        return new Thread(/*new BroadSocket_Watch(this.broadSocket)*/this.broadSocket_watch);
     }
 
     Thread startListenerThread_Live() {
-        return new Thread(new GetPacket_Live(this.userName, this.liveName, this.sender)); // 为直播方新建一个线程,用于循环侦听端口信息
+        this.getPacket_live = new GetPacket_Live(this.userName, this.liveName, this.sender);
+        return new Thread(/*new GetPacket_Live(this.userName, this.liveName, this.sender)*/getPacket_live); // 为直播方新建一个线程,用于循环侦听端口信息
     }
 
     public void deleteLiveRoom(String offUserName) {

@@ -44,8 +44,15 @@ public class TcpServer {
     }
 
     public void stopWork() {
-        if (this.thread != null)
+        try {
+            if (this.server != null)
+                this.server.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (this.thread != null) {
             this.thread.interrupt();
+        }
     }
 
     private class serverThread implements Runnable {
@@ -62,12 +69,16 @@ public class TcpServer {
             // TODO Auto-generated method stub
             while (true) {
                 try {
-                    client = this.server.accept(); // 等待客户端的连接
-                    System.out.println("与客户端连接成功!");
-                    new Thread(new TransmitThread(client)).start();
+                    if (!this.server.isClosed()) {
+                        client = this.server.accept(); // 等待客户端的连接
+                        System.out.println("与客户端连接成功!");
+                        new Thread(new TransmitThread(client)).start();
+                    } else
+                        Thread.currentThread().interrupt();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -108,7 +119,7 @@ public class TcpServer {
                     int i = 0;
                     while (true) {
                         i++;
-                        System.out.print("进行第" + i + "次截屏\t\t");
+                        //System.out.print("进行第" + i + "次截屏\t\t");
                         byteArrayOutputStream.reset();
                         image = robot.createScreenCapture(scRectangle);
 
@@ -117,15 +128,27 @@ public class TcpServer {
                         // new FileOutputStream("D:\\新建文件夹 (3)\\新建文件夹\\" + i + ".jpg").write(b);
                         // ImageIO.write(image, "JPG", outputStream);
                         dataOutputStream.write(b);
-                        // Thread.sleep(1000);
                         /*
                          * try { Thread.sleep(500); } catch (InterruptedException e) { // TODO
                          * Auto-generated catch block e.printStackTrace(); }
                          */
                         System.out.println(i + "次截屏成功");
+                        Thread.sleep(100);
                     }
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
+                    //e.printStackTrace();
+                    if (thread != null) {
+                        thread.interrupt();
+                    }
+                    try {
+                        if (server != null)
+                            server.close();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                    Thread.currentThread().interrupt();
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
