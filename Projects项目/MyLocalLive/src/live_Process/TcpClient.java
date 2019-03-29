@@ -21,6 +21,10 @@ public class TcpClient {
 		this.isConnected = isConnected;
 	}
 
+	public Socket getClient() {
+		return client;
+	}
+
 	public InputStream getInputStream() {
 		try {
 			return client.getInputStream();

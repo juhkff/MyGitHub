@@ -233,7 +233,7 @@ public class UI_HomePage extends JFrame {
                     tcpClient.connectTcpServer(roomIP, StaticData.getServerPort());
                     if (tcpClient.isConnected()) {
                         // 连接成功
-                        UI_LiveRoom ui_LiveRoom = new UI_LiveRoom(tcpClient.getInputStream(), userName);
+                        UI_LiveRoom ui_LiveRoom = new UI_LiveRoom(tcpClient/*.getInputStream()*/, userName);
                         dispose();
                         ui_LiveRoom.startLive();
                     }

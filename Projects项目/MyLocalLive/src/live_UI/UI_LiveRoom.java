@@ -1,5 +1,7 @@
 package live_UI;
 
+import live_Process.TcpClient;
+
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -31,11 +33,13 @@ public class UI_LiveRoom {
     private ByteArrayInputStream byteArrayInputStream;
     private BufferedImage img = null;
     private String userName;
+    private TcpClient tcpClient;
 
-    UI_LiveRoom(InputStream inputStream, String userName) {
+    UI_LiveRoom(/*InputStream inputStream*/TcpClient tcpClient, String userName) {
+        this.tcpClient = tcpClient;
         this.userName = userName;
         // this.imgInputStream = ImageIO.createImageInputStream(inputStream);
-        this.dataInputStream = new DataInputStream(inputStream);
+        this.dataInputStream = new DataInputStream(/*inputStream*/tcpClient.getInputStream());
         this.mainFrame = new inner_UI();
         mainFrame.setTitle(userName + "的直播间");
         mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -94,7 +98,11 @@ public class UI_LiveRoom {
                         e1.printStackTrace();
                     }
                     receiveLive.cancel(true);
-
+                    try {
+                        tcpClient.getClient().close();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                     JFrame ui_HomePage = new UI_HomePage(userName);
                     // 设置窗口大小不可变
                     ui_HomePage.setResizable(false);
@@ -138,13 +146,66 @@ public class UI_LiveRoom {
                 int length;
                 int i = 0;
                 byte[] b = new byte[65536];
+                byte[] sizeByte = new byte[6];
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                dataInputStream.read(sizeByte, 0, 6);
+                int photoSize = Integer.parseInt(new String(sizeByte));       //接收到的文件大小
+                int currentSize = 0;
+                length = 0;
                 while (true) {
                     // i++;
-                    length = 0;
+                    /*int receiveSize=*/
+                    System.out.println("本次接收到的文件大小为: " + photoSize + " Byte");
+                    //int currentSize = 0;
                     while ((length = dataInputStream.read(b)) != -1) {
                         // byteArrayOutputStream.reset();
                         System.out.println(length);
+                        if (currentSize + length <= photoSize) {
+                            //本张图片未接收完或刚好接收完
+                            byteArrayOutputStream.write(b, 0, length);
+                            if (currentSize + length == photoSize) {
+                                i++;
+                                byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+                                byteArrayOutputStream = new ByteArrayOutputStream();
+                                img = ImageIO.read(/* imgInputStream */byteArrayInputStream);
+                                //if (img != null) {        //?
+                                System.out.println("进行第" + i + "次屏幕读取\t\t");
+                                //File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\接收\\test" + i + ".jpg");
+                                //FileOutputStream fileOutputStream=new FileOutputStream(file);
+                                publish(img);
+                                //ImageIO.write(img, "JPG", file);
+                                System.out.println("第" + i + "次屏幕读取成功");
+                                //从b的当前偏移量向后计6位数为下一个图片的大小
+                                dataInputStream.read(sizeByte, 0, 6);
+                                photoSize = Integer.parseInt(new String(sizeByte));
+                                currentSize = 0;
+                                //photoSize = Integer.parseInt(new String(b,photoSize-currentSize,6));
+                                //byteArrayOutputStream.write(b, photoSize - currentSize+6, length + currentSize - photoSize-6);
+                                break;
+                            } else
+                                currentSize += length;
+                        } else {
+                            //读取完一整张图片且有多余数据（发生粘包）
+                            byteArrayOutputStream.write(b, 0, photoSize - currentSize);
+                            i++;
+                            byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+                            byteArrayOutputStream = new ByteArrayOutputStream();
+                            img = ImageIO.read(/* imgInputStream */byteArrayInputStream);
+                            //if (img != null) {        //?
+                            System.out.println("进行第" + i + "次屏幕读取\t\t");
+                            //File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\接收\\test" + i + ".jpg");
+                            //FileOutputStream fileOutputStream=new FileOutputStream(file);
+                            publish(img);
+                            //ImageIO.write(img, "JPG", file);
+                            System.out.println("第" + i + "次屏幕读取成功");
+                            //从b的当前偏移量向后计6位数为下一个图片的大小
+                            int tempLength = photoSize - currentSize;
+                            byteArrayOutputStream.write(b, /*photoSize - currentSize*/tempLength + 6, length /*+ currentSize - photoSize*/ - tempLength - 6);           //currentSize=12,length=28,photoSize=30
+                            currentSize = length /*+ currentSize - photoSize*/ - tempLength - 6;
+                            photoSize = Integer.parseInt(new String(b, tempLength, 6));
+                            break;
+                        }
+                        /*
                         if (length == 65536) // 还未读取完整张图片
                             byteArrayOutputStream.write(b, 0, length);
                         else {
@@ -155,17 +216,19 @@ public class UI_LiveRoom {
                             i++;
                             byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
                             byteArrayOutputStream.reset();
-                            img = ImageIO.read(/* imgInputStream */byteArrayInputStream);
+                            img = ImageIO.read(/* imgInputStream *//*byteArrayInputStream);
                             //if (img != null) {        //?
-                            //System.out.println("进行第" + i + "次屏幕读取\t\t");
-                            // File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\test.jpg");
-                            // FileOutputStream fileOutputStream=new FileOutputStream(file);
-                            // ImageIO.write(img, "JPG", file);
+
+                            System.out.println("进行第" + i + "次屏幕读取\t\t");
+                            File file = new File("D:\\新建文件夹 (3)\\新建文件夹\\接收\\test" + i + ".jpg");
+                            //FileOutputStream fileOutputStream=new FileOutputStream(file);
                             publish(img);
-                            //System.out.println("第" + i + "次屏幕读取成功");
+                            ImageIO.write(img, "JPG", file);
+                            System.out.println("第" + i + "次屏幕读取成功");
                             //}
 
                         }
+                        */
                     }
                 }
             }
@@ -173,7 +236,9 @@ public class UI_LiveRoom {
             @Override
             protected void process(List<BufferedImage> chunks) {
                 // TODO Auto-generated method stub
-                BufferedImage img = chunks.get(chunks.size() - 1);
+                System.out.println("chunks目前的大小为:" + chunks.size());
+                //BufferedImage img = chunks.get(chunks.size() - 1);
+                BufferedImage img = chunks.get(0);
 
                 index++;
                 System.out.println("进行第" + index + "次屏幕映射");

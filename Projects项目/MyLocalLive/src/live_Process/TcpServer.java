@@ -119,21 +119,28 @@ public class TcpServer {
                     int i = 0;
                     while (true) {
                         i++;
-                        //System.out.print("进行第" + i + "次截屏\t\t");
+                        System.out.print("进行第" + i + "次截屏\t\t");
                         byteArrayOutputStream.reset();
                         image = robot.createScreenCapture(scRectangle);
 
                         ImageIO.write(image, "JPG", byteArrayOutputStream);
                         b = byteArrayOutputStream.toByteArray();
-                        // new FileOutputStream("D:\\新建文件夹 (3)\\新建文件夹\\" + i + ".jpg").write(b);
-                        // ImageIO.write(image, "JPG", outputStream);
+                        //new FileOutputStream("D:\\新建文件夹 (3)\\新建文件夹\\发送\\" + i + ".jpg").write(b);
+                        //ImageIO.write(image, "JPG", outputStream);
+                        String tempStr = String.valueOf(b.length);
+                        System.out.println("图片的字节数为: "+tempStr+" Byte");
+                        int leftLength = 6 - tempStr.length();
+                        for (int j = 0; j < leftLength; j++)
+                            tempStr = "0" + tempStr;
+                        byte[] temp = tempStr.getBytes();
+                        dataOutputStream.write(temp);       //固定6位数字
                         dataOutputStream.write(b);
                         /*
                          * try { Thread.sleep(500); } catch (InterruptedException e) { // TODO
                          * Auto-generated catch block e.printStackTrace(); }
                          */
                         System.out.println(i + "次截屏成功");
-                        Thread.sleep(100);
+                        Thread.sleep(50);
                     }
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
