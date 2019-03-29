@@ -177,7 +177,7 @@ public class UI_LiveRoom {
 
                 index++;
                 System.out.println("进行第" + index + "次屏幕映射");
-                if(img!=null) {
+                if (img != null) {
                     ImageIcon icon = new ImageIcon(img);
                     icon.setImage(icon.getImage().getScaledInstance(1760, 990, Image.SCALE_FAST));
                     image.setIcon(/* new ImageIcon(img) */icon);
