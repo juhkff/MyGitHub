@@ -1,38 +1,28 @@
 package uiPaint;
 
-import java.awt.Color;
-import java.awt.GraphicsConfiguration;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
+
 import java.util.Set;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import adapter.DealStackAdapter;
 import adapter.DealedStackAdapter;
 import adapter.GatherStackAdapter;
-import element.CardStackNode;
 import element.StaticData;
-import javafx.scene.layout.Border;
-import sun.rmi.runtime.Log;
-import sun.tools.jar.resources.jar;
 import uiDao.CardPanel;
 import uiDao.DealStackPanel;
 import uiDao.DealedStackPanel;
 import uiDao.GatherCardPanel;
 
 public class Index extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel = new JPanel();
 	private JPanel secondPanel = new JPanel(); // 用于移动组件时的顶层面板
-	private Set<Integer> thisSet = new StaticData().getAllCardIndexSet();
+	private Set<Integer> thisSet = StaticData.getAllCardIndexSet();
 	private DealStackPanel dealStackPanel = new DealStackPanel(thisSet);
 	private DealedStackPanel dealedStackPanel = new DealedStackPanel();
 	public static GatherCardPanel[] gatherCardPanels = new GatherCardPanel[StaticData.getGathernum()];

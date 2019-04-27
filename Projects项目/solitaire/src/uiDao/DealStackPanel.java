@@ -1,11 +1,8 @@
 package uiDao;
 
-import java.awt.Color;
 import java.util.Random;
 import java.util.Set;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import element.CardStackNode;
@@ -22,6 +19,11 @@ public class DealStackPanel extends JPanel {
 	private CardStackNode top = null;
 	private int dealNum = 0;
 
+	/**
+	 * 初始化发牌堆,应当只有一个发牌堆,传入0-牌堆数量上限的Set<Integer>
+	 * 
+	 * @param thisSet
+	 */
 	public DealStackPanel(Set<Integer> thisSet) {
 		super();
 		this.setBounds(StaticData.getPanelsize(0), StaticData.getPanelsize(1), StaticData.getPanelsize(2),
@@ -34,17 +36,23 @@ public class DealStackPanel extends JPanel {
 				// 未生成此牌时,生成此牌
 				CardPanel cardPanel = new CardPanel(StaticData.getDeals(curIndex));
 				pushCardStackNode(new CardStackNode(cardPanel), true);
-				this.add(cardPanel);
+				// this.add(cardPanel);
 				thisSet.remove(curIndex);
 			} else {
 				// 生成重复牌时,重新执行
 				i--;
 			}
 		}
+		this.add(top.getStackNode());
 		// 生成完毕所有发牌后
 		top.getStackNode().setCanTurnOver(true);
 	}
 
+	/**
+	 * 从发牌堆中翻开最上面的牌(若顶部已经无牌则重绘)
+	 * 
+	 * @return CardStackNode-顶部牌
+	 */
 	public CardStackNode pullFromDealStack() {
 		// 从发牌堆中翻开最上面的牌
 		CardStackNode cur = top;
@@ -56,16 +64,22 @@ public class DealStackPanel extends JPanel {
 		this.remove(cur.getStackNode());
 		if (top != null) {
 			top.getStackNode().setCanTurnOver(true);
-		}
-		if (top == null) {
-
+			this.add(top.getStackNode());
+		} else {
+			this.repaint();
 		}
 		cur.setNextNode(null);
 		dealNum--;
-		this.repaint();
+		// this.repaint();
 		return cur;
 	}
 
+	/**
+	 * 放入发牌堆,传入卡牌与是否为单张牌.若isSingle==true,则重绘
+	 * 
+	 * @param curStackNode
+	 * @param isSingle
+	 */
 	public void pushCardStackNode(CardStackNode curStackNode, boolean isSingle) {
 		// 放入发牌堆
 		if (isSingle) {
@@ -73,10 +87,12 @@ public class DealStackPanel extends JPanel {
 				top = curStackNode;
 				top.getStackNode().setCanTurnOver(true);
 			} else {
+				this.remove(top.getStackNode());
 				curStackNode.setNextNode(top);
 				top.getStackNode().setCanTurnOver(false);
 				top = curStackNode;
 				top.getStackNode().setCanTurnOver(true);
+				this.add(top.getStackNode());
 			}
 			dealNum++;
 		} else {
@@ -93,18 +109,33 @@ public class DealStackPanel extends JPanel {
 					top = curStackNode;
 					top.getStackNode().setCanTurnOver(false);
 				}
-				this.add(curStackNode.getStackNode());
+				// this.add(curStackNode.getStackNode());
 				dealNum++;
 				curStackNode = tempNode;
 			}
-			top.getStackNode().setCanTurnOver(true);
+			if (top != null) {
+				top.getStackNode().setCanTurnOver(true);
+				this.add(top.getStackNode());
+			}
+			this.repaint(); // 为什么要repaint?
 		}
+		// this.repaint();
 	}
 
+	/**
+	 * 获得发牌堆牌数
+	 * 
+	 * @return int-牌数
+	 */
 	public int getDealCardNum() {
 		return dealNum;
 	}
 
+	/**
+	 * 发牌堆顶部牌是否在正面
+	 * 
+	 * @return boolean-顶部牌在正面
+	 */
 	public boolean isPositive() {
 		return top.getStackNode().isPositive();
 	}

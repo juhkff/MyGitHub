@@ -1,19 +1,16 @@
 package test;
 
-import java.util.Set;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import element.StaticData;
-import uiDao.DealStackPanel;
-
 public class Index extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPanel = new JPanel();
-	private MyPanel myPanel;
-	
 	public Index() {
-		myPanel=new MyPanel("确定", "取消", "标签，我们在面板1中");
+		new MyPanel("确定", "取消", "标签，我们在面板1中");
 		contentPanel.setLayout(null);
 		//dealStackPanel.setBorder(BorderFactory.createLineBorder(Color.red, 3));
 		add(new MyPanel("确定", "取消", "标签，我们在面板1中"));
@@ -31,6 +28,6 @@ public class Index extends JFrame {
 		JFrame jFrame=new Index();
 		jFrame.setSize(300, 200);
 		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

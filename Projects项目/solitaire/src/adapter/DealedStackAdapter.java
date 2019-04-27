@@ -34,6 +34,7 @@ public class DealedStackAdapter extends MouseAdapter {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		super.mousePressed(e);
+		// System.out.println(e.getComponent().getName());
 		this.dealedStackPanel = (DealedStackPanel) e.getComponent();
 		System.out.println("获取鼠标坐标");
 		mouseStartX = e.getXOnScreen();
@@ -43,7 +44,7 @@ public class DealedStackAdapter extends MouseAdapter {
 		if (dealedStackPanel.getDealedNum() > 0) {
 			cardPanel = dealedStackPanel.getTop().getStackNode();
 			Index.cardPanel = cardPanel;
-			dealedStackPanel.remove(cardPanel);
+			// dealedStackPanel.remove(cardPanel);
 			// dealedStackPanel.repaint();
 			cardPanel.setLocation(StaticData.getDealedlocation(0), StaticData.getDealedlocation(1));
 			// contentPanel.add(cardPanel);
@@ -61,7 +62,7 @@ public class DealedStackAdapter extends MouseAdapter {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		super.mouseReleased(e);
+		// super.mouseReleased(e);
 		isLockedOnCard = false;
 		String resultComponent = FindComponent.findComponentByCenterPoint(cardPanel);
 		System.out.println("\t" + resultComponent);
@@ -88,10 +89,14 @@ public class DealedStackAdapter extends MouseAdapter {
 
 			default:
 				System.out.println("caseDefault");
-				dealedStackPanel.add(cardPanel);
+				dealedStackPanel.setTop(new CardStackNode(cardPanel));
 				break;
 			}
+		} else {
+			System.out.println("caseNull");
+			dealedStackPanel.setTop(new CardStackNode(cardPanel));
 		}
+		// dealedStackPanel.repaint();
 	}
 
 	@Override

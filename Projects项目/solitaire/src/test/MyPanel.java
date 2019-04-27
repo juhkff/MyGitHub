@@ -5,6 +5,10 @@ package test;
 import javax.swing.*;
 
 public class MyPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//JButton button1, button2;
 	JLabel Label;
 
@@ -19,8 +23,6 @@ public class MyPanel extends JPanel {
 	public static void main(String[] args) {
 		JFrame jFrame=new JFrame();
 		MyPanel panel1, panel2;
-		JButton Button;
-
 		panel1 = new MyPanel("确定", "取消", "标签，我们在面板1中");
 		panel2 = new MyPanel("确定", "取消", "标签，我们在面板2中");
 		//Button = new JButton("我是不在面板中的按钮");
@@ -29,6 +31,6 @@ public class MyPanel extends JPanel {
 		//jFrame.add(Button);
 		jFrame.setSize(300, 200);
 		jFrame.setVisible(true);
-		jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

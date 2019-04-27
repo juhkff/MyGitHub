@@ -9,13 +9,14 @@ import uiDao.DealedStackPanel;
 public class DealStackAdapter extends MouseAdapter {
 	private DealStackPanel dealStackPanel;
 	private DealedStackPanel dealedStackPanel;
-	public DealStackAdapter(DealStackPanel dealStackPanel,DealedStackPanel dealedStackPanel) {
+
+	public DealStackAdapter(DealStackPanel dealStackPanel, DealedStackPanel dealedStackPanel) {
 		super();
 		// TODO Auto-generated constructor stub
-		this.dealStackPanel=dealStackPanel;
-		this.dealedStackPanel=dealedStackPanel;
+		this.dealStackPanel = dealStackPanel;
+		this.dealedStackPanel = dealedStackPanel;
 	}
-	
+
 	@Override
 	public void mouseClicked(java.awt.event.MouseEvent e) {
 		// TODO Auto-generated method stub

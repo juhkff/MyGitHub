@@ -1,19 +1,20 @@
 package test;
 
 import java.awt.Image;
-import java.io.File;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import element.Card;
 import element.StaticData;
 
 public class CardPanel extends JPanel {
 	// private JPanel contentPanel = new JPanel();
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel imgLabel;
 	private ImageIcon backgroundImg;
 	

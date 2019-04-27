@@ -6,7 +6,6 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -15,6 +14,10 @@ import element.Card;
 import element.StaticData;
 
 public class CardPanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// private JPanel contentPanel = new JPanel();
 	private JLabel miniText = new JLabel();
 	private JLabel mainText = new JLabel();
@@ -24,10 +27,21 @@ public class CardPanel extends JPanel {
 	private Card card;
 	private boolean canTurnOver = false;
 
+	/**
+	 * 构造方法,仅设定卡牌值,背景使用默认路径
+	 * 
+	 * @param value
+	 */
 	public CardPanel(String value) {
 		this(value, "");
 	}
 
+	/**
+	 * 构造方法,设定卡牌值和卡牌背景
+	 * 
+	 * @param value
+	 * @param backGroundUrl
+	 */
 	public CardPanel(String value, String backGroundUrl) {
 		// TODO Auto-generated constructor stub
 		super();
@@ -83,6 +97,9 @@ public class CardPanel extends JPanel {
 		// getContentPane().add(contentPanel);
 	}
 
+	/**
+	 * 卡牌变为正面并重绘
+	 */
 	public void changeToFront() { // 卡牌变为正面
 		this.remove(imgLabel);
 		this.add(mainText);
@@ -91,6 +108,9 @@ public class CardPanel extends JPanel {
 		this.repaint();
 	}
 
+	/**
+	 * 卡牌变为背面并重绘
+	 */
 	public void changeToBack() { // 卡牌变为背面
 		this.remove(mainText);
 		this.remove(miniText);
@@ -99,26 +119,56 @@ public class CardPanel extends JPanel {
 		this.repaint();
 	}
 
+	/**
+	 * 查看卡牌能否翻面
+	 * 
+	 * @return boolean 能-true,不能-false
+	 */
 	public boolean isCanTurnOver() { // 能否翻面
 		return canTurnOver;
 	}
 
+	/**
+	 * 设置卡牌能否翻面
+	 * 
+	 * @param canTurnOver
+	 */
 	public void setCanTurnOver(boolean canTurnOver) { // 设置能否翻面
 		this.canTurnOver = canTurnOver;
 	}
 
+	/**
+	 * 查看卡牌是否在正面
+	 * 
+	 * @return boolean 正面-true,背面-false
+	 */
 	public boolean isPositive() { // 是否在正面
 		return card.isPositive();
 	}
 
+	/**
+	 * 获得卡牌值(完整)
+	 * 
+	 * @return String-卡牌值
+	 */
 	public String getCardValue() { // 获得卡牌值
 		return card.getValue();
 	}
 
+	/**
+	 * 获得卡牌纯数值
+	 * 
+	 * @return String-卡牌纯数值
+	 */
 	public String getCardNumber() { // 获得卡牌纯数值
 		return card.getNumber();
 	}
 
+	/**
+	 * 获得下一张卡牌值
+	 * 
+	 * @return String[]下一张牌对应的值
+	 */
 	public String[] getNextCardValue() { // 获得下一张卡牌值
 		return card.getNextCardValue();
 	}
