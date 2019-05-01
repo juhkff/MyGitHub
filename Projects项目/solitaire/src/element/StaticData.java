@@ -6,22 +6,29 @@ import java.util.HashSet;
 import java.util.Map;
 
 public final class StaticData {
+	private static final int CARDWIDTH = 150;
+	private static final int CARDHEIGHT = 250;
 	protected static final Map<String, String[]> VALUEMAP = new HashMap<>(); // 对应值map
 	protected static final Map<String, String> GATHERVALUEMAP = new HashMap<>(); // 对应值map
-	public static final int[] FRAMESIZE = { /* 1200 */1600, 900 }; // 程序面板大小
+	protected static HashSet<Integer> CARDSET = new HashSet<Integer>();
+	public static final int[] FRAMESIZE = { /* 1200 */1602, 900 }; // 程序面板大小
 	private static final int offset1 = 400;
 	protected static final Font MAINFONT = new Font("宋体", 1, 170); // 主区域字体
 	protected static final Font MAINFONT_10 = new Font("宋体", 1, 95); // 主区域特殊(10)大小字体
 	protected static final Font MINIFONT = new Font("宋体", 1, 20); // 左上区域字体
 	protected static final Font MINIFONT_10 = new Font("宋体", 1, 18); // 左上区域特殊(10)大小字体
+	protected static final Font TYPEFONT = new Font("宋体", 1, 20); // 卡牌图案字体的大小
 	protected static final int[] MINILOCATION = { 0, 0, 20, 30 };
+	protected static final int[] TYPELOCATION = { 20, 0, 50, 30 };
 	protected static final int[] MAINLOCATION = { 20, 30, 110, 190 };
-	protected static final int[] PANELSIZE = { 10, 10, 150, 250 };
-	protected static final int[] CARDSIZE = { 0, 0, 150, 250 };
-	protected static final int[] DEALEDLOCATION = { 200, 10, 150, 250 }; // 已翻开的牌放置的位置和大小
-	protected static final int[] GATHERCARDLOCATION = { 500 + offset1, 10, 150, 250, 20 }; // 4个集牌堆第一个的位置和牌堆间相隔的距离(第5个int)
+	protected static final int[] PANELSIZE = { 10, 10, CARDWIDTH, CARDHEIGHT };
+	protected static final int[] CARDSIZE = { 0, 0, CARDWIDTH, CARDHEIGHT };
+	protected static final int[] DEALEDLOCATION = { 200, 10, CARDWIDTH, CARDHEIGHT }; // 已翻开的牌放置的位置和大小
+	protected static final int[] GATHERCARDLOCATION = { 500 + offset1, 10, CARDWIDTH, CARDHEIGHT, 20 }; // 4个集牌堆第一个的位置和牌堆间相隔的距离(第5个int)
 	// protected static final int[] MAINTEXTSIZE = { 60, 105, 30, 40 };
 	// protected static final int[] MINITEXTSIZE = { 5, 5, 15, 25 };
+	protected static final int[] SEVENSTACKLOCATION = { 69, 300 }; // 待翻牌堆之间的宽度和距离顶部的距离
+																	// //7*150=1050,1600-1050=550,550/8=68.75--->69多0.25*8=2px
 	protected static final String DEFAULTBACKGROUNDURL = "D:\\study\\各种文件\\头像.jpg";
 	protected static final String[] DEALS = { "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A0", "AJ", "AQ",
 			"AK", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B0", "BJ", "BQ", "BK", "C1", "C2", "C3", "C4",
@@ -31,6 +38,7 @@ public final class StaticData {
 	protected static final int DEALNUM = 13 * 4 - (1 + 2 + 3 + 4 + 5 + 6 + 7);
 	protected static final int[] CARDSTACKNUM = { 1, 2, 3, 4, 5, 6, 7 };
 	protected static final int GATHERNUM = 4;
+	protected static final int SEVENSTACKNUM = 7;
 
 	protected static final String FRAME = "frame";
 	protected static final String INDEX = "contentPanel";
@@ -54,19 +62,14 @@ public final class StaticData {
 		return CARDSTACKNUM[index];
 	}
 
-	public static HashSet<String> getAllCardSet() {
-		HashSet<String> newSet = new HashSet<String>();
-		for (String each : DEALS) {
-			newSet.add(each);
-		}
-		return newSet;
-	}
+	/*
+	 * public static HashSet<String> getAllCardSet() { HashSet<String> newSet = new
+	 * HashSet<String>(); for (String each : DEALS) { newSet.add(each); } return
+	 * newSet; }
+	 */
 
-	public static HashSet<Integer> getAllCardIndexSet() {
-		HashSet<Integer> newSet = new HashSet<Integer>();
-		for (int i = 0; i < CARDNUM; i++)
-			newSet.add(i);
-		return newSet;
+	public static HashSet<Integer> getCardIndexSet() {
+		return StaticData.CARDSET;
 	}
 
 	public static Map<String, String[]> getValuemap() {
@@ -101,8 +104,16 @@ public final class StaticData {
 		return MINIFONT_10;
 	}
 
+	public static Font getTypefont() {
+		return TYPEFONT;
+	}
+
 	public static int getMinilocation(int index) {
 		return MINILOCATION[index];
+	}
+
+	public static int getTypelocation(int index) {
+		return TYPELOCATION[index];
 	}
 
 	public static int getMainlocation(int index) {
@@ -125,6 +136,14 @@ public final class StaticData {
 		return GATHERCARDLOCATION[index];
 	}
 
+	public static int getSevenstacknum() {
+		return SEVENSTACKNUM;
+	}
+
+	public static int getSevenstacklocation(int index) {
+		return SEVENSTACKLOCATION[index];
+	}
+
 	public static String getDefaultbackgroundurl() {
 		return DEFAULTBACKGROUNDURL;
 	}
@@ -135,6 +154,9 @@ public final class StaticData {
 
 	public StaticData() {
 		// TODO Auto-generated constructor stub
+		for (int i = 0; i < StaticData.CARDNUM; i++)
+			StaticData.CARDSET.add(i);
+
 		StaticData.VALUEMAP.put("A1", new String[] { "C2", "D2" });
 		StaticData.VALUEMAP.put("A2", new String[] { "C3", "D3" });
 		StaticData.VALUEMAP.put("A3", new String[] { "C4", "D4" });
@@ -147,7 +169,7 @@ public final class StaticData {
 		StaticData.VALUEMAP.put("A0", new String[] { "CJ", "DJ" });
 		StaticData.VALUEMAP.put("AJ", new String[] { "CQ", "DQ" });
 		StaticData.VALUEMAP.put("AQ", new String[] { "CK", "DK" });
-		StaticData.VALUEMAP.put("AK", new String[] { null });
+		StaticData.VALUEMAP.put("AK", null);
 
 		StaticData.VALUEMAP.put("B1", new String[] { "C2", "D2" });
 		StaticData.VALUEMAP.put("B2", new String[] { "C3", "D3" });
@@ -161,7 +183,7 @@ public final class StaticData {
 		StaticData.VALUEMAP.put("B0", new String[] { "CJ", "DJ" });
 		StaticData.VALUEMAP.put("BJ", new String[] { "CQ", "DQ" });
 		StaticData.VALUEMAP.put("BQ", new String[] { "CK", "DK" });
-		StaticData.VALUEMAP.put("BK", new String[] { null });
+		StaticData.VALUEMAP.put("BK", null);
 
 		StaticData.VALUEMAP.put("C1", new String[] { "A2", "B2" });
 		StaticData.VALUEMAP.put("C2", new String[] { "A3", "B3" });
@@ -175,7 +197,7 @@ public final class StaticData {
 		StaticData.VALUEMAP.put("C0", new String[] { "AJ", "BJ" });
 		StaticData.VALUEMAP.put("CJ", new String[] { "AQ", "BQ" });
 		StaticData.VALUEMAP.put("CQ", new String[] { "AK", "BK" });
-		StaticData.VALUEMAP.put("CK", new String[] { null });
+		StaticData.VALUEMAP.put("CK", null);
 
 		StaticData.VALUEMAP.put("D1", new String[] { "A2", "B2" });
 		StaticData.VALUEMAP.put("D2", new String[] { "A3", "B3" });
@@ -189,7 +211,7 @@ public final class StaticData {
 		StaticData.VALUEMAP.put("D0", new String[] { "AJ", "BJ" });
 		StaticData.VALUEMAP.put("DJ", new String[] { "AQ", "BQ" });
 		StaticData.VALUEMAP.put("DQ", new String[] { "AK", "BK" });
-		StaticData.VALUEMAP.put("DK", new String[] { null });
+		StaticData.VALUEMAP.put("DK", null);
 
 		StaticData.GATHERVALUEMAP.put("A1", "A2");
 		StaticData.GATHERVALUEMAP.put("A2", "A3");
@@ -246,6 +268,5 @@ public final class StaticData {
 		StaticData.GATHERVALUEMAP.put("DJ", "DQ");
 		StaticData.GATHERVALUEMAP.put("DQ", "DK");
 		StaticData.GATHERVALUEMAP.put("DK", null);
-
 	}
 }

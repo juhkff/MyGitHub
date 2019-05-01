@@ -21,6 +21,7 @@ public class CardPanel extends JPanel {
 	// private JPanel contentPanel = new JPanel();
 	private JLabel miniText = new JLabel();
 	private JLabel mainText = new JLabel();
+	private JLabel typeText = new JLabel();
 	private JLabel imgLabel;
 	private ImageIcon backgroundImg;
 
@@ -28,7 +29,7 @@ public class CardPanel extends JPanel {
 	private boolean canTurnOver = false;
 
 	/**
-	 * ¹¹Ôì·½·¨,½öÉè¶¨¿¨ÅÆÖµ,±³¾°Ê¹ÓÃÄ¬ÈÏÂ·¾¶
+	 * æ„é€ æ–¹æ³•,ä»…è®¾å®šå¡ç‰Œå€¼,èƒŒæ™¯ä½¿ç”¨é»˜è®¤è·¯å¾„
 	 * 
 	 * @param value
 	 */
@@ -37,7 +38,7 @@ public class CardPanel extends JPanel {
 	}
 
 	/**
-	 * ¹¹Ôì·½·¨,Éè¶¨¿¨ÅÆÖµºÍ¿¨ÅÆ±³¾°
+	 * æ„é€ æ–¹æ³•,è®¾å®šå¡ç‰Œå€¼å’Œå¡ç‰ŒèƒŒæ™¯
 	 * 
 	 * @param value
 	 * @param backGroundUrl
@@ -59,14 +60,39 @@ public class CardPanel extends JPanel {
 		else
 			this.card.setBackGroundUrl(StaticData.getDefaultbackgroundurl());
 
-		miniText.setText(card.getNumber());
+		String prefix = value.substring(0, 1);
+		switch (prefix) {
+		case "A":
+			prefix = "æ–¹å—";
+			break;
+		case "B":
+			prefix = "çº¢æ¡ƒ";
+			break;
+		case "C":
+			prefix = "é»‘æ¡ƒ";
+			break;
+		case "D":
+			prefix = "æ¢…èŠ±";
+			break;
+		default:
+			break;
+		}
+		typeText.setText(prefix);
+		typeText.setForeground(card.getColor());
+		typeText.setFont(StaticData.getTypefont());
+		typeText.setBounds(StaticData.getTypelocation(0), StaticData.getTypelocation(1), StaticData.getTypelocation(2),
+				StaticData.getTypelocation(3));
+		typeText.setOpaque(false);
+		// typeText.setHorizontalAlignment(SwingConstants.CENTER); // è®¾ç½®æ§ä»¶å·¦å³å±…ä¸­
+
+		miniText.setText(/* prefix + " " + */card.getNumber());
 		miniText.setForeground(card.getColor());
 		miniText.setFont(StaticData.getMiniTextFont());
 		miniText.setBounds(StaticData.getMinilocation(0), StaticData.getMinilocation(1), StaticData.getMinilocation(2),
 				StaticData.getMinilocation(3));
 		// miniText.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
 		miniText.setOpaque(false);
-		miniText.setHorizontalAlignment(SwingConstants.CENTER); // ÉèÖÃ¿Ø¼ş×óÓÒ¾ÓÖĞ
+		miniText.setHorizontalAlignment(SwingConstants.CENTER); // è®¾ç½®æ§ä»¶å·¦å³å±…ä¸­
 
 		mainText.setText(card.getNumber());
 		mainText.setForeground(card.getColor());
@@ -75,7 +101,7 @@ public class CardPanel extends JPanel {
 				StaticData.getMainlocation(3));
 		// mainText.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 3));
 		mainText.setOpaque(false);
-		mainText.setHorizontalAlignment(SwingConstants.CENTER); // ÉèÖÃ¿Ø¼ş×óÓÒ¾ÓÖĞ
+		mainText.setHorizontalAlignment(SwingConstants.CENTER); // è®¾ç½®æ§ä»¶å·¦å³å±…ä¸­
 
 		backgroundImg = new ImageIcon(card.getBackGroundUrl());
 		backgroundImg.setImage(backgroundImg.getImage().getScaledInstance(StaticData.getCardsize(2),
@@ -98,78 +124,80 @@ public class CardPanel extends JPanel {
 	}
 
 	/**
-	 * ¿¨ÅÆ±äÎªÕıÃæ²¢ÖØ»æ
+	 * å¡ç‰Œå˜ä¸ºæ­£é¢å¹¶é‡ç»˜
 	 */
-	public void changeToFront() { // ¿¨ÅÆ±äÎªÕıÃæ
+	public void changeToFront() { // å¡ç‰Œå˜ä¸ºæ­£é¢
 		this.remove(imgLabel);
 		this.add(mainText);
 		this.add(miniText);
+		this.add(typeText);
 		this.card.setPositive(true);
 		this.repaint();
 	}
 
 	/**
-	 * ¿¨ÅÆ±äÎª±³Ãæ²¢ÖØ»æ
+	 * å¡ç‰Œå˜ä¸ºèƒŒé¢å¹¶é‡ç»˜
 	 */
-	public void changeToBack() { // ¿¨ÅÆ±äÎª±³Ãæ
+	public void changeToBack() { // å¡ç‰Œå˜ä¸ºèƒŒé¢
 		this.remove(mainText);
 		this.remove(miniText);
+		this.remove(typeText);
 		this.add(imgLabel);
 		this.card.setPositive(false);
 		this.repaint();
 	}
 
 	/**
-	 * ²é¿´¿¨ÅÆÄÜ·ñ·­Ãæ
+	 * æŸ¥çœ‹å¡ç‰Œèƒ½å¦ç¿»é¢
 	 * 
-	 * @return boolean ÄÜ-true,²»ÄÜ-false
+	 * @return boolean èƒ½-true,ä¸èƒ½-false
 	 */
-	public boolean isCanTurnOver() { // ÄÜ·ñ·­Ãæ
+	public boolean isCanTurnOver() { // èƒ½å¦ç¿»é¢
 		return canTurnOver;
 	}
 
 	/**
-	 * ÉèÖÃ¿¨ÅÆÄÜ·ñ·­Ãæ
+	 * è®¾ç½®å¡ç‰Œèƒ½å¦ç¿»é¢
 	 * 
 	 * @param canTurnOver
 	 */
-	public void setCanTurnOver(boolean canTurnOver) { // ÉèÖÃÄÜ·ñ·­Ãæ
+	public void setCanTurnOver(boolean canTurnOver) { // è®¾ç½®èƒ½å¦ç¿»é¢
 		this.canTurnOver = canTurnOver;
 	}
 
 	/**
-	 * ²é¿´¿¨ÅÆÊÇ·ñÔÚÕıÃæ
+	 * æŸ¥çœ‹å¡ç‰Œæ˜¯å¦åœ¨æ­£é¢
 	 * 
-	 * @return boolean ÕıÃæ-true,±³Ãæ-false
+	 * @return boolean æ­£é¢-true,èƒŒé¢-false
 	 */
-	public boolean isPositive() { // ÊÇ·ñÔÚÕıÃæ
+	public boolean isPositive() { // æ˜¯å¦åœ¨æ­£é¢
 		return card.isPositive();
 	}
 
 	/**
-	 * »ñµÃ¿¨ÅÆÖµ(ÍêÕû)
+	 * è·å¾—å¡ç‰Œå€¼(å®Œæ•´)
 	 * 
-	 * @return String-¿¨ÅÆÖµ
+	 * @return String-å¡ç‰Œå€¼
 	 */
-	public String getCardValue() { // »ñµÃ¿¨ÅÆÖµ
+	public String getCardValue() { // è·å¾—å¡ç‰Œå€¼
 		return card.getValue();
 	}
 
 	/**
-	 * »ñµÃ¿¨ÅÆ´¿ÊıÖµ
+	 * è·å¾—å¡ç‰Œçº¯æ•°å€¼
 	 * 
-	 * @return String-¿¨ÅÆ´¿ÊıÖµ
+	 * @return String-å¡ç‰Œçº¯æ•°å€¼
 	 */
-	public String getCardNumber() { // »ñµÃ¿¨ÅÆ´¿ÊıÖµ
+	public String getCardNumber() { // è·å¾—å¡ç‰Œçº¯æ•°å€¼
 		return card.getNumber();
 	}
 
 	/**
-	 * »ñµÃÏÂÒ»ÕÅ¿¨ÅÆÖµ
+	 * è·å¾—ä¸‹ä¸€å¼ å¡ç‰Œå€¼
 	 * 
-	 * @return String[]ÏÂÒ»ÕÅÅÆ¶ÔÓ¦µÄÖµ
+	 * @return String[]ä¸‹ä¸€å¼ ç‰Œå¯¹åº”çš„å€¼
 	 */
-	public String[] getNextCardValue() { // »ñµÃÏÂÒ»ÕÅ¿¨ÅÆÖµ
+	public String[] getNextCardValue() { // è·å¾—ä¸‹ä¸€å¼ å¡ç‰Œå€¼
 		return card.getNextCardValue();
 	}
 }
