@@ -1,9 +1,10 @@
 package adapter;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLayeredPane;
 
 import element.CardStackNode;
@@ -40,29 +41,191 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		super.mouseClicked(arg0);
-		System.out.println("触发点击");
-		this.bottom = null;
-		this.cardPanel = (CardPanel) arg0.getComponent();
-		System.out.println(cardPanel.getCardValue());
-		System.out.println(Index.getTop(index).getStackNode().getCardValue());
-		if (Index.getTop(index) != null && Index.getTop(index).getStackNode().getCardValue() == cardPanel.getCardValue()
-				&& !cardPanel.isPositive()) {
-			// 底部牌在背面时
-			System.out.println("底部牌在背面,将其翻到正面");
-			cardPanel.changeToFront();
-		} else if (Index.getTop(index).getStackNode().getCardValue() == cardPanel.getCardValue()
-				&& cardPanel.isPositive()) {
-			System.out.println("底部牌在正面");
-		} else if (Index.getTop(index).getStackNode().getCardValue() != cardPanel.getCardValue()) {
-			System.out.println("点击的不是底部牌");
+		if (arg0.getButton() == MouseEvent.BUTTON3) {
+			if (Index.isHasClicked()) {
+				System.out.println("触发第二次点击");
+				CardStackNode recBottom = Index.getTranBottom();
+				CardPanel cardPanel = Index.cardPanel;
+				String sendName = Index.getClickComponentName();
+				if (sendName.startsWith("sevenStackPanel")) {
+					int length = sendName.length();
+					int startLength = "sevenStackPanel".length();
+					String indexStr = sendName.substring(startLength, length);
+					int Gindex = Integer.parseInt(indexStr); // 获得传入的是哪个下标的牌堆
+					if ((Index.sevenStackPanels[index - 1].cardNum == 0 && cardPanel.getCardNumber().equals("K"))
+							|| (Index.sevenStackPanels[index - 1].cardNum > 0
+									&& SolitaireCheck.canPushToSevenStack(index, cardPanel))) {
+						// 可以插入
+						System.out.println("可以插入");
+						CardStackNode top = Index.getTop(Gindex); // 获得对应的卡牌堆
+						int clickCardNum = 0;
+						while (recBottom != null) {
+							clickCardNum++;
+							CardPanel cur = recBottom.getStackNode();
+							recBottom = recBottom.getNextNode();
+							cur.setLocation(0,
+									(Index.sevenStackPanels[index - 1].getCardNum()) * StaticData.getMinilocation(3));
+							Index.sevenStackPanels[index - 1].add(cur,
+									new Integer(Index.sevenStackPanels[index - 1].getCardNum() + 1));
+							cur.removeMouseListener(Index.sevenStackCardPanelAdapters[Gindex - 1]);
+							cur.removeMouseMotionListener(Index.sevenStackCardPanelAdapters[Gindex - 1]);
+							cur.addMouseListener(Index.sevenStackCardPanelAdapters[index - 1]);
+							cur.addMouseMotionListener(Index.sevenStackCardPanelAdapters[index - 1]);
+							CardStackNode newTop = new CardStackNode(cur);
+							System.out.println("插入的卡牌值为:" + cur.getCardValue());
+							newTop.setNextNode(Index.getTop(index));
+							Index.setTop(index, newTop);
+							Index.sevenStackPanels[index - 1].cardNum++;
+
+							Index.sevenStackPanels[Gindex - 1].remove(top.getStackNode());
+							// Index.setTop(Gindex, top.getNextNode());
+							top = top.getNextNode();
+							Index.sevenStackPanels[Gindex - 1].cardNum--;
+						}
+						System.out.println("插入了" + clickCardNum + "张牌");
+						System.out.println("验证---添加后的卡堆的顶部牌值为:" + Index.getTop(index).getStackNode().getCardValue());
+						Index.sevenStackPanels[index - 1].resetHeightAfterAdd(clickCardNum);
+						Index.sevenStackPanels[index - 1].repaint();
+
+						Index.setTop(Gindex, top);
+						Index.sevenStackPanels[Gindex - 1].resetHeightAfterDelete(clickCardNum);
+						Index.sevenStackPanels[Gindex - 1].repaint();
+						if (Index.sevenStackPanels[Gindex - 1].getCardNum() == 0) {
+							// 设置底纹边框
+							Index.sevenStackPanels[Gindex - 1]
+									.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+						} else {
+							// 去除边框(视觉上其实没啥用)
+							Index.sevenStackPanels[Gindex - 1].setBorder(null);
+						}
+					}
+				} else if (sendName.startsWith("gatherCardPanel")) {
+					int length = sendName.length();
+					int startLength = "gatherCardPanel".length();
+					String indexStr = sendName.substring(startLength, length);
+					int Gindex = Integer.parseInt(indexStr); // 获得传入的是哪个下标的牌堆
+					if ((Index.sevenStackPanels[index - 1].cardNum == 0 && cardPanel.getCardNumber().equals("K"))
+							|| (Index.sevenStackPanels[index - 1].cardNum > 0
+									&& SolitaireCheck.canPushToSevenStack(index, cardPanel))) {
+						// 可以传入
+						Index.gatherCardPanels[Gindex - 1].getTop(true);
+						CardPanel cur = Index.cardPanel;
+						cur.setLocation(0,
+								(Index.sevenStackPanels[index - 1].getCardNum()) * StaticData.getMinilocation(3));
+						Index.sevenStackPanels[index - 1].add(cur,
+								new Integer(Index.sevenStackPanels[index - 1].getCardNum() + 1));
+						cur.addMouseListener(Index.sevenStackCardPanelAdapters[index - 1]);
+						cur.addMouseMotionListener(Index.sevenStackCardPanelAdapters[index - 1]);
+						CardStackNode newTop = new CardStackNode(cur);
+						System.out.println("插入的卡牌值为:" + cur.getCardValue());
+						newTop.setNextNode(Index.getTop(index));
+						Index.setTop(index, newTop);
+						Index.sevenStackPanels[index - 1].cardNum++;
+						System.out.println("验证---添加后的卡堆的顶部牌值为:" + Index.getTop(index).getStackNode().getCardValue());
+						Index.sevenStackPanels[index - 1].resetHeightAfterAdd(1);
+						Index.gatherCardPanels[Gindex - 1].repaint();
+						Index.sevenStackPanels[index - 1].repaint();
+					}
+				} else if (sendName.equals("dealedStackPanel")) {
+					if ((Index.sevenStackPanels[index - 1].cardNum == 0 && cardPanel.getCardNumber().equals("K"))
+							|| (Index.sevenStackPanels[index - 1].cardNum > 0
+									&& SolitaireCheck.canPushToSevenStack(index, cardPanel))) {
+						Index.sevenStackPanels[index - 1].add(cardPanel,
+								new Integer(Index.sevenStackPanels[index - 1].getCardNum() + 1));
+						cardPanel.setLocation(0,
+								(Index.sevenStackPanels[index - 1].getCardNum()) * StaticData.getMinilocation(3));
+						cardPanel.addMouseListener(Index.sevenStackCardPanelAdapters[index - 1]);
+						cardPanel.addMouseMotionListener(Index.sevenStackCardPanelAdapters[index - 1]);
+						CardStackNode newTop = new CardStackNode(cardPanel);
+						System.out.println("放入的卡牌值为:" + cardPanel.getCardValue());
+						newTop.setNextNode(Index.getTop(index));
+						Index.setTop(index, newTop);
+						Index.sevenStackPanels[index - 1].cardNum++;
+						System.out.println("验证---添加后的卡堆的顶部牌值为:" + Index.getTop(index).getStackNode().getCardValue());
+						Index.sevenStackPanels[index - 1].resetHeightAfterAdd(1);
+						Index.dealedStackPanel.repaint();
+						Index.sevenStackPanels[index - 1].repaint();
+					}
+				}
+				Index.setHasClicked(false);
+				Index.setTranBottom(null);
+				Index.cardPanel = null;
+				Index.setClickComponentName(null);
+			} else {
+				// 第一次点击
+				this.cardPanel = (CardPanel) arg0.getComponent();
+				if (cardPanel.isPositive()) {
+					// 卡牌在正面
+					Index.setHasClicked(true);
+					CardStackNode top = Index.getTop(index); // 获得对应的卡牌堆
+					System.out.println("第" + index + "个牌堆的牌数为" + Index.sevenStackPanels[index - 1].cardNum);
+					// System.out.println("第" + index + "个牌堆的top卡牌值为" +
+					// top.getStackNode().getCardValue());
+					int i = 0;
+					while (top.getStackNode().getCardValue() != cardPanel.getCardValue()) {
+						i++;
+						if (bottom == null) {
+							bottom = new CardStackNode(top.getStackNode());
+							bottom.setNextNode(null);
+						} else {
+							CardStackNode newNode = new CardStackNode(top.getStackNode());
+							newNode.setNextNode(bottom);
+							bottom = newNode;
+						}
+						top = top.getNextNode();
+					}
+					// 等于后
+					i++;
+					System.out.println("i=" + i);
+					cardNum = i;
+					if (bottom == null) {
+						bottom = new CardStackNode(top.getStackNode());
+						bottom.setNextNode(null);
+					} else {
+						CardStackNode newNode = new CardStackNode(top.getStackNode());
+						newNode.setNextNode(bottom);
+						bottom = newNode;
+					}
+					if (cardNum == 1) {
+						Index.setSingle(true);
+						Index.setTranBottom(bottom);
+						Index.cardPanel = bottom.getStackNode();
+						Index.setClickComponentName(Index.sevenStackPanels[index - 1].getName());
+					} else {
+						Index.setSingle(false);
+						Index.setTranBottom(bottom);
+						Index.cardPanel = bottom.getStackNode();
+						Index.setClickComponentName(Index.sevenStackPanels[index - 1].getName());
+					}
+					bottom = null; // 返回初始状态
+				}
+			}
+		} else if (arg0.getButton() == MouseEvent.BUTTON1) {
+			System.out.println("触发点击");
+			this.bottom = null;
+			this.cardPanel = (CardPanel) arg0.getComponent();
+			System.out.println(cardPanel.getCardValue());
+			System.out.println(Index.getTop(index).getStackNode().getCardValue());
+			if (Index.getTop(index) != null
+					&& Index.getTop(index).getStackNode().getCardValue() == cardPanel.getCardValue()
+					&& !cardPanel.isPositive()) {
+				// 底部牌在背面时
+				System.out.println("底部牌在背面,将其翻到正面");
+				cardPanel.changeToFront();
+			} else if (Index.getTop(index).getStackNode().getCardValue() == cardPanel.getCardValue()
+					&& cardPanel.isPositive()) {
+				System.out.println("底部牌在正面");
+			} else if (Index.getTop(index).getStackNode().getCardValue() != cardPanel.getCardValue()) {
+				System.out.println("点击的不是底部牌");
+			}
+			/*
+			 * CardStackNode cardStackNode = cardPanel.getTop(false).getNextNode(); if
+			 * (cardPanel.getCardNum() > 0 && cardStackNode != null &&
+			 * cardStackNode.getStackNode().isPositive()) { // 底部牌在背面时
+			 * System.out.println("底部牌在背面,将其翻到正面");
+			 * cardStackNode.getStackNode().changeToFront(); }
+			 */
 		}
-		/*
-		 * CardStackNode cardStackNode = cardPanel.getTop(false).getNextNode(); if
-		 * (cardPanel.getCardNum() > 0 && cardStackNode != null &&
-		 * cardStackNode.getStackNode().isPositive()) { // 底部牌在背面时
-		 * System.out.println("底部牌在背面,将其翻到正面");
-		 * cardStackNode.getStackNode().changeToFront(); }
-		 */
 	}
 
 	@Override
@@ -73,7 +236,6 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 		if (isLock) {
 			mouseEndX = arg0.getXOnScreen();
 			mouseEndY = arg0.getYOnScreen();
-			CardStackNode top = Index.getTop(index); // 获得对应的卡牌堆
 			// System.out.println("top的卡牌值为:" + top.getStackNode().getCardValue());
 			int i = 0;
 			/*
@@ -110,27 +272,12 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		super.mouseEntered(arg0);
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		super.mouseExited(arg0);
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		super.mouseMoved(arg0);
-	}
-
-	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		super.mousePressed(arg0);
+		if (arg0.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
 		System.out.println("触发按下");
 		this.cardPanel = (CardPanel) arg0.getComponent();
 		mouseStartX = arg0.getXOnScreen();
@@ -174,6 +321,7 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 			// 等于后
 			i++;
 			System.out.println("i=" + i);
+			System.out.println("现在的牌堆高度为:" + stackHeight);
 			cardNum = i;
 			if (bottom == null) {
 				bottom = new CardStackNode(top.getStackNode());
@@ -191,9 +339,17 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 					location_Y + stackHeight - StaticData.getCardsize(3) - (i - 1) * StaticData.getMinilocation(3));
 			componentX[i - 1] = cur.getX();
 			componentY[i - 1] = cur.getY();
-			Index.sevenStackPanels[index - 1].repaint();
+			// Index.sevenStackPanels[index - 1].repaint();
 			secondPanel.add(cur, new Integer(30 - i));
 			Index.sevenStackPanels[index - 1].resetHeightAfterDelete(cardNum);
+			Index.sevenStackPanels[index - 1].repaint();
+			if (Index.sevenStackPanels[index - 1].getCardNum() == 0) {
+				// 设置底纹边框
+				Index.sevenStackPanels[index - 1].setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+			} else {
+				// 去除边框(视觉上其实没啥用)
+				Index.sevenStackPanels[index - 1].setBorder(null);
+			}
 			this.startComponentName = FindComponent.findComponentByCenterPoint(cardPanel);
 			System.out.println("卡牌初始牌堆:" + startComponentName);
 			isLock = true;
@@ -207,6 +363,9 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		super.mouseReleased(arg0);
+		if (arg0.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
 		System.out.println("触发释放");
 		this.cardPanel = (CardPanel) arg0.getComponent();
 		if (isLock) {
@@ -426,12 +585,6 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 			isLock = false;
 		}
 		this.bottom = null;
-	}
-
-	@Override
-	public void mouseWheelMoved(MouseWheelEvent arg0) {
-		// TODO Auto-generated method stub
-		super.mouseWheelMoved(arg0);
 	}
 
 }

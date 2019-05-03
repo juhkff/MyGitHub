@@ -35,6 +35,8 @@ public class SolitaireCheck {
 	 * @return true-可放入;false-不可放入
 	 */
 	public static boolean canPushToSevenStack(int sevenStackIndex, CardPanel cardPanel) {
+		if(!Index.getTop(sevenStackIndex).getStackNode().isPositive())
+			return false;
 		String sevenBottomCardValue = Index.getTop(sevenStackIndex).getStackNode().getCardValue();
 		String topCardValue = cardPanel.getCardValue();
 		String[] values = StaticData.getValueMapValue(topCardValue);

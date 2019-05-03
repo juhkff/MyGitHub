@@ -1,6 +1,7 @@
 package adapter;
 
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import element.CardStackNode;
 import uiDao.DealStackPanel;
@@ -22,6 +23,9 @@ public class DealStackAdapter extends MouseAdapter {
 		// TODO Auto-generated method stub
 		super.mouseClicked(e);
 		// 点击时
+		if (e.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
 		if (dealStackPanel.getDealCardNum() != 0) {
 			System.out.println(dealStackPanel.getDealCardNum());
 			if (!dealStackPanel.isPositive()) { // 最上面的牌在背面

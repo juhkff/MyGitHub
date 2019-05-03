@@ -1,12 +1,15 @@
 package uiDao;
 
+import java.awt.Color;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import element.CardStackNode;
 import element.StaticData;
+import uiPaint.Index;
 
 /*
  * 发牌堆
@@ -28,6 +31,7 @@ public class DealStackPanel extends JPanel {
 		super();
 		this.setBounds(StaticData.getPanelsize(0), StaticData.getPanelsize(1), StaticData.getPanelsize(2),
 				StaticData.getPanelsize(3));
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		Random random = new Random();
 		this.setLayout(null);
 		for (int i = 0; i < StaticData.getDealnum(); i++) {
@@ -36,6 +40,8 @@ public class DealStackPanel extends JPanel {
 				// 未生成此牌时,生成此牌
 				CardPanel cardPanel = new CardPanel(StaticData.getDeals(curIndex));
 				pushCardStackNode(new CardStackNode(cardPanel), true);
+				// 用于更新牌的大小
+				Index.cardPanelSet.add(cardPanel);
 				// this.add(cardPanel);
 				thisSet.remove(curIndex);
 			} else {

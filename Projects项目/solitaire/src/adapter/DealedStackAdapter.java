@@ -4,7 +4,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
 import element.CardStackNode;
 import element.StaticData;
@@ -32,9 +31,40 @@ public class DealedStackAdapter extends MouseAdapter {
 	}
 
 	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		super.mouseClicked(e);
+		if (e.getButton() != MouseEvent.BUTTON3) {
+			return;
+		}
+		if (!Index.isHasClicked()) {
+			// 第一次的点击
+			this.dealedStackPanel = (DealedStackPanel) e.getComponent();
+			System.out.println(dealedStackPanel.getDealedNum());
+			if (dealedStackPanel.getDealedNum() > 0) {
+				Index.setHasClicked(true);
+				cardPanel = dealedStackPanel.getTop(false).getStackNode();
+				// cardPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 3, true));
+				// System.out.println("上色成功");
+				Index.cardPanel = cardPanel;
+				Index.setClickComponentName(dealedStackPanel.getName());
+				Index.setSingle(true);
+				Index.setTranBottom(null);
+			}
+		} else {
+			// 取消定位
+			Index.setHasClicked(false);
+			Index.setClickComponentName(null);
+		}
+	}
+
+	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		super.mousePressed(e);
+		if (e.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
 		// System.out.println(e.getComponent().getName());
 		this.dealedStackPanel = (DealedStackPanel) e.getComponent();
 		System.out.println("获取鼠标坐标");
@@ -63,7 +93,10 @@ public class DealedStackAdapter extends MouseAdapter {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		// super.mouseReleased(e);
+		super.mouseReleased(e);
+		if (e.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
 		isLockedOnCard = false;
 		String resultComponent = FindComponent.findComponentByCenterPoint(cardPanel);
 		System.out.println("\t" + resultComponent);
@@ -164,7 +197,6 @@ public class DealedStackAdapter extends MouseAdapter {
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 		super.mouseDragged(e);
-
 		if (isLockedOnCard) {
 			// 拖拽卡牌时
 			System.out.println("拖拽");

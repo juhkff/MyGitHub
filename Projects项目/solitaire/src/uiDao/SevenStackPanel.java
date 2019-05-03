@@ -4,9 +4,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 
-import adapter.SevenStackCardPanelAdapter;
 import element.CardStackNode;
 import element.StaticData;
 import uiPaint.Index;
@@ -20,7 +18,7 @@ public class SevenStackPanel extends JLayeredPane {
 	// private static CardStackNode top = null; // 底部靠上,顶部靠下
 	// private static CardStackNode bottom = null; // 底部牌
 	public int cardNum = 0;
-	//private SevenStackCardPanelAdapter sevenStackCardPanelAdapter;
+	// private SevenStackCardPanelAdapter sevenStackCardPanelAdapter;
 	private int location_X, location_Y, panelHeight, panelWidth;
 	private int index;
 
@@ -40,7 +38,8 @@ public class SevenStackPanel extends JLayeredPane {
 		this.panelWidth = StaticData.getCardsize(2); // 初始宽度
 		this.location_X = (index - 1) * panelWidth + index * StaticData.getSevenstacklocation(0); // 距离最左边的距离
 		this.location_Y = StaticData.getSevenstacklocation(1); // 距离顶部的距离
-		//sevenStackCardPanelAdapter = new SevenStackCardPanelAdapter(index, secondPanel);
+		// sevenStackCardPanelAdapter = new SevenStackCardPanelAdapter(index,
+		// secondPanel);
 		// 绘制待翻牌堆
 		this.setBounds(location_X, location_Y, panelWidth, panelHeight);
 		HashSet<Integer> set = StaticData.getCardIndexSet();
@@ -50,11 +49,15 @@ public class SevenStackPanel extends JLayeredPane {
 			if (set.contains(curIndex)) {
 				// 未生成此牌时,生成此牌
 				CardPanel cardPanel = new CardPanel(StaticData.getDeals(curIndex));
+				// 用于更新牌的大小
+				Index.cardPanelSet.add(cardPanel);
 				// 设置卡牌在待翻牌堆中的位置
 				cardPanel.setLocation(0, i * StaticData.getMinilocation(3));
 				// 为每张卡牌设置监听器
-				cardPanel.addMouseListener(/*sevenStackCardPanelAdapter*/Index.sevenStackCardPanelAdapters[index-1]); // 不完全确定可行
-				cardPanel.addMouseMotionListener(/*sevenStackCardPanelAdapter*/Index.sevenStackCardPanelAdapters[index-1]); // 不完全确定可行
+				cardPanel
+						.addMouseListener(/* sevenStackCardPanelAdapter */Index.sevenStackCardPanelAdapters[index - 1]); // 不完全确定可行
+				cardPanel.addMouseMotionListener(
+						/* sevenStackCardPanelAdapter */Index.sevenStackCardPanelAdapters[index - 1]); // 不完全确定可行
 				// 将牌按层级添加到面板上
 				Integer layer = i;
 				this.add(cardPanel, layer); // 先加者在下
@@ -135,7 +138,11 @@ public class SevenStackPanel extends JLayeredPane {
 	 */
 	public void resetHeightAfterDelete(int deleteCardNum) {
 		this.panelHeight -= deleteCardNum * StaticData.getMinilocation(3);
-		this.setBounds(this.location_X, this.location_Y, this.panelWidth, this.panelHeight);
+		if (getCardNum() == 0) // 无牌时
+			this.panelHeight += StaticData.getMinilocation(3);
+		// this.setBounds(this.location_X, this.location_Y, this.panelWidth,
+		// this.panelHeight);
+		this.setSize(this.panelWidth, this.panelHeight);
 		// this.repaint();
 	}
 
@@ -146,7 +153,11 @@ public class SevenStackPanel extends JLayeredPane {
 	 */
 	public void resetHeightAfterAdd(int addCardNum) {
 		this.panelHeight += addCardNum * StaticData.getMinilocation(3);
-		this.setBounds(this.location_X, this.location_Y, this.panelWidth, this.panelHeight);
+		if (getCardNum() - addCardNum == 0) // 未加前无牌时
+			this.panelHeight -= StaticData.getMinilocation(3);
+		// this.setBounds(this.location_X, this.location_Y, this.panelWidth,
+		// this.panelHeight);
+		this.setSize(this.panelWidth, this.panelHeight);
 		// this.repaint();
 	}
 

@@ -8,7 +8,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import element.Card;
 import element.StaticData;
@@ -19,10 +18,12 @@ public class CardPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	// private JPanel contentPanel = new JPanel();
-	private JLabel miniText = new JLabel();
-	private JLabel mainText = new JLabel();
-	private JLabel typeText = new JLabel();
+	// private JLabel miniText = new JLabel();
+	// private JLabel mainText = new JLabel();
+	// private JLabel typeText = new JLabel();
+	private JLabel positiveLabel;
 	private JLabel imgLabel;
+	private ImageIcon positiveImg;
 	private ImageIcon backgroundImg;
 
 	private Card card;
@@ -59,67 +60,69 @@ public class CardPanel extends JPanel {
 			this.card.setBackGroundUrl(backGroundUrl);
 		else
 			this.card.setBackGroundUrl(StaticData.getDefaultbackgroundurl());
-
-		String prefix = value.substring(0, 1);
-		switch (prefix) {
-		case "A":
-			prefix = "方块";
-			break;
-		case "B":
-			prefix = "红桃";
-			break;
-		case "C":
-			prefix = "黑桃";
-			break;
-		case "D":
-			prefix = "梅花";
-			break;
-		default:
-			break;
-		}
-		typeText.setText(prefix);
-		typeText.setForeground(card.getColor());
-		typeText.setFont(StaticData.getTypefont());
-		typeText.setBounds(StaticData.getTypelocation(0), StaticData.getTypelocation(1), StaticData.getTypelocation(2),
-				StaticData.getTypelocation(3));
-		typeText.setOpaque(false);
+		/*
+		 * String prefix = value.substring(0, 1); switch (prefix) { case "A": prefix =
+		 * "方块"; break; case "B": prefix = "红桃"; break; case "C": prefix = "黑桃"; break;
+		 * case "D": prefix = "梅花"; break; default: break; }
+		 */
+		/*
+		 * typeText.setText(prefix); typeText.setForeground(card.getColor());
+		 * typeText.setFont(StaticData.getTypefont());
+		 * typeText.setBounds(StaticData.getTypelocation(0),
+		 * StaticData.getTypelocation(1), StaticData.getTypelocation(2),
+		 * StaticData.getTypelocation(3)); typeText.setOpaque(false);
+		 */
 		// typeText.setHorizontalAlignment(SwingConstants.CENTER); // 设置控件左右居中
 
-		miniText.setText(/* prefix + " " + */card.getNumber());
-		miniText.setForeground(card.getColor());
-		miniText.setFont(StaticData.getMiniTextFont());
-		miniText.setBounds(StaticData.getMinilocation(0), StaticData.getMinilocation(1), StaticData.getMinilocation(2),
-				StaticData.getMinilocation(3));
+		/*
+		 * miniText.setText(card.getNumber()); miniText.setForeground(card.getColor());
+		 * miniText.setFont(StaticData.getMiniTextFont());
+		 * miniText.setBounds(StaticData.getMinilocation(0),
+		 * StaticData.getMinilocation(1), StaticData.getMinilocation(2),
+		 * StaticData.getMinilocation(3));
+		 */
 		// miniText.setBorder(BorderFactory.createLineBorder(Color.BLUE, 3));
-		miniText.setOpaque(false);
-		miniText.setHorizontalAlignment(SwingConstants.CENTER); // 设置控件左右居中
-
-		mainText.setText(card.getNumber());
-		mainText.setForeground(card.getColor());
-		mainText.setFont(StaticData.getMainTextFont());
-		mainText.setBounds(StaticData.getMainlocation(0), StaticData.getMainlocation(1), StaticData.getMainlocation(2),
-				StaticData.getMainlocation(3));
+		/*
+		 * miniText.setOpaque(false);
+		 * miniText.setHorizontalAlignment(SwingConstants.CENTER); // 设置控件左右居中
+		 */
+		/*
+		 * mainText.setText(card.getNumber()); mainText.setForeground(card.getColor());
+		 * mainText.setFont(StaticData.getMainTextFont());
+		 * mainText.setBounds(StaticData.getMainlocation(0),
+		 * StaticData.getMainlocation(1), StaticData.getMainlocation(2),
+		 * StaticData.getMainlocation(3));
+		 */
 		// mainText.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 3));
-		mainText.setOpaque(false);
-		mainText.setHorizontalAlignment(SwingConstants.CENTER); // 设置控件左右居中
-
+		/*
+		 * mainText.setOpaque(false);
+		 * mainText.setHorizontalAlignment(SwingConstants.CENTER); // 设置控件左右居中
+		 */
+		positiveImg = new ImageIcon("CARD\\" + card.getValue() + ".jpg");
+		positiveImg.setImage(positiveImg.getImage().getScaledInstance(StaticData.getCardsize(2),
+				StaticData.getCardsize(3), Image.SCALE_DEFAULT));
 		backgroundImg = new ImageIcon(card.getBackGroundUrl());
 		backgroundImg.setImage(backgroundImg.getImage().getScaledInstance(StaticData.getCardsize(2),
 				StaticData.getCardsize(3), Image.SCALE_DEFAULT));
+		positiveLabel = new JLabel(positiveImg);
+		positiveLabel.setBounds(StaticData.getCardsize(0), StaticData.getCardsize(1), StaticData.getCardsize(2),
+				StaticData.getCardsize(3));
 		imgLabel = new JLabel(backgroundImg);
 		imgLabel.setBounds(StaticData.getCardsize(0), StaticData.getCardsize(1), StaticData.getCardsize(2),
 				StaticData.getCardsize(3));
+
 		// contentPanel.add(mainText);
 		// contentPanel.add(miniText);
-		if (card.getNumber().equals("10")) {
-			mainText.setFont(StaticData.getMainTextFont_10());
-			miniText.setFont(StaticData.getMiniTextFont_10());
-		}
+		/*
+		 * if (card.getNumber().equals("10")) {
+		 * mainText.setFont(StaticData.getMainTextFont_10());
+		 * miniText.setFont(StaticData.getMiniTextFont_10()); }
+		 */
 		// this.add(mainText);
 		// this.add(miniText);
 		this.add(imgLabel);
 		this.setBounds(0, 0, StaticData.getCardsize(2), StaticData.getCardsize(3));
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		// getContentPane().add(contentPanel);
 	}
 
@@ -128,9 +131,10 @@ public class CardPanel extends JPanel {
 	 */
 	public void changeToFront() { // 卡牌变为正面
 		this.remove(imgLabel);
-		this.add(mainText);
-		this.add(miniText);
-		this.add(typeText);
+		/*
+		 * this.add(mainText); this.add(miniText); this.add(typeText);
+		 */
+		this.add(positiveLabel);
 		this.card.setPositive(true);
 		this.repaint();
 	}
@@ -139,9 +143,10 @@ public class CardPanel extends JPanel {
 	 * 卡牌变为背面并重绘
 	 */
 	public void changeToBack() { // 卡牌变为背面
-		this.remove(mainText);
-		this.remove(miniText);
-		this.remove(typeText);
+		/*
+		 * this.remove(mainText); this.remove(miniText); this.remove(typeText);
+		 */
+		this.remove(positiveLabel);
 		this.add(imgLabel);
 		this.card.setPositive(false);
 		this.repaint();

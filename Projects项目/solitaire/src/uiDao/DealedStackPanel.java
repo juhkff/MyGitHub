@@ -16,6 +16,7 @@ public class DealedStackPanel extends JPanel {
 	private CardStackNode top = null;
 	// private JPanel topPanel=null;
 	private int dealedNum = 0;
+
 	/**
 	 * 初始化翻牌堆,应当只有一个翻牌堆
 	 */
@@ -31,9 +32,10 @@ public class DealedStackPanel extends JPanel {
 		// this.add(topPanel);
 		// this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 	}
-	
+
 	/**
 	 * 将发牌堆中顶部牌放入已翻开的牌堆,实质即为setTop(CardStackNode)
+	 * 
 	 * @param cardStackNode
 	 */
 	public void pushToDealedStack(CardStackNode cardStackNode) {
@@ -50,9 +52,10 @@ public class DealedStackPanel extends JPanel {
 		// this.repaint();
 		dealedNum++;
 	}
-	
+
 	/**
 	 * 将已翻开的牌收集起来返回top(此堆最顶部的牌即是发牌堆最底部的牌),并重绘该翻牌堆
+	 * 
 	 * @return CardStackNode-顶部牌
 	 */
 	public CardStackNode selectAllDealedCard() {
@@ -70,12 +73,25 @@ public class DealedStackPanel extends JPanel {
 		dealedNum = 0;
 		return result;
 	}
-	
+
 	/**
-	 * 获取顶部牌
+	 * 获取顶部牌(取出顶部牌)
+	 * 
 	 * @return CardStackNode-顶部牌
 	 */
 	public CardStackNode getTop() {
+		return getTop(true);
+	}
+
+	/**
+	 * 获取顶部牌
+	 * 
+	 * @param isPull
+	 * @return CardStackNode-顶部牌
+	 */
+	public CardStackNode getTop(boolean isPull) {
+		if (!isPull)
+			return top;
 		CardStackNode cur = top;
 		top = top.getNextNode();
 		this.remove(cur.getStackNode());
@@ -85,9 +101,10 @@ public class DealedStackPanel extends JPanel {
 		dealedNum--;
 		return cur;
 	}
-	
+
 	/**
 	 * 设置顶部牌
+	 * 
 	 * @param cardStackNode
 	 */
 	public void setTop(CardStackNode cardStackNode) {
@@ -102,9 +119,10 @@ public class DealedStackPanel extends JPanel {
 		dealedNum++;
 		this.add(cardStackNode.getStackNode());
 	}
-	
+
 	/**
 	 * 获得翻牌堆的牌数
+	 * 
 	 * @return int-牌数
 	 */
 	public int getDealedNum() {

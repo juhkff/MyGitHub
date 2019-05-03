@@ -11,7 +11,6 @@ import element.StaticData;
 import tools.FindComponent;
 import tools.SolitaireCheck;
 import uiDao.CardPanel;
-import uiDao.DealedStackPanel;
 import uiDao.GatherCardPanel;
 import uiPaint.Index;
 
@@ -36,12 +35,126 @@ public class GatherStackAdapter extends MouseAdapter {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		super.mouseClicked(e);
+		if (e.getButton() != MouseEvent.BUTTON3) {
+			return;
+		}
+		if (Index.isHasClicked()) {
+			String componentName = Index.getClickComponentName();
+			if (componentName != null) {
+				this.gatherCardPanel = (GatherCardPanel) e.getComponent();
+				if (this.stackIndex == 0) {
+					String str = gatherCardPanel.getName();
+					int length = str.length();
+					int startLength = "gatherCardPanel".length();
+					String indexStr = str.substring(startLength, length);
+					int Gindex = Integer.parseInt(indexStr);
+					this.stackIndex = Gindex; // 获取索引
+				}
+				this.cardPanel = Index.cardPanel;
+				switch (componentName) {
+				case "dealedStackPanel":
+					// 将牌从已发牌堆移入此置牌堆
+					// 检验该牌是否能放入此堆中
+					if (SolitaireCheck.canPushToGatherStack(Index.gatherCardPanels[stackIndex - 1], cardPanel)) {
+						// 能放入
+						System.out.println("能放入");
+						Index.dealedStackPanel.getTop(); // 取出顶部的牌
+						Index.gatherCardPanels[stackIndex - 1].setTop(new CardStackNode(cardPanel));
+						Index.dealedStackPanel.repaint();
+						Index.gatherCardPanels[stackIndex - 1].repaint();
+						Index.setHasClicked(false);
+						// cardPanel.repaint();
+					} else {
+						// 不能放入
+						System.out.println("不能放入");
+						Index.setHasClicked(false);
+						// Index.dealedStackPanel.setTop(new CardStackNode(cardPanel));
+					}
+					Index.setClickComponentName(null);
+					break;
+				default:
+					if (componentName.startsWith("gatherCardPanel")) {
+						// 从别的置牌堆移入此置牌堆
+						int length = componentName.length();
+						int startLength = "gatherCardPanel".length();
+						String indexStr = componentName.substring(startLength, length);
+						int Gindex = Integer.parseInt(indexStr); // 获取索引
+						// 检验该牌是否能放入此堆中
+						if (SolitaireCheck.canPushToGatherStack(Index.gatherCardPanels[stackIndex - 1], cardPanel)) {
+							// 能放入
+							System.out.println("能放入");
+							Index.gatherCardPanels[Gindex - 1].getTop(true);
+							Index.gatherCardPanels[stackIndex - 1].setTop(new CardStackNode(cardPanel));
+							Index.gatherCardPanels[Gindex - 1].repaint();
+							Index.gatherCardPanels[stackIndex - 1].repaint();
+							Index.setHasClicked(false);
+							// cardPanel.repaint();
+						} else {
+							// (不可能)不能放入
+							System.out.println("不能放入");
+							Index.setHasClicked(false);
+							// Index.gatherCardPanels[stackIndex - 1].setTop(new CardStackNode(cardPanel));
+						}
+					} else if (componentName.startsWith("sevenStackPanel")) {
+						if (Index.isSingle()) {
+							int length = componentName.length();
+							int startLength = "sevenStackPanel".length();
+							String indexStr = componentName.substring(startLength, length);
+							int Gindex = Integer.parseInt(indexStr); // 获取索引
+							// 检验该牌是否能放入此堆中
+							if (SolitaireCheck.canPushToGatherStack(Index.gatherCardPanels[stackIndex - 1],
+									cardPanel)) {
+								// 能放入
+								System.out.println("能放入");
+								// 去除原堆
+								CardStackNode top = Index.getTop(Gindex); // 获得对应的卡牌堆
+								CardPanel cur = top.getStackNode();
+								Index.setTop(Gindex, top.getNextNode());
+								Index.sevenStackPanels[Gindex - 1].remove(cur);
+								Index.sevenStackPanels[Gindex - 1].cardNum--;
+								// 加入该堆顶部
+								cardPanel.setLocation(0, 0);
+								cardPanel.removeMouseListener(Index.sevenStackCardPanelAdapters[Gindex - 1]);
+								cardPanel.removeMouseMotionListener(Index.sevenStackCardPanelAdapters[Gindex - 1]);
+								Index.gatherCardPanels[stackIndex - 1].setTop(new CardStackNode(cardPanel));
+								Index.sevenStackPanels[Gindex - 1].repaint();
+								Index.gatherCardPanels[stackIndex - 1].repaint();
+							} else {
+								// 不能放入
+								System.out.println("不能放入");
+							}
+						}
+						Index.setHasClicked(false);
+						Index.setSingle(false);
+					}
+					Index.setClickComponentName(null);
+					break;
+				}
+			}
+		} else {
+			// 第一次的点击
+			this.gatherCardPanel = (GatherCardPanel) e.getComponent();
+			System.out.println(gatherCardPanel.getCardNum());
+			if (gatherCardPanel.getCardNum() > 0) {
+				Index.setHasClicked(true);
+				cardPanel = gatherCardPanel.getTop(false).getStackNode();
+				// cardPanel.setBorder(BorderFactory.createLineBorder(Color.ORANGE, 3, true));
+				// System.out.println("上色成功");
+				Index.cardPanel = cardPanel;
+				Index.setSingle(true);
+				Index.setTranBottom(null);
+				Index.setClickComponentName(gatherCardPanel.getName());
+			}
+		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		super.mousePressed(e);
+		if (e.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
 		this.gatherCardPanel = (GatherCardPanel) e.getComponent();
 		if (this.stackIndex == 0) {
 			String str = gatherCardPanel.getName();
@@ -76,6 +189,9 @@ public class GatherStackAdapter extends MouseAdapter {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		super.mouseReleased(e);
+		if (e.getButton() != MouseEvent.BUTTON1) {
+			return;
+		}
 		isLockedOnCard = false;
 		String resultComponent = FindComponent.findComponentByCenterPoint(cardPanel);
 		System.out.println("\t" + resultComponent);

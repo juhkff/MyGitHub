@@ -1,9 +1,5 @@
 package tools;
 
-import element.CardStackNode;
-import uiDao.CardPanel;
-import uiPaint.Index;
-
 public class GetNode {
 	/**
 	 * 根据传入的index和CardPanel找出该卡牌在响应牌堆中的节点
