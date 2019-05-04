@@ -32,7 +32,7 @@ public class Index extends JFrame {
 	@SuppressWarnings("static-access")
 	private static Set<Integer> thisSet = new StaticData().getCardIndexSet();
 	public static CardPanelSet cardPanelSet = new CardPanelSet();
-	private static DealStackPanel dealStackPanel = new DealStackPanel(thisSet);
+	public static DealStackPanel dealStackPanel = new DealStackPanel(thisSet);
 	public static DealedStackPanel dealedStackPanel = new DealedStackPanel();
 	public static GatherCardPanel[] gatherCardPanels = new GatherCardPanel[StaticData.getGathernum()];
 	public static CardPanel cardPanel = null;
@@ -43,7 +43,7 @@ public class Index extends JFrame {
 	public static SevenStackPanel[] sevenStackPanels = new SevenStackPanel[StaticData.getSevenstacknum()];
 	public static SevenStackCardPanelAdapter[] sevenStackCardPanelAdapters = new SevenStackCardPanelAdapter[StaticData
 			.getSevenstacknum()];
-	private static SevenStackAdapter[] sevenStackAdapters=new SevenStackAdapter[StaticData.getSevenstacknum()];
+	private static SevenStackAdapter[] sevenStackAdapters = new SevenStackAdapter[StaticData.getSevenstacknum()];
 	private static CardStackNode[] top = new CardStackNode[StaticData.getSevenstacknum()];
 	private static CardStackNode[] bottom = new CardStackNode[StaticData.getSevenstacknum()];
 	private static CardStackNode tranBottom;
@@ -55,7 +55,7 @@ public class Index extends JFrame {
 	private void init() {
 		for (int i = 0; i < StaticData.getSevenstacknum(); i++) {
 			sevenStackCardPanelAdapters[i] = new SevenStackCardPanelAdapter(i + 1, secondPanel);
-			sevenStackAdapters[i]=new SevenStackAdapter(i+1);
+			sevenStackAdapters[i] = new SevenStackAdapter(i + 1);
 		}
 		componentInit();
 		setNameInit();
@@ -97,7 +97,7 @@ public class Index extends JFrame {
 
 	private void listenerInit() {
 		DealedStackAdapter dealedStackAdapter = new DealedStackAdapter(secondPanel);
-		dealStackPanel.addMouseListener(new DealStackAdapter(dealStackPanel, dealedStackPanel));
+		dealStackPanel.addMouseListener(new DealStackAdapter(/* dealStackPanel, dealedStackPanel */));
 		dealedStackPanel.addMouseListener(dealedStackAdapter);
 		dealedStackPanel.addMouseMotionListener(dealedStackAdapter);
 
@@ -202,13 +202,22 @@ public class Index extends JFrame {
 			if (cardNum > 0)
 				panelHeight = (cardNum - 1) * StaticData.getMinilocation(3) + StaticData.getCardsize(3);
 			else
-				panelHeight = /* 0 */StaticData.getMainlocation(3);
+				panelHeight = /* 0 */StaticData.getCardsize(3);
 			// panelHeight = (i - 1) * StaticData.getMinilocation(3) +
 			// StaticData.getCardsize(3); // 初始高度
 			location_X = (i - 1) * panelWidth + i * StaticData.getSevenstacklocation(0); // 距离最左边的距离
 			location_Y = StaticData.getSevenstacklocation(1); // 距离顶部的距离
 			sevenStackPanels[i - 1].setBounds(location_X, location_Y, panelWidth, panelHeight);
 		}
+	}
+
+	public static void refresh() {
+		// 取消定位
+		Index.setHasClicked(false);
+		Index.setSingle(false);
+		Index.setClickComponentName(null);
+		Index.setTranBottom(null);
+		Index.cardPanel = null;
 	}
 
 	public static void main(String[] args) {

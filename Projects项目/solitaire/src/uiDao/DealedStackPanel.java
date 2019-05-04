@@ -98,7 +98,11 @@ public class DealedStackPanel extends JPanel {
 		// this.repaint();
 		if (top != null)
 			this.add(top.getStackNode());
+		else
+			// top==null
+			this.repaint();
 		dealedNum--;
+		System.out.println("已发牌堆剩余的卡牌数为:" + dealedNum);
 		return cur;
 	}
 

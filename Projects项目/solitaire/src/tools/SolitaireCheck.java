@@ -20,6 +20,7 @@ public class SolitaireCheck {
 		if (gatherCardPanel.getCardNum() == 0 && cardPanel.getCardValue().endsWith("1")) // 牌堆无牌且牌面为1
 			return true;
 		else if (gatherCardPanel.getCardNum() > 0
+				&& StaticData.getGathervaluemap(gatherCardPanel.getTop(false).getStackNode().getCardValue()) != null
 				&& StaticData.getGathervaluemap(gatherCardPanel.getTop(false).getStackNode().getCardValue())
 						.equals(cardPanel.getCardValue())) // 牌堆有牌且牌面即为牌堆下一个要插入的牌
 			return true;
@@ -35,7 +36,7 @@ public class SolitaireCheck {
 	 * @return true-可放入;false-不可放入
 	 */
 	public static boolean canPushToSevenStack(int sevenStackIndex, CardPanel cardPanel) {
-		if(!Index.getTop(sevenStackIndex).getStackNode().isPositive())
+		if (!Index.getTop(sevenStackIndex).getStackNode().isPositive())
 			return false;
 		String sevenBottomCardValue = Index.getTop(sevenStackIndex).getStackNode().getCardValue();
 		String topCardValue = cardPanel.getCardValue();

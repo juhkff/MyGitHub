@@ -4,18 +4,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import element.CardStackNode;
-import uiDao.DealStackPanel;
-import uiDao.DealedStackPanel;
+import uiPaint.Index;
 
 public class DealStackAdapter extends MouseAdapter {
-	private DealStackPanel dealStackPanel;
-	private DealedStackPanel dealedStackPanel;
+	//private DealStackPanel dealStackPanel;
+	//private DealedStackPanel dealedStackPanel;
 
-	public DealStackAdapter(DealStackPanel dealStackPanel, DealedStackPanel dealedStackPanel) {
+	public DealStackAdapter(/*DealStackPanel dealStackPanel, DealedStackPanel dealedStackPanel*/) {
 		super();
 		// TODO Auto-generated constructor stub
-		this.dealStackPanel = dealStackPanel;
-		this.dealedStackPanel = dealedStackPanel;
+		//this.dealStackPanel = Index.dealStackPanel;
+		//this.dealedStackPanel = Index.dealedStackPanel;
 	}
 
 	@Override
@@ -26,18 +25,19 @@ public class DealStackAdapter extends MouseAdapter {
 		if (e.getButton() != MouseEvent.BUTTON1) {
 			return;
 		}
-		if (dealStackPanel.getDealCardNum() != 0) {
-			System.out.println(dealStackPanel.getDealCardNum());
-			if (!dealStackPanel.isPositive()) { // 最上面的牌在背面
+		if (Index.dealStackPanel.getDealCardNum() != 0) {
+			System.out.println(Index.dealStackPanel.getDealCardNum());
+			if (!Index.dealStackPanel.isPositive()) { // 最上面的牌在背面
 				System.out.println("在背面");
-				CardStackNode cardStackNode = dealStackPanel.pullFromDealStack();
-				dealedStackPanel.pushToDealedStack(cardStackNode);
+				CardStackNode cardStackNode = Index.dealStackPanel.pullFromDealStack();
+				Index.dealedStackPanel.pushToDealedStack(cardStackNode);
 			}
 		} else {
 			// 没有卡牌时
 			System.out.println("没有卡牌");
-			CardStackNode cardStackNode = dealedStackPanel.selectAllDealedCard();
-			dealStackPanel.pushCardStackNode(cardStackNode, false);
+			CardStackNode cardStackNode = Index.dealedStackPanel.selectAllDealedCard();
+			Index.dealStackPanel.pushCardStackNode(cardStackNode, false);
 		}
+		Index.refresh();
 	}
 }

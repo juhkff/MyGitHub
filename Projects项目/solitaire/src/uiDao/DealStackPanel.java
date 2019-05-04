@@ -91,6 +91,7 @@ public class DealStackPanel extends JPanel {
 		if (isSingle) {
 			if (top == null) {
 				top = curStackNode;
+				top.setNextNode(null);
 				top.getStackNode().setCanTurnOver(true);
 			} else {
 				this.remove(top.getStackNode());

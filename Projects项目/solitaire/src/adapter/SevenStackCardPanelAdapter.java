@@ -143,14 +143,12 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 						Index.sevenStackPanels[index - 1].cardNum++;
 						System.out.println("验证---添加后的卡堆的顶部牌值为:" + Index.getTop(index).getStackNode().getCardValue());
 						Index.sevenStackPanels[index - 1].resetHeightAfterAdd(1);
+						Index.dealedStackPanel.getTop();
 						Index.dealedStackPanel.repaint();
 						Index.sevenStackPanels[index - 1].repaint();
 					}
 				}
-				Index.setHasClicked(false);
-				Index.setTranBottom(null);
-				Index.cardPanel = null;
-				Index.setClickComponentName(null);
+				Index.refresh();
 			} else {
 				// 第一次点击
 				this.cardPanel = (CardPanel) arg0.getComponent();
@@ -225,6 +223,7 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 			 * System.out.println("底部牌在背面,将其翻到正面");
 			 * cardStackNode.getStackNode().changeToFront(); }
 			 */
+			Index.refresh();
 		}
 	}
 
@@ -252,12 +251,13 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 				CardPanel cur = curNode.getStackNode();
 				int component_X = componentX[cardNum - i];
 				int component_Y = componentY[cardNum - i];
-				System.out.println("cur.setLocation(" + (component_X + mouseEndX - mouseStartX) + ","
-						+ (component_Y + mouseEndY - mouseStartY) + ")");
+				// System.out.println("cur.setLocation(" + (component_X + mouseEndX -
+				// mouseStartX) + ","
+				// + (component_Y + mouseEndY - mouseStartY) + ")");
 				cur.setLocation(component_X + mouseEndX - mouseStartX, component_Y + mouseEndY - mouseStartY);
 				curNode = curNode.getNextNode();
 			}
-			System.out.println("循环完毕");
+			// System.out.println("循环完毕");
 			// 等于后
 			/*
 			 * i++; System.out.println("cardNum-i==0?---" + ((cardNum - i == 0) ? true :
@@ -581,8 +581,10 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 				secondPanel.repaint();
 				Index.sevenStackPanels[index - 1].resetHeightAfterAdd(cardNum);
 			}
+			Index.refresh();
 		} else {
 			isLock = false;
+			Index.refresh();
 		}
 		this.bottom = null;
 	}

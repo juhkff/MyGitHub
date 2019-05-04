@@ -13,15 +13,16 @@ import uiDao.CardPanel;
 import uiPaint.Index;
 
 public class SevenStackAdapter extends MouseAdapter {
-	
+
 	private int index;
+
 	public SevenStackAdapter(int index) {
 		super();
 		// SevenStackCardPanelAdapter.top = top;
 		// SevenStackCardPanelAdapter.bottom = bottom;
 		this.index = index;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -128,14 +129,12 @@ public class SevenStackAdapter extends MouseAdapter {
 						Index.sevenStackPanels[index - 1].cardNum++;
 						System.out.println("验证---添加后的卡堆的顶部牌值为:" + Index.getTop(index).getStackNode().getCardValue());
 						Index.sevenStackPanels[index - 1].resetHeightAfterAdd(1);
+						Index.dealedStackPanel.getTop();
 						Index.dealedStackPanel.repaint();
 						Index.sevenStackPanels[index - 1].repaint();
 					}
 				}
-				Index.setHasClicked(false);
-				Index.setTranBottom(null);
-				Index.cardPanel = null;
-				Index.setClickComponentName(null);
+				Index.refresh();
 			}
 		}
 	}
