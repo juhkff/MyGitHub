@@ -19,6 +19,7 @@ import element.StaticData;
 import uiDao.CardPanel;
 import uiDao.DealStackPanel;
 import uiDao.DealedStackPanel;
+import uiDao.GameMenuBar;
 import uiDao.GatherCardPanel;
 import uiDao.SevenStackPanel;
 
@@ -27,7 +28,9 @@ public class Index extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPanel = new JPanel();
+	public static JFrame jf;
+	public static GameMenuBar gameMenuBar;
+	private static JPanel contentPanel = new JPanel();
 	private static JLayeredPane secondPanel = new JLayeredPane(); // 用于移动组件时的顶层面板
 	@SuppressWarnings("static-access")
 	private static Set<Integer> thisSet = new StaticData().getCardIndexSet();
@@ -53,6 +56,8 @@ public class Index extends JFrame {
 	}
 
 	private void init() {
+		gameMenuBar=new GameMenuBar();
+		this.setJMenuBar(gameMenuBar);
 		for (int i = 0; i < StaticData.getSevenstacknum(); i++) {
 			sevenStackCardPanelAdapters[i] = new SevenStackCardPanelAdapter(i + 1, secondPanel);
 			sevenStackAdapters[i] = new SevenStackAdapter(i + 1);
@@ -60,9 +65,28 @@ public class Index extends JFrame {
 		componentInit();
 		setNameInit();
 		listenerInit();
+		getContentPane().add(contentPanel);
 	}
-
-	private void setNameInit() {
+	
+	/**
+	 * 新建游戏的刷新界面
+	 *//*
+	public static void refreshUI() {
+		cardPanelSet = new CardPanelSet();
+		StaticData.setNewCardIndexSet();
+		thisSet = StaticData.getCardIndexSet();
+		dealStackPanel = new DealStackPanel(thisSet);
+		dealedStackPanel = new DealedStackPanel();
+		for (int i = 0; i < StaticData.getSevenstacknum(); i++) {
+			sevenStackCardPanelAdapters[i] = new SevenStackCardPanelAdapter(i + 1, secondPanel);
+			sevenStackAdapters[i] = new SevenStackAdapter(i + 1);
+		}
+		componentInit();
+		setNameInit();
+		listenerInit();
+	}*/
+	
+	public static void setNameInit() {
 		contentPanel.setName("contentPanel");
 		dealStackPanel.setName("dealStackPanel");
 		dealedStackPanel.setName("dealedStackPanel");
@@ -72,7 +96,7 @@ public class Index extends JFrame {
 			sevenStackPanels[i - 1].setName("sevenStackPanel" + i);
 	}
 
-	private void componentInit() {
+	public static void componentInit() {
 		for (int i = 1; i < StaticData.getGathernum() + 1; i++)
 			gatherCardPanels[i - 1] = new GatherCardPanel(i);
 		for (int i = 1; i < StaticData.getSevenstacknum() + 1; i++) {
@@ -92,10 +116,9 @@ public class Index extends JFrame {
 			contentPanel.add(gatherCardPanels[i]);
 		for (int i = 0; i < StaticData.getSevenstacknum(); i++)
 			contentPanel.add(sevenStackPanels[i]);
-		getContentPane().add(contentPanel);
 	}
 
-	private void listenerInit() {
+	public static void listenerInit() {
 		DealedStackAdapter dealedStackAdapter = new DealedStackAdapter(secondPanel);
 		dealStackPanel.addMouseListener(new DealStackAdapter(/* dealStackPanel, dealedStackPanel */));
 		dealedStackPanel.addMouseListener(dealedStackAdapter);
@@ -220,26 +243,6 @@ public class Index extends JFrame {
 		Index.cardPanel = null;
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		JFrame jf = new Index();
-		jf.setTitle("Solitaire-纸牌游戏");
-		// 窗口退出行为
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// 设置窗口大小不可变
-		jf.setResizable(true);
-		// 窗口大小
-		jf.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
-		jf.addComponentListener(new IndexAdapter());
-		Dimension dimension = new Dimension(StaticData.getFrameminwidth(), StaticData.getFrameminheight());
-		jf.setMinimumSize(dimension);
-		jf.setName("frame");
-		// 设置窗口打开居中
-		jf.setLocationRelativeTo(null);
-		// 展示窗口
-		jf.setVisible(true);
-	}
-
 	public static boolean isSingle() {
 		return isSingle;
 	}
@@ -254,5 +257,25 @@ public class Index extends JFrame {
 
 	public static void setTranBottom(CardStackNode tranBottom) {
 		Index.tranBottom = tranBottom;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		jf = new Index();
+		jf.setTitle("Solitaire-纸牌游戏");
+		// 窗口退出行为
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// 设置窗口大小可变
+		jf.setResizable(true);
+		// 窗口大小
+		jf.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
+		jf.addComponentListener(new IndexAdapter());
+		Dimension dimension = new Dimension(StaticData.getFrameminwidth(), StaticData.getFrameminheight());
+		jf.setMinimumSize(dimension);
+		jf.setName("frame");
+		// 设置窗口打开居中
+		jf.setLocationRelativeTo(null);
+		// 展示窗口
+		jf.setVisible(true);
 	}
 }

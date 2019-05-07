@@ -39,7 +39,7 @@ public class GatherStackAdapter extends MouseAdapter {
 		if (e.getButton() != MouseEvent.BUTTON3) {
 			return;
 		}
-		if (Index.isHasClicked()) {
+		if (Index.isHasClicked() && !isLockedOnCard) {
 			String componentName = Index.getClickComponentName();
 			if (componentName != null) {
 				this.gatherCardPanel = (GatherCardPanel) e.getComponent();
@@ -142,7 +142,7 @@ public class GatherStackAdapter extends MouseAdapter {
 				}
 			}
 			Index.refresh();
-		} else {
+		} else if (!isLockedOnCard) {
 			// 第一次的点击
 			this.gatherCardPanel = (GatherCardPanel) e.getComponent();
 			System.out.println(gatherCardPanel.getCardNum());
@@ -289,7 +289,7 @@ public class GatherStackAdapter extends MouseAdapter {
 			Index.refresh();
 		}
 	}
-	
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub

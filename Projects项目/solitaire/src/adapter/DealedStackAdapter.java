@@ -37,7 +37,7 @@ public class DealedStackAdapter extends MouseAdapter {
 		if (e.getButton() != MouseEvent.BUTTON3) {
 			return;
 		}
-		if (!Index.isHasClicked()) {
+		if (!Index.isHasClicked() && !isLockedOnCard) {
 			// 第一次的点击
 			this.dealedStackPanel = (DealedStackPanel) e.getComponent();
 			System.out.println(dealedStackPanel.getDealedNum());
@@ -51,7 +51,7 @@ public class DealedStackAdapter extends MouseAdapter {
 				Index.setSingle(true);
 				Index.setTranBottom(null);
 			}
-		} else {
+		} else if (!isLockedOnCard) {
 			// 取消定位
 			Index.refresh();
 		}

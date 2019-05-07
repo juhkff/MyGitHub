@@ -112,6 +112,12 @@ public final class StaticData {
 	public static HashSet<Integer> getCardIndexSet() {
 		return StaticData.CARDSET;
 	}
+	
+	public static void setNewCardIndexSet() {
+		StaticData.CARDSET.clear();
+		for (int i = 0; i < StaticData.CARDNUM; i++)
+			StaticData.CARDSET.add(i);
+	}
 
 	public static Map<String, String[]> getValuemap() {
 		return VALUEMAP;

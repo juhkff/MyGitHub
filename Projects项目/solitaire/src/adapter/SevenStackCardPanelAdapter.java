@@ -42,7 +42,7 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 		// TODO Auto-generated method stub
 		super.mouseClicked(arg0);
 		if (arg0.getButton() == MouseEvent.BUTTON3) {
-			if (Index.isHasClicked()) {
+			if (Index.isHasClicked() && !isLock) {
 				System.out.println("触发第二次点击");
 				CardStackNode recBottom = Index.getTranBottom();
 				CardPanel cardPanel = Index.cardPanel;
@@ -149,7 +149,7 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 					}
 				}
 				Index.refresh();
-			} else {
+			} else if (!isLock) {
 				// 第一次点击
 				this.cardPanel = (CardPanel) arg0.getComponent();
 				if (cardPanel.isPositive()) {
