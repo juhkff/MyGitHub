@@ -30,7 +30,6 @@ public class GatherCardPanel extends JPanel {
 						* (StaticData.getGathercardlocation(4) + StaticData.getGathercardlocation(2)),
 				StaticData.getGathercardlocation(1), StaticData.getGathercardlocation(2),
 				StaticData.getGathercardlocation(3));
-		// this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
 		this.setBorder(BorderFactory.createLoweredBevelBorder());
 		this.setBackground(Color.BLACK);
 		this.setOpaque(false);

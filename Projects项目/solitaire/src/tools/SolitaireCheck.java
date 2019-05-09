@@ -2,8 +2,8 @@ package tools;
 
 import element.StaticData;
 import uiDao.CardPanel;
+import uiDao.GamePage;
 import uiDao.GatherCardPanel;
-import uiPaint.Index;
 
 public class SolitaireCheck {
 	/**
@@ -35,10 +35,10 @@ public class SolitaireCheck {
 	 * @param cardPanel-待检验的卡牌
 	 * @return true-可放入;false-不可放入
 	 */
-	public static boolean canPushToSevenStack(int sevenStackIndex, CardPanel cardPanel) {
-		if (!Index.getTop(sevenStackIndex).getStackNode().isPositive())
+	public static boolean canPushToSevenStack(int sevenStackIndex, CardPanel cardPanel, GamePage jf) {
+		if (!jf.getTop(sevenStackIndex).getStackNode().isPositive())
 			return false;
-		String sevenBottomCardValue = Index.getTop(sevenStackIndex).getStackNode().getCardValue();
+		String sevenBottomCardValue = jf.getTop(sevenStackIndex).getStackNode().getCardValue();
 		String topCardValue = cardPanel.getCardValue();
 		String[] values = StaticData.getValueMapValue(topCardValue);
 		if (values == null)

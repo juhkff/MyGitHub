@@ -13,7 +13,7 @@ public class FindComponent {
 	public static String findComponentByCenterPoint(CardPanel cardPanel) {
 		int x = cardPanel.getX() + cardPanel.getWidth() / 2;
 		int y = cardPanel.getY() + cardPanel.getHeight() / 2;
-		System.out.println("坐标:"+x+"\t"+y);
+		System.out.println("坐标:" + x + "\t" + y);
 		if (StaticData.getGathercardlocation(1) < y
 				&& y < StaticData.getGathercardlocation(1) + StaticData.getGathercardlocation(3)) {
 			// 只可能在顶部四牌堆中

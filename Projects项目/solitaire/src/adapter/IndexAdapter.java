@@ -4,23 +4,29 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import element.StaticData;
-import uiPaint.Index;
+import uiDao.GamePage;
 
 public class IndexAdapter extends ComponentAdapter {
+	private GamePage jf;
+
+	public IndexAdapter(GamePage jf) {
+		super();
+		this.jf = jf;
+	}
 
 	@Override
 	public void componentResized(ComponentEvent e) {
 		// TODO Auto-generated method stub
 		super.componentResized(e);
 		System.out.println("触发");
-		Index frame = (Index) e.getComponent();
+		GamePage frame = (GamePage) e.getComponent();
 		int newHeight = frame.getHeight();
 		int newWidth = frame.getWidth();
 		StaticData.setFRAMEHEIGHT(newHeight);
 		StaticData.setFRAMEWIDTH(newWidth);
 		System.out.println("新的宽高:" + StaticData.getFRAMEWIDTH() + "\t" + StaticData.getFRAMEHEIGHT());
 		StaticData.reDefine();
-		Index.reSize();
+		jf.reSize();
 	}
 
 	@Override

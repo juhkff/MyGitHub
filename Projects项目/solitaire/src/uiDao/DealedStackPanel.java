@@ -14,7 +14,6 @@ public class DealedStackPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private CardStackNode top = null;
-	// private JPanel topPanel=null;
 	private int dealedNum = 0;
 
 	/**
@@ -22,15 +21,9 @@ public class DealedStackPanel extends JPanel {
 	 */
 	public DealedStackPanel() {
 		super();
-		// topPanel=new JPanel();
-		// topPanel.setBounds(StaticData.getCardsize(0), StaticData.getCardsize(0),
-		// StaticData.getCardsize(0), StaticData.getCardsize(0));
-		// topPanel.setOpaque(false);
 		this.setBounds(StaticData.getDealedlocation(0), StaticData.getDealedlocation(1),
 				StaticData.getDealedlocation(2), StaticData.getDealedlocation(3));
 		this.setLayout(null);
-		// this.add(topPanel);
-		// this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 	}
 
 	/**
@@ -99,7 +92,6 @@ public class DealedStackPanel extends JPanel {
 		if (top != null)
 			this.add(top.getStackNode());
 		else
-			// top==null
 			this.repaint();
 		dealedNum--;
 		System.out.println("已发牌堆剩余的卡牌数为:" + dealedNum);
@@ -127,7 +119,7 @@ public class DealedStackPanel extends JPanel {
 	/**
 	 * 获得翻牌堆的牌数
 	 * 
-	 * @return int-牌数
+	 * @return 牌数
 	 */
 	public int getDealedNum() {
 		return dealedNum;

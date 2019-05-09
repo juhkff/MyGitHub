@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.Map;
 
 public final class StaticData {
-	private static int CARDWIDTH = /* 150 */105;
-	private static int CARDHEIGHT = /* 250 */150;
+	private static int CARDWIDTH = 105;
+	private static int CARDHEIGHT = 150;
 	private static final int FRAMEMINWIDTH = 900;
 	private static final int FRAMEMINHEIGHT = 675;
-	private static int FRAMEWIDTH = /* 1602 */1200;
-	private static int FRAMEHEIGHT = /* 900 */900;
+	private static int FRAMEWIDTH = 1200;
+	private static int FRAMEHEIGHT = 900;
 	private static int PANELPADDINGLEFT = 10;
 	private static int PANELPADDINGTOP = 10;
 	protected static int SEVENSTACKNUM = 7;
@@ -22,32 +22,27 @@ public final class StaticData {
 	protected static final Map<String, String[]> VALUEMAP = new HashMap<>(); // 对应值map
 	protected static final Map<String, String> GATHERVALUEMAP = new HashMap<>(); // 对应值map
 	protected static HashSet<Integer> CARDSET = new HashSet<Integer>();
-	public static int[] FRAMESIZE = { /* 1200 */FRAMEWIDTH, FRAMEHEIGHT }; // 程序面板大小
-	// private static final int offset1 = 400;
+	public static int[] FRAMESIZE = { FRAMEWIDTH, FRAMEHEIGHT }; // 程序面板大小
 	protected static Font MAINFONT = new Font("宋体", 1, 170); // 主区域字体
 	protected static Font MAINFONT_10 = new Font("宋体", 1, 95); // 主区域特殊(10)大小字体
 	protected static Font MINIFONT = new Font("宋体", 1, 20); // 左上区域字体
 	protected static Font MINIFONT_10 = new Font("宋体", 1, 18); // 左上区域特殊(10)大小字体
 	protected static Font TYPEFONT = new Font("宋体", 1, 20); // 卡牌图案字体的大小
-	protected static int[] MINILOCATION = { 0, 0, 20, /* 30 */30 };
+	protected static int[] MINILOCATION = { 0, 0, 20, 30 };
 	protected static int[] TYPELOCATION = { 20, 0, 50, 30 };
 	protected static int[] MAINLOCATION = { 20, 30, 110, 190 };
 	protected static int[] PANELSIZE = { PANELPADDINGLEFT, PANELPADDINGTOP, CARDWIDTH, CARDHEIGHT };
 	protected static int[] CARDSIZE = { 0, 0, CARDWIDTH, CARDHEIGHT };
-	protected static int[] DEALEDLOCATION = { /* 200 */PANELPADDINGLEFT + CARDWIDTH + PANELPADDINGLEFT * 3,
-			PANELPADDINGTOP, CARDWIDTH, CARDHEIGHT }; // 已翻开的牌放置的位置和大小
+	protected static int[] DEALEDLOCATION = { PANELPADDINGLEFT + CARDWIDTH + PANELPADDINGLEFT * 3, PANELPADDINGTOP,
+			CARDWIDTH, CARDHEIGHT }; // 已翻开的牌放置的位置和大小
 
 	protected static int[] GATHERCARDLOCATION = {
-			/* 500 + offset1 */FRAMEWIDTH - 4 * CARDWIDTH - 3 * GATHERCARDLENGTH - GATHERCARDPADDINGRIGHT,
-			PANELPADDINGTOP, CARDWIDTH, CARDHEIGHT, /* 20 */GATHERCARDLENGTH }; // 4个集牌堆第一个的位置和牌堆间相隔的距离(第5个int)
-	// protected static final int[] MAINTEXTSIZE = { 60, 105, 30, 40 };
-	// protected static final int[] MINITEXTSIZE = { 5, 5, 15, 25 };
+			FRAMEWIDTH - 4 * CARDWIDTH - 3 * GATHERCARDLENGTH - GATHERCARDPADDINGRIGHT, PANELPADDINGTOP, CARDWIDTH,
+			CARDHEIGHT, GATHERCARDLENGTH }; // 4个集牌堆第一个的位置和牌堆间相隔的距离(第5个int)
 
-	protected static int[] SEVENSTACKLOCATION = {
-			/* 69 */(FRAMEWIDTH - SEVENSTACKNUM * CARDWIDTH) / (SEVENSTACKNUM + 1),
-			/* 300 */PANELPADDINGTOP + CARDHEIGHT + SEVENPADDINGTOP }; // 下部牌堆之间的宽度和距离顶部的距离
-	// //7*150=1050,1600-1050=550,550/8=68.75--->69多0.25*8=2px
-	protected static String DEFAULTBACKGROUNDURL = /* "D:\\study\\各种文件\\头像.jpg" */"CARD\\Back.jpg";
+	protected static int[] SEVENSTACKLOCATION = { (FRAMEWIDTH - SEVENSTACKNUM * CARDWIDTH) / (SEVENSTACKNUM + 1),
+			PANELPADDINGTOP + CARDHEIGHT + SEVENPADDINGTOP }; // 下部牌堆之间的宽度和距离顶部的距离
+	protected static String DEFAULTBACKGROUNDURL = "CARD\\Back.jpg";
 	protected static final String[] DEALS = { "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A0", "AJ", "AQ",
 			"AK", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B0", "BJ", "BQ", "BK", "C1", "C2", "C3", "C4",
 			"C5", "C6", "C7", "C8", "C9", "C0", "CJ", "CQ", "CK", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9",
@@ -103,16 +98,10 @@ public final class StaticData {
 		return CARDSTACKNUM[index];
 	}
 
-	/*
-	 * public static HashSet<String> getAllCardSet() { HashSet<String> newSet = new
-	 * HashSet<String>(); for (String each : DEALS) { newSet.add(each); } return
-	 * newSet; }
-	 */
-
 	public static HashSet<Integer> getCardIndexSet() {
 		return StaticData.CARDSET;
 	}
-	
+
 	public static void setNewCardIndexSet() {
 		StaticData.CARDSET.clear();
 		for (int i = 0; i < StaticData.CARDNUM; i++)

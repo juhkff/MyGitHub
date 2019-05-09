@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 import element.CardStackNode;
 import element.StaticData;
-import uiPaint.Index;
 
 /*
  * 发牌堆
@@ -21,13 +20,14 @@ public class DealStackPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private CardStackNode top = null;
 	private int dealNum = 0;
-
+	
+	
 	/**
 	 * 初始化发牌堆,应当只有一个发牌堆,传入0-牌堆数量上限的Set<Integer>
 	 * 
 	 * @param thisSet
 	 */
-	public DealStackPanel(Set<Integer> thisSet) {
+	public DealStackPanel(Set<Integer> thisSet, GamePage jf) {
 		super();
 		this.setBounds(StaticData.getPanelsize(0), StaticData.getPanelsize(1), StaticData.getPanelsize(2),
 				StaticData.getPanelsize(3));
@@ -41,8 +41,7 @@ public class DealStackPanel extends JPanel {
 				CardPanel cardPanel = new CardPanel(StaticData.getDeals(curIndex));
 				pushCardStackNode(new CardStackNode(cardPanel), true);
 				// 用于更新牌的大小
-				Index.cardPanelSet.add(cardPanel);
-				// this.add(cardPanel);
+				jf.getCardPanelSet().add(cardPanel);
 				thisSet.remove(curIndex);
 			} else {
 				// 生成重复牌时,重新执行
@@ -116,7 +115,6 @@ public class DealStackPanel extends JPanel {
 					top = curStackNode;
 					top.getStackNode().setCanTurnOver(false);
 				}
-				// this.add(curStackNode.getStackNode());
 				dealNum++;
 				curStackNode = tempNode;
 			}
@@ -126,7 +124,6 @@ public class DealStackPanel extends JPanel {
 			}
 			this.repaint(); // 为什么要repaint?
 		}
-		// this.repaint();
 	}
 
 	/**

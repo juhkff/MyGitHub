@@ -11,7 +11,6 @@ import javax.swing.JMenuItem;
 
 import adapter.IndexAdapter;
 import element.StaticData;
-import uiPaint.Index;
 
 public class GameMenuBar extends JMenuBar {
 
@@ -27,9 +26,12 @@ public class GameMenuBar extends JMenuBar {
 	private JMenuItem exitGameItem = new JMenuItem("退出");
 	private JMenuItem windowEditItem = new JMenuItem("设置");
 
-	public GameMenuBar() {
+	private GamePage jf;
+
+	public GameMenuBar(GamePage jf2) {
 		super();
 		// TODO Auto-generated constructor stub
+		this.jf = jf2;
 		this.add(gameMenu);
 		this.add(windowMenu);
 		gameMenu.add(newGameItem);
@@ -48,17 +50,19 @@ public class GameMenuBar extends JMenuBar {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			
+			// jf.dispose();
 			StaticData.setNewCardIndexSet();
-			/*JFrame jf = new Index();
+			// GamePage jf;
+			jf = new GamePage();
+			jf.init();
 			jf.setTitle("Solitaire-纸牌游戏");
 			// 窗口退出行为
 			jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			// 设置窗口大小不可变
+			// 设置窗口大小可变
 			jf.setResizable(true);
 			// 窗口大小
 			jf.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
-			jf.addComponentListener(new IndexAdapter());
+			jf.addComponentListener(new IndexAdapter(jf));
 			Dimension dimension = new Dimension(StaticData.getFrameminwidth(), StaticData.getFrameminheight());
 			jf.setMinimumSize(dimension);
 			jf.setName("frame");
@@ -66,8 +70,6 @@ public class GameMenuBar extends JMenuBar {
 			jf.setLocationRelativeTo(null);
 			// 展示窗口
 			jf.setVisible(true);
-			jf.repaint();*/
-			//Index.refreshUI();
 		}
 	};
 }
