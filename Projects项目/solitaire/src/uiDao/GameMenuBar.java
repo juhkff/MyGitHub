@@ -1,16 +1,15 @@
 package uiDao;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import adapter.IndexAdapter;
 import element.StaticData;
+import uiPaint.GameEdit;
+import uiPaint.GameIndex;
 
 public class GameMenuBar extends JMenuBar {
 
@@ -26,9 +25,9 @@ public class GameMenuBar extends JMenuBar {
 	private JMenuItem exitGameItem = new JMenuItem("退出");
 	private JMenuItem windowEditItem = new JMenuItem("设置");
 
-	private GamePage jf;
+	private GameIndex jf;
 
-	public GameMenuBar(GamePage jf2) {
+	public GameMenuBar(GameIndex jf2) {
 		super();
 		// TODO Auto-generated constructor stub
 		this.jf = jf2;
@@ -38,11 +37,23 @@ public class GameMenuBar extends JMenuBar {
 		gameMenu.addSeparator();
 		gameMenu.add(exitGameItem);
 		windowMenu.add(windowEditItem);
-		windowMenu.addSeparator();
+		// windowMenu.addSeparator();
 
 		// 设置监听器
 		newGameItem.addActionListener(newGameListener);
+		exitGameItem.addActionListener(exitListener);
+		windowEditItem.addActionListener(editGameListener);
 	}
+
+	// 设置游戏设置监听器
+	private ActionListener editGameListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			GameEdit gameEdit = new GameEdit(jf);
+			gameEdit.setVisible(true);
+		}
+	};
 
 	// 设置"新游戏"子菜单被点击的监听器
 	private ActionListener newGameListener = new ActionListener() {
@@ -50,26 +61,26 @@ public class GameMenuBar extends JMenuBar {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			// jf.dispose();
 			StaticData.setNewCardIndexSet();
-			// GamePage jf;
-			jf = new GamePage();
-			jf.init();
-			jf.setTitle("Solitaire-纸牌游戏");
-			// 窗口退出行为
-			jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			// 设置窗口大小可变
-			jf.setResizable(true);
-			// 窗口大小
-			jf.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
-			jf.addComponentListener(new IndexAdapter(jf));
-			Dimension dimension = new Dimension(StaticData.getFrameminwidth(), StaticData.getFrameminheight());
-			jf.setMinimumSize(dimension);
-			jf.setName("frame");
-			// 设置窗口打开居中
-			jf.setLocationRelativeTo(null);
-			// 展示窗口
-			jf.setVisible(true);
+			// JPanel contentPanel=(JPanel) jf.getContentPane();
+			/* contentPanel */jf.getContentPane().remove(jf.getJf());
+			/* contentPanel */jf.getContentPane().repaint();
+
+			GamePage jf2;
+			jf2 = new GamePage();
+			jf2.init();
+			jf.setJf(jf2);
+			/* contentPanel */jf.getContentPane().add(jf2);
+
+		}
+	};
+
+	private ActionListener exitListener = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			System.exit(0);
 		}
 	};
 }

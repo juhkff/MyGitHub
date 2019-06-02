@@ -53,6 +53,7 @@ public class CardPanel extends JPanel {
 			this.card.setBackGroundUrl(backGroundUrl);
 		else
 			this.card.setBackGroundUrl(StaticData.getDefaultbackgroundurl());
+		// System.out.println("卡牌的背景是:"+StaticData.getDefaultbackgroundurl());
 		positiveImg = new ImageIcon("CARD\\" + card.getValue() + ".jpg");
 		positiveImg.setImage(positiveImg.getImage().getScaledInstance(StaticData.getCardsize(2),
 				StaticData.getCardsize(3), Image.SCALE_DEFAULT));
@@ -68,6 +69,7 @@ public class CardPanel extends JPanel {
 		this.add(imgLabel);
 		this.setBounds(0, 0, StaticData.getCardsize(2), StaticData.getCardsize(3));
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+		this.repaint();
 	}
 
 	/**
@@ -142,5 +144,29 @@ public class CardPanel extends JPanel {
 	 */
 	public String[] getNextCardValue() { // 获得下一张卡牌值
 		return card.getNextCardValue();
+	}
+
+	public void setBGUrl(String newBGUrl) {
+		if (newBGUrl == null || newBGUrl.equals(""))
+			newBGUrl = StaticData.getDefaultbackgroundurl();
+		this.card.setBackGroundUrl(newBGUrl);
+		System.out.println("卡牌的背景图片重设为:" + newBGUrl);
+		backgroundImg = new ImageIcon(card.getBackGroundUrl());
+		backgroundImg.setImage(backgroundImg.getImage().getScaledInstance(StaticData.getCardsize(2),
+				StaticData.getCardsize(3), Image.SCALE_DEFAULT));
+		imgLabel.setIcon(backgroundImg);
+		if (StaticData.isCARDSIZEChanged()) {
+			System.out.println("正面修改!");
+			positiveImg = new ImageIcon("CARD\\" + card.getValue() + ".jpg");
+			positiveImg.setImage(positiveImg.getImage().getScaledInstance(StaticData.getCardsize(2),
+					StaticData.getCardsize(3), Image.SCALE_DEFAULT));
+			positiveLabel.setIcon(positiveImg);
+		}
+	}
+
+	public void resetCardSize() {
+		this.setSize(StaticData.getCardsize(2), StaticData.getCardsize(3));
+		this.positiveLabel.setSize(StaticData.getCardsize(2), StaticData.getCardsize(3));
+		this.imgLabel.setSize(StaticData.getCardsize(2), StaticData.getCardsize(3));
 	}
 }

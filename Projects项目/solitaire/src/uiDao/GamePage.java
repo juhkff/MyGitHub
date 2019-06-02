@@ -2,7 +2,6 @@ package uiDao;
 
 import java.util.Set;
 
-import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
@@ -15,13 +14,13 @@ import element.CardPanelSet;
 import element.CardStackNode;
 import element.StaticData;
 
-public class GamePage extends JFrame {
+public class GamePage extends /* JFrame */JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private GameMenuBar gameMenuBar;
-	private JPanel contentPanel;
+	// private GameMenuBar gameMenuBar;
+	// private JPanel contentPanel;
 	private JLayeredPane secondPanel; // 用于移动组件时的顶层面板
 	private Set<Integer> thisSet;
 	private CardPanelSet cardPanelSet;
@@ -49,6 +48,7 @@ public class GamePage extends JFrame {
 	 */
 
 	public void init() {
+		componentInit_First();
 		listenerInit();
 		componentInit();
 		setNameInit();
@@ -59,13 +59,17 @@ public class GamePage extends JFrame {
 	 * 新建游戏的刷新界面
 	 */
 	private void setNameInit() {
-		contentPanel.setName("contentPanel");
+		this/* contentPanel */.setName("contentPanel");
 		dealStackPanel.setName("dealStackPanel");
 		dealedStackPanel.setName("dealedStackPanel");
 		for (int i = 1; i < gatherCardPanels.length + 1; i++)
 			gatherCardPanels[i - 1].setName("gatherCardPanel" + i);
 		for (int i = 1; i < sevenStackPanels.length + 1; i++)
 			sevenStackPanels[i - 1].setName("sevenStackPanel" + i);
+	}
+
+	private void componentInit_First() {
+		secondPanel = new JLayeredPane();
 	}
 
 	@SuppressWarnings("static-access")
@@ -77,9 +81,9 @@ public class GamePage extends JFrame {
 
 		thisSet = new StaticData().getCardIndexSet();
 
-		contentPanel = new JPanel();
-		secondPanel = new JLayeredPane();
-		gameMenuBar = new GameMenuBar(this);
+		// contentPanel = new JPanel();
+
+		// gameMenuBar = new GameMenuBar(this);
 		cardPanelSet = new CardPanelSet();
 		dealStackPanel = new DealStackPanel(thisSet, this);
 		dealedStackPanel = new DealedStackPanel();
@@ -95,18 +99,19 @@ public class GamePage extends JFrame {
 		secondPanel.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
 		secondPanel.setOpaque(false);
 
-		contentPanel.setLayout(null);
-		contentPanel.add(secondPanel);
-		contentPanel.add(dealStackPanel);
-		contentPanel.add(dealedStackPanel);
+		this/* contentPanel */.setLayout(null);
+		this/* contentPanel */.add(secondPanel);
+		this/* contentPanel */.add(dealStackPanel);
+		this/* contentPanel */.add(dealedStackPanel);
 
 		for (int i = 0; i < StaticData.getGathernum(); i++)
-			contentPanel.add(gatherCardPanels[i]);
+			this/* contentPanel */.add(gatherCardPanels[i]);
 		for (int i = 0; i < StaticData.getSevenstacknum(); i++)
-			contentPanel.add(sevenStackPanels[i]);
+			this/* contentPanel */.add(sevenStackPanels[i]);
+		this.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
 
-		getContentPane().add(contentPanel);
-		this.setJMenuBar(gameMenuBar);
+		// this/* getContentPane() */.add(this/* contentPanel */);
+		// this.setJMenuBar(gameMenuBar);
 	}
 
 	private void listenerInit() {
@@ -174,13 +179,18 @@ public class GamePage extends JFrame {
 	 * 重新布局
 	 */
 	public void reSize() {
+		this.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
 		reSizeSevenStackPanel();
 		reSizeGatherCardPanel();
 		reSizeDealStackPanel();
 		reSizeDealedStackPanel();
 		reSizeSecondPanel();
-		if (StaticData.isCARDSIZEChanged()) // 如果卡牌大小发生了变化
+		if (StaticData.isCARDSIZEChanged()) { // 如果卡牌大小发生了变化
 			reSizeCardPanel();
+			rePaintCardPanel();
+		}
+		if (StaticData.isCARDBGChanged()) // 如果卡牌背景发生了变化
+			rePaintCardPanel();
 	}
 
 	private void reSizeSecondPanel() {
@@ -191,6 +201,12 @@ public class GamePage extends JFrame {
 	private void reSizeCardPanel() {
 		// TODO Auto-generated method stub
 		cardPanelSet.reSizeCards();
+		StaticData.setCARDSIZEChanged(false);
+	}
+
+	private void rePaintCardPanel() {
+		cardPanelSet.rePaintCards();
+		StaticData.setCARDBGChanged(false);
 	}
 
 	private void reSizeDealedStackPanel() {
@@ -258,21 +274,19 @@ public class GamePage extends JFrame {
 		this.tranBottom = tranBottom;
 	}
 
-	public GameMenuBar getGameMenuBar() {
-		return gameMenuBar;
-	}
+	/*
+	 * public GameMenuBar getGameMenuBar() { return gameMenuBar; }
+	 * 
+	 * public void setGameMenuBar(GameMenuBar gameMenuBar) { this.gameMenuBar =
+	 * gameMenuBar; }
+	 */
 
-	public void setGameMenuBar(GameMenuBar gameMenuBar) {
-		this.gameMenuBar = gameMenuBar;
-	}
-
-	public JPanel getContentPanel() {
-		return contentPanel;
-	}
-
-	public void setContentPanel(JPanel contentPanel) {
-		this.contentPanel = contentPanel;
-	}
+	/*
+	 * public JPanel getContentPanel() { return contentPanel; }
+	 * 
+	 * public void setContentPanel(JPanel contentPanel) { this.contentPanel =
+	 * contentPanel; }
+	 */
 
 	public JLayeredPane getSecondPanel() {
 		return secondPanel;

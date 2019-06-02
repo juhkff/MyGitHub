@@ -46,6 +46,7 @@ public class SevenStackPanel extends JLayeredPane {
 				// 用于更新牌的大小
 				// GamePage.cardPanelSet.add(cardPanel);
 				jf.getCardPanelSet().add(cardPanel);
+				System.out.println("CardPanelSet的元素个数为:" + jf.getCardPanelSet().length());
 				// 设置卡牌在待翻牌堆中的位置
 				cardPanel.setLocation(0, i * StaticData.getMinilocation(3));
 				// 为每张卡牌设置监听器

@@ -20,8 +20,26 @@ public class CardPanelSet {
 	public void reSizeCards() {
 		if (this.cardNum == StaticData.getCardnum()) {
 			for (CardPanel cardPanel : cardPanels) {
-				cardPanel.setSize(StaticData.getCardsize(2), StaticData.getCardsize(3));
+				cardPanel.resetCardSize();
+				cardPanel.setBGUrl(StaticData.getBACKGROUNDURL());
+				System.out.println("cardPanel的宽高已经改为:" + StaticData.getCardsize(2) + "," + StaticData.getCardsize(3));
 			}
 		}
+	}
+
+	public void rePaintCards() {
+		if (this.cardNum == StaticData.getCardnum()) {
+			for (CardPanel cardPanel : cardPanels) {
+				cardPanel.setBGUrl(StaticData.getBACKGROUNDURL());
+			}
+		}
+	}
+
+	public int length() {
+		return cardNum;
+	}
+
+	public CardPanel getCardPanel(int index) {
+		return cardPanels[index];
 	}
 }

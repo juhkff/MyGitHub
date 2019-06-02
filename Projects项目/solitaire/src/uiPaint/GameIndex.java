@@ -6,31 +6,50 @@ import javax.swing.JFrame;
 
 import adapter.IndexAdapter;
 import element.StaticData;
+import uiDao.GameMenuBar;
 import uiDao.GamePage;
 
-public class GameIndex {
+public class GameIndex extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private GamePage jf;
+	private GameMenuBar gameMenuBar;
 
 	public GameIndex() {
 		super();
 		// TODO Auto-generated constructor stub
+		this.setLayout(null);
 		jf = new GamePage();
 		jf.init();
-		jf.setTitle("Solitaire-纸牌游戏");
+		/*
+		 * jf.setVisible(true); jf.setSize(StaticData.FRAMESIZE[0],
+		 * StaticData.FRAMESIZE[1]); jf.setLayout(null);
+		 */
+		// jf.setBounds(0, 0, StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
+		// jf.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
+
+		this.setTitle("Solitaire-纸牌游戏");
 		// 窗口退出行为
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// 设置窗口大小可变
-		jf.setResizable(true);
+		this.setResizable(true);
 		// 窗口大小
-		jf.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
-		jf.addComponentListener(new IndexAdapter(jf));
+		this.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
+		this.addComponentListener(new IndexAdapter(this));
 		Dimension dimension = new Dimension(StaticData.getFrameminwidth(), StaticData.getFrameminheight());
-		jf.setMinimumSize(dimension);
-		jf.setName("frame");
+		this.setMinimumSize(dimension);
+		this.setName("frame");
 		// 设置窗口打开居中
-		jf.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(null);
 		// 展示窗口
-		jf.setVisible(true);
+		// this.setVisible(true);
+		gameMenuBar = new GameMenuBar(this);
+		// this.getContentPane().add(jf);
+		// setContentPane(jf);
+		this.getContentPane().add(jf);
+		this.setJMenuBar(gameMenuBar);
 	}
 
 	public GamePage getJf() {
@@ -43,6 +62,7 @@ public class GameIndex {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new GameIndex();
+		GameIndex gameIndex = new GameIndex();
+		gameIndex.setVisible(true);
 	}
 }

@@ -17,11 +17,11 @@ public class CardPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JLabel imgLabel;
 	private ImageIcon backgroundImg;
-	
+
 	public CardPanel(String value) {
-		this(value,"");
+		this(value, "");
 	}
-	
+
 	public CardPanel(String value, String backGroundUrl) {
 		// TODO Auto-generated constructor stub
 		super();
@@ -31,7 +31,8 @@ public class CardPanel extends JPanel {
 		// add(mainText);
 
 		backgroundImg = new ImageIcon("D:\\study\\各种文件\\头像.jpg");
-		backgroundImg.setImage(backgroundImg.getImage().getScaledInstance(StaticData.getCardsize(2), StaticData.getCardsize(3), Image.SCALE_DEFAULT));
+		backgroundImg.setImage(backgroundImg.getImage().getScaledInstance(StaticData.getCardsize(2),
+				StaticData.getCardsize(3), Image.SCALE_DEFAULT));
 		imgLabel = new JLabel(backgroundImg);
 		imgLabel.setBounds(StaticData.getCardsize(0), StaticData.getCardsize(1), StaticData.getCardsize(2),
 				StaticData.getCardsize(3));

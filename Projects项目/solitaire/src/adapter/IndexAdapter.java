@@ -4,12 +4,12 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import element.StaticData;
-import uiDao.GamePage;
+import uiPaint.GameIndex;
 
 public class IndexAdapter extends ComponentAdapter {
-	private GamePage jf;
+	private /* GamePage */GameIndex jf;
 
-	public IndexAdapter(GamePage jf) {
+	public IndexAdapter(/* GamePage */GameIndex jf) {
 		super();
 		this.jf = jf;
 	}
@@ -19,14 +19,14 @@ public class IndexAdapter extends ComponentAdapter {
 		// TODO Auto-generated method stub
 		super.componentResized(e);
 		System.out.println("触发");
-		GamePage frame = (GamePage) e.getComponent();
+		/* GamePage */GameIndex frame = (GameIndex) e.getComponent();
 		int newHeight = frame.getHeight();
 		int newWidth = frame.getWidth();
 		StaticData.setFRAMEHEIGHT(newHeight);
 		StaticData.setFRAMEWIDTH(newWidth);
 		System.out.println("新的宽高:" + StaticData.getFRAMEWIDTH() + "\t" + StaticData.getFRAMEHEIGHT());
 		StaticData.reDefine();
-		jf.reSize();
+		jf.getJf().reSize();
 	}
 
 	@Override

@@ -20,8 +20,7 @@ public class DealStackPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private CardStackNode top = null;
 	private int dealNum = 0;
-	
-	
+
 	/**
 	 * 初始化发牌堆,应当只有一个发牌堆,传入0-牌堆数量上限的Set<Integer>
 	 * 
@@ -42,6 +41,7 @@ public class DealStackPanel extends JPanel {
 				pushCardStackNode(new CardStackNode(cardPanel), true);
 				// 用于更新牌的大小
 				jf.getCardPanelSet().add(cardPanel);
+				System.out.println("CardPanelSet的元素个数为:" + jf.getCardPanelSet().length());
 				thisSet.remove(curIndex);
 			} else {
 				// 生成重复牌时,重新执行

@@ -24,7 +24,7 @@ public class GatherStackAdapter extends MouseAdapter {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		//super.mouseReleased(e);
+		// super.mouseReleased(e);
 		System.out.println("触发释放");
 		GatherCardPanel gatherCardPanel = (GatherCardPanel) e.getComponent();
 		if (Index.cardPanel != null) {
@@ -40,7 +40,7 @@ public class GatherStackAdapter extends MouseAdapter {
 								.equals(gatherCardPanel.getTop(false).getStackNode().getCardValue()))) {
 					// 卡牌满足放入要求
 					gatherCardPanel.setTop(new CardStackNode(cardPanel));
-					
+
 				}
 			}
 		}
