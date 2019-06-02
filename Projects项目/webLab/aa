@@ -1,0 +1,2 @@
+客户界面——已完成的外包——外包形式.
+ProController.java中/agree、/pass和/reject方法中用了重定向，可能会出问题.
