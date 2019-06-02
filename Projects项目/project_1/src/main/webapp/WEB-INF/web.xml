@@ -4,4 +4,9 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+      <servlet-name>springDispatcherServlet</servlet-name>
+      <servlet-class>org.springframework.web.</servlet-class>
+  </servlet>
 </web-app>

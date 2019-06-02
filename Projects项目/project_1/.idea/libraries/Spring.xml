@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Spring" type="spring">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../jar repository/spring-framework-5.0.7.RELEASE-dist/spring-framework-5.0.7.RELEASE-dist.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

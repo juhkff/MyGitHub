@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/*Gson使用示范(应该用不到)*/
-/*Project和User两个类主要用于用Gson传Json格式的数据，虽然在页面和后台的交互中应该用不到*/
+/*Gson使用示范(不知道会不会用到)*/
+/*Project和User两个类主要用于用Gson的jar包传Json格式的数据，不知道在页面和后台的交互中会不会用到*/
 public class Moudle_Example {
     public static void main(String[] args) throws SQLException {
         //比如我从数据库调用外包表中的所有记录的所有栏

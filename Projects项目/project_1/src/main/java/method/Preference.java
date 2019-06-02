@@ -1,4 +1,4 @@
-package method;
+package com.method;
 
 import connection.MyConnection;
 
@@ -43,6 +43,7 @@ public class Preference {
             e.printStackTrace();
         }
         myConnection.Close();
+
         return result;
         //存到表中的是完整的用单个空格相隔的所有偏好的一个字符串
     }
@@ -54,8 +55,9 @@ public class Preference {
         String sql = "SELECT Prefers FROM users WHERE UserId=?";
         MyConnection myConnection = new MyConnection();
         Connection connection = myConnection.getConnection();
+        PreparedStatement preparedStatement=null;
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, UserNumber);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -68,6 +70,16 @@ public class Preference {
             preferences = "error";
         }
         preferList=preferences.split(" ");
+
+        try {
+            if (preparedStatement!=null)
+                preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        myConnection.Close();
+
         return preferList;
     }
 }

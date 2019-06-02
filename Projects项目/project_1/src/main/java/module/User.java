@@ -7,6 +7,7 @@ public class User {
 
     /*初始值赋为null的是数据库中可为空的数据，赋为""的是数据库中默认值为空字符串（且不允许空值——会自动赋为空字符串）的数据*/
     private String userId;              //用户账号(主键、6位数字)
+    private String userType;            //用户类型(学生/客户)
     private String userName;            //用户名
     private String passWord;            //密码
     private String phoneNum;            //手机号码
@@ -18,12 +19,23 @@ public class User {
     private String sex;                 //性别("M"-男;"F"-女)
     private String prefers="";          //学生喜好(标据此筛选签).该值默认为空字符串
 
+    private String isLeader="0";        //是否为队长.默认为"0"-否."1"-是.
+    private String teamName=null;       //团队名，没有则为null
+
     public String getUserId() {
         return userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getUserName() {
@@ -104,5 +116,21 @@ public class User {
 
     public void setPrefers(String prefers) {
         this.prefers = prefers;
+    }
+
+    public String getIsLeader() {
+        return isLeader;
+    }
+
+    public void setIsLeader(String isLeader) {
+        this.isLeader = isLeader;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

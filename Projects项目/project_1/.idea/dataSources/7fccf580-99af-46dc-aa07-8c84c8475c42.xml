@@ -927,195 +927,259 @@
     <table id="234" parent="11" name="projects">
       <Engine>InnoDB</Engine>
     </table>
-    <table id="235" parent="11" name="users">
+    <table id="235" parent="11" name="teams">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="236" parent="234" name="ProName">
+    <table id="236" parent="11" name="users">
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="237" parent="234" name="ProName">
       <Position>1</Position>
       <Comment>外包名(暂定为唯一标识)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="237" parent="234" name="ProTags">
+    <column id="238" parent="234" name="ProTags">
       <Position>2</Position>
       <Comment>外包标签</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="238" parent="234" name="ProContent">
+    <column id="239" parent="234" name="ProContent">
       <Position>3</Position>
       <Comment>外包内容</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="239" parent="234" name="ProReward">
+    <column id="240" parent="234" name="ProReward">
       <Position>4</Position>
       <Comment>外包报酬</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="234" name="ProFounder">
+    <column id="241" parent="234" name="ProFounder">
       <Position>5</Position>
       <Comment>外包发布者(用户名)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="241" parent="234" name="PublicTime">
+    <column id="242" parent="234" name="PublicTime">
       <Position>6</Position>
       <Comment>外包发布时间</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="242" parent="234" name="SettedTime">
+    <column id="243" parent="234" name="SettedTime">
       <Position>7</Position>
       <Comment>规定完成时间</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="234" name="SendTime">
+    <column id="244" parent="234" name="SendTime">
       <Position>8</Position>
       <Comment>外包提交时间</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="234" name="ProType">
+    <column id="245" parent="234" name="ProType">
       <Position>9</Position>
       <Comment>外包形式(“0”-个人,”1”-团队)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="234" name="PhoneNum">
+    <column id="246" parent="234" name="PhoneNum">
       <Position>10</Position>
       <Comment>发布者手机号</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="246" parent="234" name="IsRequired">
+    <column id="247" parent="234" name="IsRequired">
       <Position>11</Position>
       <Comment>是否已被学生请求接受(“0”-未被接受,”1”-已被要求接受)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="247" parent="234" name="RequiredName">
+    <column id="248" parent="234" name="RequiredName">
       <Position>12</Position>
       <Comment>外包申请者用户名/团队名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="248" parent="234" name="IsAgreed">
+    <column id="249" parent="234" name="IsAgreed">
       <Position>13</Position>
       <Comment>发布者是否同意该学生的接受请求(“0”-未应答,”1”-同意,”2”-拒绝)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="249" parent="234" name="IsSended">
+    <column id="250" parent="234" name="IsSended">
       <Position>14</Position>
       <Comment>接受该外包的学生是否已经提交该外包(“0”-未提交,”1”-已提交)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="250" parent="234" name="IsPassed">
+    <column id="251" parent="234" name="IsPassed">
       <Position>15</Position>
       <Comment>客户是否通过该已提交的外包(“0”-未处理,”1”-通过,”2”-驳回)</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="251" parent="234" name="PRIMARY">
+    <key id="252" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ProName</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="252" parent="235" name="UserId">
+    <column id="253" parent="235" name="TeamName">
+      <Position>1</Position>
+      <Comment>团队名(暂定为唯一标识)</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="254" parent="235" name="TeamNum">
+      <Position>2</Position>
+      <Comment>团队成员数，默认为1</Comment>
+      <DataType>int(3) unsigned|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="255" parent="235" name="TeamIntro">
+      <Position>3</Position>
+      <Comment>团队简介</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="256" parent="235" name="TeamMember">
+      <Position>4</Position>
+      <Comment>团队成员(包括真实姓名、学号.以Json的形式形式存储)</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="257" parent="235" name="TeamLeader">
+      <Position>5</Position>
+      <Comment>队长的用户名</Comment>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="258" parent="235" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TeamName</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="259" parent="236" name="UserId">
       <Position>1</Position>
       <Comment>用户账号(主键、6位数字)</Comment>
       <DataType>varchar(6)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="253" parent="235" name="UserName">
+    <column id="260" parent="236" name="UserType">
       <Position>2</Position>
+      <Comment>学生(“0”)还是客户(“1”)</Comment>
+      <DataType>varchar(1)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="261" parent="236" name="UserName">
+      <Position>3</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="254" parent="235" name="PassWord">
-      <Position>3</Position>
+    <column id="262" parent="236" name="PassWord">
+      <Position>4</Position>
       <Comment>密码</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="255" parent="235" name="PhoneNum">
-      <Position>4</Position>
+    <column id="263" parent="236" name="PhoneNum">
+      <Position>5</Position>
       <Comment>手机号码</Comment>
       <DataType>varchar(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="256" parent="235" name="EmailAddress">
-      <Position>5</Position>
+    <column id="264" parent="236" name="EmailAddress">
+      <Position>6</Position>
       <Comment>电子邮箱</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="257" parent="235" name="IdCard">
-      <Position>6</Position>
+    <column id="265" parent="236" name="IdCard">
+      <Position>7</Position>
       <Comment>身份证号</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="258" parent="235" name="Status1">
-      <Position>7</Position>
-      <Comment>学号/企业</Comment>
+    <column id="266" parent="236" name="Status1">
+      <Position>8</Position>
+      <Comment>学校/企业</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="259" parent="235" name="Status2">
-      <Position>8</Position>
+    <column id="267" parent="236" name="Status2">
+      <Position>9</Position>
       <Comment>学号/企业地址</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="260" parent="235" name="RealName">
-      <Position>9</Position>
+    <column id="268" parent="236" name="RealName">
+      <Position>10</Position>
       <Comment>真实姓名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="261" parent="235" name="Sex">
-      <Position>10</Position>
+    <column id="269" parent="236" name="Sex">
+      <Position>11</Position>
       <Comment>性别(&quot;M&quot;-男;&quot;F&quot;-女)</Comment>
       <DataType>char(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="262" parent="235" name="HeadIcon">
-      <Position>11</Position>
+    <column id="270" parent="236" name="HeadIcon">
+      <Position>12</Position>
       <Comment>用户头像(注册时后台给一个本地存储的默认的头像)</Comment>
       <DataType>mediumblob|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="263" parent="235" name="Prefers">
-      <Position>12</Position>
-      <Comment>学生喜好(标据此筛选签).用户该值为空字符串</Comment>
+    <column id="271" parent="236" name="Prefers">
+      <Position>13</Position>
+      <Comment>学生喜好(标据此筛选签).该值默认为空字符串</Comment>
       <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="264" parent="235" name="PRIMARY">
+    <column id="272" parent="236" name="IsLeader">
+      <Position>14</Position>
+      <Comment>“1”-是队长,&quot;0&quot;-不是队长,若为客户则该项为0</Comment>
+      <DataType>varchar(1)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="273" parent="236" name="TeamName">
+      <Position>15</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="274" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>UserId</ColNames>
       <Primary>1</Primary>
