@@ -148,6 +148,7 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 					}
 				}
 				jf.refresh();
+				jf.getGameFoot().reset();
 			} else if (!isLock) {
 				// 第一次点击
 				this.cardPanel = (CardPanel) arg0.getComponent();
@@ -193,6 +194,7 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 						jf.setClickComponentName(jf.getSevenStackPanels()[index - 1].getName());
 					}
 					bottom = null; // 返回初始状态
+					jf.getGameFoot().setTextToClicked(this.cardPanel);
 				}
 			}
 		} else if (arg0.getButton() == MouseEvent.BUTTON1) {

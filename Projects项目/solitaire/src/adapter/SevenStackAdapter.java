@@ -134,6 +134,7 @@ public class SevenStackAdapter extends MouseAdapter {
 					}
 				}
 				jf.refresh();
+				jf.getGameFoot().reset();
 			}
 		}
 	}

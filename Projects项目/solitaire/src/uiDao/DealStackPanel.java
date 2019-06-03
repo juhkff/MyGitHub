@@ -37,7 +37,11 @@ public class DealStackPanel extends JPanel {
 			int curIndex = random.nextInt(StaticData.getCardnum()); // 获取0-13*4之间的随机数(不包括13*4)
 			if (thisSet.contains(curIndex)) {
 				// 未生成此牌时,生成此牌
-				CardPanel cardPanel = new CardPanel(StaticData.getDeals(curIndex));
+				CardPanel cardPanel;
+				if (StaticData.getBACKGROUNDURL() == null || StaticData.getBACKGROUNDURL().equals(""))
+					cardPanel = new CardPanel(StaticData.getDeals(curIndex));
+				else
+					cardPanel = new CardPanel(StaticData.getDeals(curIndex), StaticData.getBACKGROUNDURL());
 				pushCardStackNode(new CardStackNode(cardPanel), true);
 				// 用于更新牌的大小
 				jf.getCardPanelSet().add(cardPanel);

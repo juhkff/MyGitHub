@@ -50,10 +50,12 @@ public class DealedStackAdapter extends MouseAdapter {
 				jf.setClickComponentName(dealedStackPanel.getName());
 				jf.setSingle(true);
 				jf.setTranBottom(null);
+				jf.getGameFoot().setTextToClicked(cardPanel);
 			}
 		} else if (!isLockedOnCard) {
 			// 取消定位
 			jf.refresh();
+			jf.getGameFoot().reset();
 		}
 	}
 

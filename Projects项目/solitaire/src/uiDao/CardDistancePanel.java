@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 
 import element.StaticData;
 import tools.NumberDocument;
-import uiPaint.GameEdit;
 import uiPaint.GameIndex;
 
 public class CardDistancePanel extends JPanel {

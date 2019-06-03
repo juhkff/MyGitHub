@@ -37,7 +37,7 @@ public class GameEdit extends JFrame {
 		// 窗口退出行为
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		// 设置窗口大小可变
-		this.setResizable(true);
+		this.setResizable(false);
 		// 窗口大小
 		this.setSize(StaticData.getEDITWIDTH(), StaticData.getEDITHEIGHT());
 		// 设置窗口打开居中

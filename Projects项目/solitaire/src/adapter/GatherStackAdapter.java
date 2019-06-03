@@ -75,6 +75,7 @@ public class GatherStackAdapter extends MouseAdapter {
 						jf.setHasClicked(false);
 					}
 					jf.setClickComponentName(null);
+					jf.getGameFoot().reset();
 					break;
 				default:
 					if (componentName.startsWith("gatherCardPanel")) {
@@ -98,6 +99,7 @@ public class GatherStackAdapter extends MouseAdapter {
 							System.out.println("不能放入");
 							jf.setHasClicked(false);
 						}
+						jf.getGameFoot().reset();
 					} else if (componentName.startsWith("sevenStackPanel")) {
 						if (jf.isSingle()) {
 							int length = componentName.length();
@@ -138,6 +140,7 @@ public class GatherStackAdapter extends MouseAdapter {
 						}
 						jf.setHasClicked(false);
 						jf.setSingle(false);
+						jf.getGameFoot().reset();
 					}
 					jf.setClickComponentName(null);
 					break;
@@ -155,6 +158,7 @@ public class GatherStackAdapter extends MouseAdapter {
 				jf.setSingle(true);
 				jf.setTranBottom(null);
 				jf.setClickComponentName(gatherCardPanel.getName());
+				jf.getGameFoot().setTextToClicked(cardPanel);
 			}
 		}
 	}

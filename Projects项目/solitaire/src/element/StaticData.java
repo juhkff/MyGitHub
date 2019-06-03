@@ -12,7 +12,7 @@ public final class StaticData {
 	private static final int FRAMEMINHEIGHT = 675;
 	private static int FRAMEWIDTH = 1200;
 	private static int FRAMEHEIGHT = 900;
-	private final static int EDITWIDTH = 760;
+	private final static int EDITWIDTH = 860;
 	private final static int EDITHEIGHT = 500;
 	private static int PANELPADDINGLEFT = 10;
 	private static int PANELPADDINGTOP = 10;
@@ -34,6 +34,7 @@ public final class StaticData {
 	protected static Font TYPEFONT = new Font("宋体", 1, 20); // 卡牌图案字体的大小
 	protected static final Font EDITFONT = new Font("宋体", Font.BOLD, 20);
 	protected static final Font EDITFONT2 = new Font("宋体", Font.BOLD, 15);
+	protected static final Font FOOTFONT = new Font("宋体", Font.BOLD, 15);
 	protected static int[] MINILOCATION = { 0, 0, 20, 30 };
 	protected static int[] TYPELOCATION = { 20, 0, 50, 30 };
 	protected static int[] MAINLOCATION = { 20, 30, 110, 190 };
@@ -64,6 +65,10 @@ public final class StaticData {
 	protected static final String DEAL = "dealStackPanel";
 	protected static final String DEALED = "dealedStackPanel";
 	protected static final String CARD = "cardPanel";
+
+	public static Font getFootfont() {
+		return FOOTFONT;
+	}
 
 	public static int getBORDERWIDTH() {
 		return BORDERWIDTH;

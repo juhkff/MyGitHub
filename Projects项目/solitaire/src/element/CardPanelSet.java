@@ -29,8 +29,14 @@ public class CardPanelSet {
 
 	public void rePaintCards() {
 		if (this.cardNum == StaticData.getCardnum()) {
-			for (CardPanel cardPanel : cardPanels) {
-				cardPanel.setBGUrl(StaticData.getBACKGROUNDURL());
+			if (StaticData.getBACKGROUNDURL() == null || StaticData.getBACKGROUNDURL().equals("")) {
+				for (CardPanel cardPanel : cardPanels) {
+					cardPanel.setBGUrl(StaticData.getDEFAULTBACKGROUNDURL());
+				}
+			} else {
+				for (CardPanel cardPanel : cardPanels) {
+					cardPanel.setBGUrl(StaticData.getBACKGROUNDURL());
+				}
 			}
 		}
 	}

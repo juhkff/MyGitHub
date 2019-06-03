@@ -28,6 +28,7 @@ public class GamePage extends /* JFrame */JPanel {
 	private DealedStackPanel dealedStackPanel;
 	private GatherCardPanel[] gatherCardPanels;
 	private SevenStackPanel[] sevenStackPanels;
+	private GameFoot gameFoot;
 	// 监听器类
 	private DealStackAdapter dealStackAdapter;
 	private DealedStackAdapter dealedStackAdapter;
@@ -74,6 +75,7 @@ public class GamePage extends /* JFrame */JPanel {
 
 	@SuppressWarnings("static-access")
 	private void componentInit() {
+		gameFoot = new GameFoot();
 		gatherCardPanels = new GatherCardPanel[StaticData.getGathernum()];
 		sevenStackPanels = new SevenStackPanel[StaticData.getSevenstacknum()];
 		top = new CardStackNode[StaticData.getSevenstacknum()];
@@ -101,6 +103,7 @@ public class GamePage extends /* JFrame */JPanel {
 
 		this/* contentPanel */.setLayout(null);
 		this/* contentPanel */.add(secondPanel);
+		this/* contentPanel */.add(gameFoot);
 		this/* contentPanel */.add(dealStackPanel);
 		this/* contentPanel */.add(dealedStackPanel);
 
@@ -141,6 +144,10 @@ public class GamePage extends /* JFrame */JPanel {
 			sevenStackPanels[i].addMouseListener(sevenStackAdapters[i]);
 			sevenStackPanels[i].addMouseMotionListener(sevenStackAdapters[i]);
 		}
+	}
+
+	public GameFoot getGameFoot() {
+		return gameFoot;
 	}
 
 	public CardStackNode getTop(int index) {
@@ -185,12 +192,18 @@ public class GamePage extends /* JFrame */JPanel {
 		reSizeDealStackPanel();
 		reSizeDealedStackPanel();
 		reSizeSecondPanel();
+		reSizeGameFoot();
 		if (StaticData.isCARDSIZEChanged()) { // 如果卡牌大小发生了变化
 			reSizeCardPanel();
 			rePaintCardPanel();
 		}
 		if (StaticData.isCARDBGChanged()) // 如果卡牌背景发生了变化
 			rePaintCardPanel();
+	}
+
+	private void reSizeGameFoot() {
+		// TODO Auto-generated method stub
+		gameFoot.setBounds(0, StaticData.getFRAMEHEIGHT() - 105, StaticData.getFRAMEWIDTH(), 30);
 	}
 
 	private void reSizeSecondPanel() {
@@ -257,6 +270,7 @@ public class GamePage extends /* JFrame */JPanel {
 		this.setSingle(false);
 		this.setClickComponentName(null);
 		this.setTranBottom(null);
+		this.gameFoot.reset();
 	}
 
 	public boolean isSingle() {

@@ -42,7 +42,11 @@ public class SevenStackPanel extends JLayeredPane {
 			int curIndex = random.nextInt(StaticData.getCardnum()); // 获取0-13*4之间的随机数(不包括13*4)
 			if (set.contains(curIndex)) {
 				// 未生成此牌时,生成此牌
-				CardPanel cardPanel = new CardPanel(StaticData.getDeals(curIndex));
+				CardPanel cardPanel;
+				if (StaticData.getBACKGROUNDURL() == null || StaticData.getBACKGROUNDURL().equals(""))
+					cardPanel = new CardPanel(StaticData.getDeals(curIndex));
+				else
+					cardPanel = new CardPanel(StaticData.getDeals(curIndex), StaticData.getBACKGROUNDURL());
 				// 用于更新牌的大小
 				// GamePage.cardPanelSet.add(cardPanel);
 				jf.getCardPanelSet().add(cardPanel);

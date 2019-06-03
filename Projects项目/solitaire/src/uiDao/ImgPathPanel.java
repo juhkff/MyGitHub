@@ -25,6 +25,7 @@ public class ImgPathPanel extends JPanel {
 	private JLabel imgPathLabel;
 	private JTextField imgPathField;
 	private JButton imgSubmitButton;
+	private JButton resetButton;
 
 	private JFileChooser jFileChooser = new JFileChooser();
 
@@ -39,13 +40,15 @@ public class ImgPathPanel extends JPanel {
 		this.add(imgPathLabel);
 		this.add(imgPathField);
 		this.add(imgSubmitButton);
-		this.setSize(700, 30);
+		this.add(resetButton);
+		this.setSize(800, 30);
 	}
 
 	private void init() {
 		imgPathLabel = new JLabel("背景图案:");
 		imgPathField = new JTextField();
 		imgSubmitButton = new JButton("浏览");
+		resetButton = new JButton("还原");
 
 		imgPathField.setEditable(false);
 		imgPathField.setBounds(100, 0, 500, 30);
@@ -57,6 +60,9 @@ public class ImgPathPanel extends JPanel {
 		imgSubmitButton.setBounds(610, 0, 90, 30);
 		imgSubmitButton.setFont(StaticData.getEDITFONT());
 
+		resetButton.setBounds(710, 0, 90, 30);
+		resetButton.setFont(StaticData.getEDITFONT());
+
 		if (StaticData.getBACKGROUNDURL() == null || StaticData.getBACKGROUNDURL().equals(""))
 			imgPathField.setText("自定义卡牌背景图案");
 		else
@@ -65,9 +71,24 @@ public class ImgPathPanel extends JPanel {
 
 	private void listenerInit() {
 		imgSubmitButton.addMouseListener(clickListener);
+		resetButton.addMouseListener(resetListener);
 		jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		jFileChooser.setMultiSelectionEnabled(false);
 	}
+
+	private MouseAdapter resetListener = new MouseAdapter() {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			super.mouseClicked(e);
+			StaticData.setBACKGROUNDURL("");
+			StaticData.setCARDBGChanged(true);
+			jf.getJf().reSize();
+			imgPathField.setText("自定义卡牌背景图案");
+			JOptionPane.showMessageDialog(getParent(), "还原成功!", null, JOptionPane.CLOSED_OPTION);
+		}
+	};
 
 	private MouseAdapter clickListener = new MouseAdapter() {
 		@Override
@@ -88,7 +109,7 @@ public class ImgPathPanel extends JPanel {
 				StaticData.setCARDBGChanged(true);
 				jf.getJf().reSize();
 				imgPathField.setText(file.getAbsolutePath());
-				JOptionPane.showMessageDialog(null, "应用成功!", null, JOptionPane.CLOSED_OPTION);
+				JOptionPane.showMessageDialog(getParent(), "应用成功!", null, JOptionPane.CLOSED_OPTION);
 			}
 		}
 	};
