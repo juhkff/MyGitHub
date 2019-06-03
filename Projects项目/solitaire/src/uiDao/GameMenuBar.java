@@ -31,6 +31,12 @@ public class GameMenuBar extends JMenuBar {
 		super();
 		// TODO Auto-generated constructor stub
 		this.jf = jf2;
+		this.gameMenu.setFont(StaticData.getEditfont());
+		this.windowMenu.setFont(StaticData.getEditfont());
+		this.newGameItem.setFont(StaticData.getEditfont());
+		this.exitGameItem.setFont(StaticData.getEditfont());
+		this.windowEditItem.setFont(StaticData.getEditfont());
+
 		this.add(gameMenu);
 		this.add(windowMenu);
 		gameMenu.add(newGameItem);

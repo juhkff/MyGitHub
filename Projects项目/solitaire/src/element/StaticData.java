@@ -16,6 +16,7 @@ public final class StaticData {
 	private final static int EDITHEIGHT = 500;
 	private static int PANELPADDINGLEFT = 10;
 	private static int PANELPADDINGTOP = 10;
+	protected static int BORDERWIDTH = 5;
 	protected static int SEVENSTACKNUM = 7;
 	private static int SEVENPADDINGTOP = 40; // 下部牌堆距离上部发牌堆的距离
 	protected static int GATHERCARDLENGTH = 20; // 4个集牌堆彼此相隔的距离
@@ -63,6 +64,14 @@ public final class StaticData {
 	protected static final String DEAL = "dealStackPanel";
 	protected static final String DEALED = "dealedStackPanel";
 	protected static final String CARD = "cardPanel";
+
+	public static int getBORDERWIDTH() {
+		return BORDERWIDTH;
+	}
+
+	public static void setMiniLocation3(int newValue) {
+		MINILOCATION[3] = newValue;
+	}
 
 	public static int getEditwidth() {
 		return EDITWIDTH;

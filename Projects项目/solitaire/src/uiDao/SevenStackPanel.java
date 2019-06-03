@@ -148,4 +148,22 @@ public class SevenStackPanel extends JLayeredPane {
 		this.setSize(this.panelWidth, this.panelHeight);
 	}
 
+	/**
+	 * 重新应用卡牌上下间距
+	 */
+	public void reDistanceCards() {
+		// TODO Auto-generated method stub
+		CardStackNode tempTop = this.getTop(false);
+		for (int j = 0; j < cardNum - 1; j++) {
+			tempTop.getStackNode().setLocation(0, (cardNum - j - 1) * StaticData.getMinilocation(3));
+			tempTop = tempTop.getNextNode();
+		}
+		this.panelWidth = StaticData.getCardsize(2); // 初始宽度
+		this.panelHeight = (cardNum - 1) * StaticData.getMinilocation(3) + StaticData.getCardsize(3); // 初始高度
+		if (cardNum == 0) {
+			this.panelHeight += StaticData.getMinilocation(3);
+		}
+		this.setSize(this.panelWidth, this.panelHeight);
+	}
+
 }

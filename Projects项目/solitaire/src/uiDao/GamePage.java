@@ -239,6 +239,7 @@ public class GamePage extends /* JFrame */JPanel {
 		int panelWidth = StaticData.getCardsize(2); // 初始宽度
 		for (int i = 1; i < StaticData.getSevenstacknum() + 1; i++) {
 			int cardNum = sevenStackPanels[i - 1].getCardNum();
+			sevenStackPanels[i - 1].reDistanceCards();
 			System.out.println("卡牌数为:" + cardNum);
 			if (cardNum > 0)
 				panelHeight = (cardNum - 1) * StaticData.getMinilocation(3) + StaticData.getCardsize(3);
