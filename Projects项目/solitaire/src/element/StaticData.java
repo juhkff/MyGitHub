@@ -21,8 +21,11 @@ public final class StaticData {
 	private static int SEVENPADDINGTOP = 40; // 下部牌堆距离上部发牌堆的距离
 	protected static int GATHERCARDLENGTH = 20; // 4个集牌堆彼此相隔的距离
 	protected static int GATHERCARDPADDINGRIGHT = 40; // 集牌堆距离主面板右侧的距离
+	protected static int checkTime = 1;
 	private static boolean isCARDSIZEChanged = false;
 	private static boolean isCARDBGChanged = false;
+	private static boolean isCardAutoChange = false;
+	private static boolean isCardAutoCheck = false;
 	protected static final Map<String, String[]> VALUEMAP = new HashMap<>(); // 对应值map
 	protected static final Map<String, String> GATHERVALUEMAP = new HashMap<>(); // 对应值map
 	protected static HashSet<Integer> CARDSET = new HashSet<Integer>();
@@ -65,6 +68,30 @@ public final class StaticData {
 	protected static final String DEAL = "dealStackPanel";
 	protected static final String DEALED = "dealedStackPanel";
 	protected static final String CARD = "cardPanel";
+
+	public static int getCheckTime() {
+		return checkTime;
+	}
+
+	public static void setCheckTime(int checkTime) {
+		StaticData.checkTime = checkTime;
+	}
+
+	public static boolean isCardAutoCheck() {
+		return isCardAutoCheck;
+	}
+
+	public static void setCardAutoCheck(boolean isCardAutoCheck) {
+		StaticData.isCardAutoCheck = isCardAutoCheck;
+	}
+
+	public static boolean isCardAutoChange() {
+		return isCardAutoChange;
+	}
+
+	public static void setCardAutoChange(boolean isCardAutoChange) {
+		StaticData.isCardAutoChange = isCardAutoChange;
+	}
 
 	public static Font getFootfont() {
 		return FOOTFONT;

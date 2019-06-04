@@ -27,6 +27,10 @@ public class SevenStackAdapter extends MouseAdapter {
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		super.mouseClicked(arg0);
+		if (arg0.getButton() == MouseEvent.BUTTON2 && StaticData.isCardAutoCheck()) {
+			System.out.println("触发中键!");
+			SolitaireCheck.autoCheck(jf);
+		}
 		if (arg0.getButton() == MouseEvent.BUTTON3) {
 			if (jf.isHasClicked()) {
 				System.out.println("触发第二次点击(All)");
@@ -82,6 +86,11 @@ public class SevenStackAdapter extends MouseAdapter {
 						} else {
 							// 去除边框(视觉上其实没啥用)
 							jf.getSevenStackPanels()[Gindex - 1].setBorder(null);
+						}
+
+						if (top != null && top.getStackNode() != null && StaticData.isCardAutoChange()) {
+							top.getStackNode().changeToFront();
+							// System.out.println("asdasd");
 						}
 					}
 				} else if (sendName.startsWith("gatherCardPanel")) {

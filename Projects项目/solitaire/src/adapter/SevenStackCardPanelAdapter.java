@@ -41,6 +41,10 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		super.mouseClicked(arg0);
+		if (arg0.getButton() == MouseEvent.BUTTON2 && StaticData.isCardAutoCheck()) {
+			System.out.println("触发中键!");
+			SolitaireCheck.autoCheck(jf);
+		}
 		if (arg0.getButton() == MouseEvent.BUTTON3) {
 			if (jf.isHasClicked() && !isLock) {
 				System.out.println("触发第二次点击(Single)");
@@ -87,6 +91,10 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 						jf.getSevenStackPanels()[index - 1].repaint();
 
 						jf.setTop(Gindex, top);
+						if (top != null && top.getStackNode() != null && StaticData.isCardAutoChange()) {
+							top.getStackNode().changeToFront();
+							// System.out.println("asdasd");
+						}
 						jf.getSevenStackPanels()[Gindex - 1].resetHeightAfterDelete(clickCardNum);
 						jf.getSevenStackPanels()[Gindex - 1].repaint();
 						if (jf.getSevenStackPanels()[Gindex - 1].getCardNum() == 0) {
@@ -353,6 +361,12 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 						jf.getGatherCardPanels()[Gindex - 1].setTop(new CardStackNode(cardPanel));
 						cardPanel.removeMouseListener(jf.getSevenStackCardPanelAdapters()[index - 1]);
 						cardPanel.removeMouseMotionListener(jf.getSevenStackCardPanelAdapters()[index - 1]);
+
+						if (jf.getTop(index) != null && jf.getTop(index).getStackNode() != null
+								&& StaticData.isCardAutoChange()) {
+							jf.getTop(index).getStackNode().changeToFront();
+							// System.out.println("asdasd");
+						}
 					} else {
 						// 不能放入
 						System.out.println("不能放入");
@@ -415,6 +429,12 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 						secondPanel.repaint();
 						jf.getSevenStackPanels()[Gindex - 1].resetHeightAfterAdd(cardNum);
 
+						if (jf.getTop(index) != null && jf.getTop(index).getStackNode() != null
+								&& StaticData.isCardAutoChange()) {
+							jf.getTop(index).getStackNode().changeToFront();
+							// System.out.println("asdasd");
+						}
+
 					} else if (jf.getSevenStackPanels()[Gindex - 1].cardNum > 0
 							&& SolitaireCheck.canPushToSevenStack(Gindex, cardPanel, jf)) {
 						// 目标卡堆有牌且该牌符合插入条件时
@@ -444,6 +464,12 @@ public class SevenStackCardPanelAdapter extends MouseAdapter {
 						System.out.println("验证---添加后的卡堆的顶部牌值为:" + jf.getTop(Gindex).getStackNode().getCardValue());
 						secondPanel.repaint();
 						jf.getSevenStackPanels()[Gindex - 1].resetHeightAfterAdd(cardNum);
+
+						if (jf.getTop(index) != null && jf.getTop(index).getStackNode() != null
+								&& StaticData.isCardAutoChange()) {
+							jf.getTop(index).getStackNode().changeToFront();
+							// System.out.println("asdasd");
+						}
 					} else {
 						// 放回原处
 						while (bottom != null) {

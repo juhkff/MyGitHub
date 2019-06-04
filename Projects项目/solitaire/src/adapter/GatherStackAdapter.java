@@ -40,6 +40,10 @@ public class GatherStackAdapter extends MouseAdapter {
 		// TODO Auto-generated method stub
 		super.mouseClicked(e);
 		if (e.getButton() != MouseEvent.BUTTON3) {
+			if (e.getButton() == MouseEvent.BUTTON2 && StaticData.isCardAutoCheck()) {
+				System.out.println("触发中键!");
+				SolitaireCheck.autoCheck(jf);
+			}
 			return;
 		}
 		if (jf.isHasClicked() && !isLockedOnCard) {
@@ -132,6 +136,11 @@ public class GatherStackAdapter extends MouseAdapter {
 								} else {
 									// 去除边框(视觉上其实没啥用)
 									jf.getSevenStackPanels()[Gindex - 1].setBorder(null);
+								}
+								if (jf.getTop(Gindex) != null && jf.getTop(Gindex).getStackNode() != null
+										&& StaticData.isCardAutoChange()) {
+									jf.getTop(Gindex).getStackNode().changeToFront();
+									// System.out.println("asdasd");
 								}
 							} else {
 								// 不能放入

@@ -1,5 +1,10 @@
 package tools;
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+
+import element.CardStackNode;
 import element.StaticData;
 import uiDao.CardPanel;
 import uiDao.GamePage;
@@ -47,5 +52,92 @@ public class SolitaireCheck {
 			return true;
 		else
 			return false;
+	}
+
+	/**
+	 * 鼠标中键触发自动检查
+	 * 
+	 * @param jf
+	 * @return autoCheckCardNum
+	 */
+	public static int autoCheck(GamePage jf) {
+		int autoCheckCardNum = 0;
+		int checkTime = StaticData.getCheckTime();
+		for (int i = 0; i < checkTime; i++) {
+			// 翻牌堆判断
+			CardStackNode dTop = jf.getDealedStackPanel().getTop(false); // 取出顶部的牌
+			if (dTop != null && dTop.getStackNode() != null) {
+				CardPanel cardPanel = dTop.getStackNode();
+				System.out.println("Yes");
+				for (int stackIndex = 1; stackIndex < StaticData.getGathernum() + 1; stackIndex++) {
+					if (SolitaireCheck.canPushToGatherStack(jf.getGatherCardPanels()[stackIndex - 1], cardPanel)) {
+						// 能放入
+						System.out.println("能放入");
+						jf.getDealedStackPanel().getTop(); // 取出顶部的牌
+						jf.getGatherCardPanels()[stackIndex - 1].setTop(new CardStackNode(cardPanel));
+						jf.getDealedStackPanel().repaint();
+						jf.getGatherCardPanels()[stackIndex - 1].repaint();
+						jf.setHasClicked(false);
+						// cardPanel.repaint();
+						autoCheckCardNum++;
+						break;
+					} else {
+						// 不能放入
+						System.out.println("不能放入");
+						jf.setHasClicked(false);
+					}
+				}
+				jf.setClickComponentName(null);
+				jf.getGameFoot().reset();
+			}
+			// 底部牌堆判断
+			for (int j = 1; j < StaticData.getSevenstacknum() + 1; j++) {
+				CardStackNode top = jf.getTop(j);
+				if (top != null && top.getStackNode() != null) {
+					CardPanel cardPanel = top.getStackNode();
+					for (int k = 0; k < StaticData.getGathernum(); k++) {
+						if (SolitaireCheck.canPushToGatherStack(jf.getGatherCardPanels()[k], cardPanel)) {
+							// 能放入
+							System.out.println("能放入");
+							// 去除原堆
+							CardPanel cur = top.getStackNode();
+							jf.setTop(j, top.getNextNode());
+							jf.getSevenStackPanels()[j - 1].remove(cur);
+							jf.getSevenStackPanels()[j - 1].cardNum--;
+							// 加入该堆顶部
+							cardPanel.setLocation(0, 0);
+							cardPanel.removeMouseListener(jf.getSevenStackCardPanelAdapters()[j - 1]);
+							cardPanel.removeMouseMotionListener(jf.getSevenStackCardPanelAdapters()[j - 1]);
+							jf.getGatherCardPanels()[k].setTop(new CardStackNode(cardPanel));
+							jf.getSevenStackPanels()[j - 1].resetHeightAfterDelete(1);
+							jf.getSevenStackPanels()[j - 1].repaint();
+							jf.getGatherCardPanels()[k].repaint();
+							if (jf.getSevenStackPanels()[j - 1].getCardNum() == 0) {
+								// 设置底纹边框
+								jf.getSevenStackPanels()[j - 1]
+										.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+							} else {
+								// 去除边框(视觉上其实没啥用)
+								jf.getSevenStackPanels()[j - 1].setBorder(null);
+							}
+							if (jf.getTop(j) != null && jf.getTop(j).getStackNode() != null
+									&& StaticData.isCardAutoChange()) {
+								jf.getTop(j).getStackNode().changeToFront();
+								// System.out.println("asdasd");
+							}
+							autoCheckCardNum++;
+							break;
+						}
+					}
+				}
+			}
+		}
+		jf.getGameFoot().setTextToCheck(autoCheckCardNum);
+		if (autoCheckCardNum > 0) {
+			StaticData.setCheckTime(checkTime * 2);
+		} else if (autoCheckCardNum == 0) {
+			StaticData.setCheckTime(1);
+		}
+		return autoCheckCardNum;
 	}
 }

@@ -54,4 +54,14 @@ public class GameFoot extends JPanel {
 		else
 			setTextColor(Color.BLACK);
 	}
+
+	public void setTextToCheck(int autoCheckCardNum) {
+		if (autoCheckCardNum > 0) {
+			setText("自动移动了" + autoCheckCardNum + "张牌");
+			setTextColor(Color.BLUE);
+		}else {
+			setText("鼠标中键点击");
+			setTextColor(Color.RED);
+		}
+	}
 }

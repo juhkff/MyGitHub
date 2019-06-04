@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import adapter.DealStackAdapter;
 import adapter.DealedStackAdapter;
+import adapter.GamePageAdapter;
 import adapter.GatherStackAdapter;
 import adapter.SevenStackAdapter;
 import adapter.SevenStackCardPanelAdapter;
@@ -35,6 +36,7 @@ public class GamePage extends /* JFrame */JPanel {
 	private GatherStackAdapter[] gatherStackAdapters;
 	private SevenStackCardPanelAdapter[] sevenStackCardPanelAdapters;
 	private SevenStackAdapter[] sevenStackAdapters;
+	private GamePageAdapter gamePageAdapter;
 	private CardStackNode[] top;
 	private CardStackNode[] bottom;
 	private CardStackNode tranBottom;
@@ -121,6 +123,7 @@ public class GamePage extends /* JFrame */JPanel {
 		dealStackAdapter = new DealStackAdapter(this);
 		dealedStackAdapter = new DealedStackAdapter(secondPanel, this);
 		gatherStackAdapters = new GatherStackAdapter[StaticData.getGathernum()];
+		gamePageAdapter = new GamePageAdapter(this);
 		for (int i = 0; i < StaticData.getGathernum(); i++) {
 			gatherStackAdapters[i] = new GatherStackAdapter(secondPanel, this);
 		}
@@ -144,6 +147,8 @@ public class GamePage extends /* JFrame */JPanel {
 			sevenStackPanels[i].addMouseListener(sevenStackAdapters[i]);
 			sevenStackPanels[i].addMouseMotionListener(sevenStackAdapters[i]);
 		}
+		this.addMouseListener(gamePageAdapter);
+		this.addMouseMotionListener(gamePageAdapter);
 	}
 
 	public GameFoot getGameFoot() {

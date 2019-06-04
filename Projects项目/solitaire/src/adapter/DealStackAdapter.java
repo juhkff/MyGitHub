@@ -4,6 +4,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import element.CardStackNode;
+import element.StaticData;
+import tools.SolitaireCheck;
 import uiDao.GamePage;
 
 public class DealStackAdapter extends MouseAdapter {
@@ -20,6 +22,10 @@ public class DealStackAdapter extends MouseAdapter {
 		// TODO Auto-generated method stub
 		super.mouseClicked(e);
 		if (e.getButton() != MouseEvent.BUTTON1) {
+			if (e.getButton() == MouseEvent.BUTTON2 && StaticData.isCardAutoCheck()) {
+				System.out.println("触发中键!");
+				SolitaireCheck.autoCheck(jf);
+			}
 			return;
 		}
 		// 左键单击时

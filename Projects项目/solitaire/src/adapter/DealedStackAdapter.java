@@ -37,6 +37,10 @@ public class DealedStackAdapter extends MouseAdapter {
 		// TODO Auto-generated method stub
 		super.mouseClicked(e);
 		if (e.getButton() != MouseEvent.BUTTON3) {
+			if (e.getButton() == MouseEvent.BUTTON2 && StaticData.isCardAutoCheck()) {
+				System.out.println("´¥·¢ÖÐ¼ü!");
+				SolitaireCheck.autoCheck(jf);
+			}
 			return;
 		}
 		if (!jf.isHasClicked() && !isLockedOnCard) {
