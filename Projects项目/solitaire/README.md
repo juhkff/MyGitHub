@@ -1,0 +1,19 @@
+# Solitaire纸牌游戏（大二下面向对象课设）
+### 基本功能：
++ **基本纸牌游戏（抽卡一次抽一张）**
++ **更改/重置游戏背景图片、背景颜色**
++ **更改/重置纸牌背景图片**
++ **更改/重置发牌堆边框颜色**
++ **更改卡牌大小（可设置是否按比例调整）**
++ **更改卡牌上下显示间距**
++ **卡牌移动方式**
+ + **鼠标左键拖拽卡牌**
+ + **鼠标右键点击移动卡牌**
++ **可设置使用鼠标中键自动将满足条件的牌移动到右上四个置牌框中**
++ **可设置最底部纸牌自动翻面**
+****
+### 游戏截图：
++ #### 主界面
+[![](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/19bcefb8-eda3-47ae-9062-62305c007a37/dd8rbpn-942337a7-bab0-4895-ae33-c4aeb91eeab6.jpg/v1/fill/w_1030,h_776,q_70,strp/solitaire1_by_juhkff_dd8rbpn-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODkyIiwicGF0aCI6IlwvZlwvMTliY2VmYjgtZWRhMy00N2FlLTkwNjItNjIzMDVjMDA3YTM3XC9kZDhyYnBuLTk0MjMzN2E3LWJhYjAtNDg5NS1hZTMzLWM0YWViOTFlZWFiNi5qcGciLCJ3aWR0aCI6Ijw9MTE4NCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.JkxCDmwPwO17GY3MGOW5ZAlN_9sb8YMSnr2fZR7oef4)](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/19bcefb8-eda3-47ae-9062-62305c007a37/dd8rbpn-942337a7-bab0-4895-ae33-c4aeb91eeab6.jpg/v1/fill/w_1030,h_776,q_70,strp/solitaire1_by_juhkff_dd8rbpn-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODkyIiwicGF0aCI6IlwvZlwvMTliY2VmYjgtZWRhMy00N2FlLTkwNjItNjIzMDVjMDA3YTM3XC9kZDhyYnBuLTk0MjMzN2E3LWJhYjAtNDg5NS1hZTMzLWM0YWViOTFlZWFiNi5qcGciLCJ3aWR0aCI6Ijw9MTE4NCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.JkxCDmwPwO17GY3MGOW5ZAlN_9sb8YMSnr2fZR7oef4 "主界面")
++ #### 设置界面
+[![](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/19bcefb8-eda3-47ae-9062-62305c007a37/dd8rc9f-52d30e6e-e8de-48ad-958f-5c4c7c2b21e8.jpg/v1/fill/w_1030,h_776,q_70,strp/solitaire2_by_juhkff_dd8rc9f-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODkyIiwicGF0aCI6IlwvZlwvMTliY2VmYjgtZWRhMy00N2FlLTkwNjItNjIzMDVjMDA3YTM3XC9kZDhyYzlmLTUyZDMwZTZlLWU4ZGUtNDhhZC05NThmLTVjNGM3YzJiMjFlOC5qcGciLCJ3aWR0aCI6Ijw9MTE4NCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.lPiVMutaUxcqo1g1CTUHxtnSYZLnWGBrtqnlz3yBNrw)](https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/19bcefb8-eda3-47ae-9062-62305c007a37/dd8rc9f-52d30e6e-e8de-48ad-958f-5c4c7c2b21e8.jpg/v1/fill/w_1030,h_776,q_70,strp/solitaire2_by_juhkff_dd8rc9f-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9ODkyIiwicGF0aCI6IlwvZlwvMTliY2VmYjgtZWRhMy00N2FlLTkwNjItNjIzMDVjMDA3YTM3XC9kZDhyYzlmLTUyZDMwZTZlLWU4ZGUtNDhhZC05NThmLTVjNGM3YzJiMjFlOC5qcGciLCJ3aWR0aCI6Ijw9MTE4NCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.lPiVMutaUxcqo1g1CTUHxtnSYZLnWGBrtqnlz3yBNrw "设置界面")
