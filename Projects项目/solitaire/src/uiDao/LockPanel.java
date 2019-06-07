@@ -36,6 +36,7 @@ public class LockPanel extends JPanel {
 		g2.drawLine(10, 15, 10, 30 + 2 + 15);
 		g2.drawLine(10, 30 + 2 + 15, 0, 30 + 2 + 15);
 		if (!valueLocked) {
+			g2.setStroke(new BasicStroke(3.0f));
 			g2.drawLine(4, 23, 16, 39);
 			g2.drawLine(16, 23, 4, 39);
 		}
@@ -63,6 +64,7 @@ public class LockPanel extends JPanel {
 		g2.drawLine(10, 15, 10, 30 + 2 + 15);
 		g2.drawLine(10, 30 + 2 + 15, 0, 30 + 2 + 15);
 		if (!valueLocked) {
+			g2.setStroke(new BasicStroke(3.0f));
 			g2.drawLine(4, 23, 16, 39);
 			g2.drawLine(16, 23, 4, 39);
 		}

@@ -1,5 +1,6 @@
 package element;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,6 +22,12 @@ public final class StaticData {
 	private static int SEVENPADDINGTOP = 40; // 下部牌堆距离上部发牌堆的距离
 	protected static int GATHERCARDLENGTH = 20; // 4个集牌堆彼此相隔的距离
 	protected static int GATHERCARDPADDINGRIGHT = 40; // 集牌堆距离主面板右侧的距离
+	protected static int GAMEMENUBARHEIGHT;
+	protected static int GAMETITLEHEIGHT;
+	protected static Color DEFAULTBACKGROUNDCOLOR;
+	protected static Color BACKGROUNDCOLOR;
+	protected static Color DEFAULTCARDBORDERCOLOR = Color.BLACK;
+	protected static Color CARDBORDERCOLOR;
 	protected static int checkTime = 1;
 	private static boolean isCARDSIZEChanged = false;
 	private static boolean isCARDBGChanged = false;
@@ -54,6 +61,8 @@ public final class StaticData {
 			PANELPADDINGTOP + CARDHEIGHT + SEVENPADDINGTOP }; // 下部牌堆之间的宽度和距离顶部的距离
 	protected static String DEFAULTBACKGROUNDURL = "CARD\\Back.jpg";
 	protected static String BACKGROUNDURL = "";
+	protected static String DEFAULTGLOBALBACKGROUNDURL = "";
+	protected static String GLOBALBACKGROUNDURL = "";
 	protected static final String[] DEALS = { "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A0", "AJ", "AQ",
 			"AK", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B0", "BJ", "BQ", "BK", "C1", "C2", "C3", "C4",
 			"C5", "C6", "C7", "C8", "C9", "C0", "CJ", "CQ", "CK", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9",
@@ -68,6 +77,70 @@ public final class StaticData {
 	protected static final String DEAL = "dealStackPanel";
 	protected static final String DEALED = "dealedStackPanel";
 	protected static final String CARD = "cardPanel";
+
+	public static Color getDEFAULTCARDBORDERCOLOR() {
+		return DEFAULTCARDBORDERCOLOR;
+	}
+
+	public static void setDEFAULTCARDBORDERCOLOR(Color dEFAULTCARDBORDERCOLOR) {
+		DEFAULTCARDBORDERCOLOR = dEFAULTCARDBORDERCOLOR;
+	}
+
+	public static Color getCARDBORDERCOLOR() {
+		return CARDBORDERCOLOR;
+	}
+
+	public static void setCARDBORDERCOLOR(Color cARDBORDERCOLOR) {
+		CARDBORDERCOLOR = cARDBORDERCOLOR;
+	}
+
+	public static Color getDEFAULTBACKGROUNDCOLOR() {
+		return DEFAULTBACKGROUNDCOLOR;
+	}
+
+	public static void setDEFAULTBACKGROUNDCOLOR(Color dEFAULTBACKGROUNDCOLOR) {
+		DEFAULTBACKGROUNDCOLOR = dEFAULTBACKGROUNDCOLOR;
+	}
+
+	public static Color getBACKGROUNDCOLOR() {
+		return BACKGROUNDCOLOR;
+	}
+
+	public static void setBACKGROUNDCOLOR(Color bACKGROUNDCOLOR) {
+		BACKGROUNDCOLOR = bACKGROUNDCOLOR;
+	}
+
+	public static int getGAMETITLEHEIGHT() {
+		return GAMETITLEHEIGHT;
+	}
+
+	public static void setGAMETITLEHEIGHT(int gAMETITLEHEIGHT) {
+		GAMETITLEHEIGHT = gAMETITLEHEIGHT;
+	}
+
+	public static int getGAMEMENUBARHEIGHT() {
+		return GAMEMENUBARHEIGHT;
+	}
+
+	public static void setGAMEMENUBARHEIGHT(int gAMEMENUBARHEIGHT) {
+		GAMEMENUBARHEIGHT = gAMEMENUBARHEIGHT;
+	}
+
+	public static String getDEFAULTGLOBALBACKGROUNDURL() {
+		return DEFAULTGLOBALBACKGROUNDURL;
+	}
+
+	public static void setDEFAULTGLOBALBACKGROUNDURL(String dEFAULTGLOBALBACKGROUNDURL) {
+		DEFAULTGLOBALBACKGROUNDURL = dEFAULTGLOBALBACKGROUNDURL;
+	}
+
+	public static String getGLOBALBACKGROUNDURL() {
+		return GLOBALBACKGROUNDURL;
+	}
+
+	public static void setGLOBALBACKGROUNDURL(String gLOBALBACKGROUNDURL) {
+		GLOBALBACKGROUNDURL = gLOBALBACKGROUNDURL;
+	}
 
 	public static int getCheckTime() {
 		return checkTime;

@@ -1,7 +1,11 @@
 package uiDao;
 
+import java.awt.Graphics;
+import java.awt.Image;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
@@ -30,6 +34,7 @@ public class GamePage extends /* JFrame */JPanel {
 	private GatherCardPanel[] gatherCardPanels;
 	private SevenStackPanel[] sevenStackPanels;
 	private GameFoot gameFoot;
+	private ImageIcon backGroundImg;
 	// 监听器类
 	private DealStackAdapter dealStackAdapter;
 	private DealedStackAdapter dealedStackAdapter;
@@ -56,6 +61,22 @@ public class GamePage extends /* JFrame */JPanel {
 		componentInit();
 		setNameInit();
 		listenerLoad();
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		if (StaticData.getGLOBALBACKGROUNDURL() != null && !StaticData.getGLOBALBACKGROUNDURL().equals("")) {
+			// 设置了图片路径
+			backGroundImg = new ImageIcon(StaticData.getGLOBALBACKGROUNDURL());
+			// System.out.println("gameFootHeight=" + gameFoot.getHeight());
+			backGroundImg.setImage(backGroundImg.getImage().getScaledInstance(
+					StaticData.getFRAMEWIDTH(), StaticData.getFRAMEHEIGHT() - gameFoot.getHeight()
+							- StaticData.getGAMEMENUBARHEIGHT() - StaticData.getGAMETITLEHEIGHT(),
+					Image.SCALE_DEFAULT));
+			g.drawImage(backGroundImg.getImage(), 0, 0, null);
+		}
 	}
 
 	/**
@@ -114,9 +135,10 @@ public class GamePage extends /* JFrame */JPanel {
 		for (int i = 0; i < StaticData.getSevenstacknum(); i++)
 			this/* contentPanel */.add(sevenStackPanels[i]);
 		this.setSize(StaticData.FRAMESIZE[0], StaticData.FRAMESIZE[1]);
-
-		// this/* getContentPane() */.add(this/* contentPanel */);
-		// this.setJMenuBar(gameMenuBar);
+		// this.setBackground(Color.BLACK);
+		if (StaticData.getBACKGROUNDCOLOR() != null) {
+			this.setBackground(StaticData.getBACKGROUNDCOLOR());
+		}
 	}
 
 	private void listenerInit() {
@@ -204,6 +226,17 @@ public class GamePage extends /* JFrame */JPanel {
 		}
 		if (StaticData.isCARDBGChanged()) // 如果卡牌背景发生了变化
 			rePaintCardPanel();
+	}
+
+	/**
+	 * 重新设置边框颜色
+	 */
+	public void rePaintBorder() {
+		if (StaticData.getCARDBORDERCOLOR() != null) {
+			dealStackPanel.setBorder(BorderFactory.createLineBorder(StaticData.getCARDBORDERCOLOR(), 1, true));
+		} else {
+			dealStackPanel.setBorder(BorderFactory.createLineBorder(StaticData.getDEFAULTCARDBORDERCOLOR(), 1, true));
+		}
 	}
 
 	private void reSizeGameFoot() {

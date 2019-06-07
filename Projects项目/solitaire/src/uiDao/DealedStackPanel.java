@@ -24,6 +24,7 @@ public class DealedStackPanel extends JPanel {
 		this.setBounds(StaticData.getDealedlocation(0), StaticData.getDealedlocation(1),
 				StaticData.getDealedlocation(2), StaticData.getDealedlocation(3));
 		this.setLayout(null);
+		this.setOpaque(false);
 	}
 
 	/**

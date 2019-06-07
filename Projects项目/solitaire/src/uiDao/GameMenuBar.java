@@ -19,7 +19,7 @@ public class GameMenuBar extends JMenuBar {
 	private static final long serialVersionUID = 1L;
 
 	private JMenu gameMenu = new JMenu("游戏");
-	private JMenu windowMenu = new JMenu("窗口");
+	// private JMenu windowMenu = new JMenu("设置");
 
 	private JMenuItem newGameItem = new JMenuItem("新游戏");
 	private JMenuItem exitGameItem = new JMenuItem("退出");
@@ -32,17 +32,19 @@ public class GameMenuBar extends JMenuBar {
 		// TODO Auto-generated constructor stub
 		this.jf = jf2;
 		this.gameMenu.setFont(StaticData.getEditfont());
-		this.windowMenu.setFont(StaticData.getEditfont());
+		// this.windowMenu.setFont(StaticData.getEditfont());
 		this.newGameItem.setFont(StaticData.getEditfont());
 		this.exitGameItem.setFont(StaticData.getEditfont());
 		this.windowEditItem.setFont(StaticData.getEditfont());
 
 		this.add(gameMenu);
-		this.add(windowMenu);
+		// this.add(windowMenu);
 		gameMenu.add(newGameItem);
 		gameMenu.addSeparator();
+		gameMenu.add(windowEditItem);
+		gameMenu.addSeparator();
 		gameMenu.add(exitGameItem);
-		windowMenu.add(windowEditItem);
+		// windowMenu.add(windowEditItem);
 		// windowMenu.addSeparator();
 
 		// 设置监听器

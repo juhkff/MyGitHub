@@ -1,6 +1,5 @@
 package uiDao;
 
-import java.awt.Color;
 import java.util.Random;
 import java.util.Set;
 
@@ -30,14 +29,18 @@ public class DealStackPanel extends JPanel {
 		super();
 		this.setBounds(StaticData.getPanelsize(0), StaticData.getPanelsize(1), StaticData.getPanelsize(2),
 				StaticData.getPanelsize(3));
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+		this.setBorder(BorderFactory
+				.createLineBorder((StaticData.getCARDBORDERCOLOR() != null) ? StaticData.getCARDBORDERCOLOR()
+						: StaticData.getDEFAULTCARDBORDERCOLOR(), 1, true));
 		Random random = new Random();
+		this.setOpaque(false);
 		this.setLayout(null);
 		for (int i = 0; i < StaticData.getDealnum(); i++) {
 			int curIndex = random.nextInt(StaticData.getCardnum()); // 获取0-13*4之间的随机数(不包括13*4)
 			if (thisSet.contains(curIndex)) {
 				// 未生成此牌时,生成此牌
 				CardPanel cardPanel;
+				System.out.println("背景路径:" + StaticData.getBACKGROUNDURL());
 				if (StaticData.getBACKGROUNDURL() == null || StaticData.getBACKGROUNDURL().equals(""))
 					cardPanel = new CardPanel(StaticData.getDeals(curIndex));
 				else

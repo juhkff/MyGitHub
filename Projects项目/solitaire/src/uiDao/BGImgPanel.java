@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import element.StaticData;
 import uiPaint.GameIndex;
 
-public class ImgPathPanel extends JPanel {
+public class BGImgPanel extends JPanel {
 
 	/**
 	 * 
@@ -29,8 +29,7 @@ public class ImgPathPanel extends JPanel {
 
 	private JFileChooser jFileChooser = new JFileChooser();
 
-	public ImgPathPanel(GameIndex jf) {
-		super();
+	public BGImgPanel(GameIndex jf) {
 		// TODO Auto-generated constructor stub
 		this.jf = jf;
 		this.setLayout(null);
@@ -45,10 +44,10 @@ public class ImgPathPanel extends JPanel {
 	}
 
 	private void init() {
-		imgPathLabel = new JLabel("纸牌背景:");
+		imgPathLabel = new JLabel("游戏背景:");
 		imgPathField = new JTextField();
 		imgSubmitButton = new JButton("浏览");
-		resetButton = new JButton("还原");
+		resetButton = new JButton("清除");
 
 		imgPathField.setEditable(false);
 		imgPathField.setBounds(100, 0, 500, 30);
@@ -63,10 +62,10 @@ public class ImgPathPanel extends JPanel {
 		resetButton.setBounds(710, 0, 90, 30);
 		resetButton.setFont(StaticData.getEDITFONT());
 
-		if (StaticData.getBACKGROUNDURL() == null || StaticData.getBACKGROUNDURL().equals(""))
-			imgPathField.setText("自定义卡牌背景图案(png)");
+		if (StaticData.getGLOBALBACKGROUNDURL() == null || StaticData.getGLOBALBACKGROUNDURL().equals(""))
+			imgPathField.setText("自定义游戏背景图案(png/jpg)");
 		else
-			imgPathField.setText(StaticData.getBACKGROUNDURL());
+			imgPathField.setText(StaticData.getGLOBALBACKGROUNDURL());
 	}
 
 	private void listenerInit() {
@@ -82,10 +81,9 @@ public class ImgPathPanel extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			super.mouseClicked(e);
-			StaticData.setBACKGROUNDURL("");
-			StaticData.setCARDBGChanged(true);
-			jf.getJf().reSize();
-			imgPathField.setText("自定义卡牌背景图案(png)");
+			StaticData.setGLOBALBACKGROUNDURL("");
+			jf.getJf().repaint();
+			imgPathField.setText("自定义游戏背景图案(png/jpg)");
 			JOptionPane.showMessageDialog(getParent(), "还原成功!", null, JOptionPane.CLOSED_OPTION);
 		}
 	};
@@ -100,30 +98,23 @@ public class ImgPathPanel extends JPanel {
 			if (file == null)
 				return;
 			System.out.println(file.getAbsolutePath() + "\t" + file.getName());
-			if (!isPng(file)) {
+			if (!isImage(file)) {
 				// 选中的不是图片
-				JOptionPane.showMessageDialog(ImgPathPanel.this, "请选择PNG文件", null, JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(BGImgPanel.this, "请选择图片文件", null, JOptionPane.INFORMATION_MESSAGE);
 			} else {
 				// 选中的是图片
-				StaticData.setBACKGROUNDURL(file.getAbsolutePath());
-				StaticData.setCARDBGChanged(true);
-				jf.getJf().reSize();
+				StaticData.setGLOBALBACKGROUNDURL(file.getAbsolutePath());
+				jf.getJf().repaint();
 				imgPathField.setText(file.getAbsolutePath());
 				JOptionPane.showMessageDialog(getParent(), "应用成功!", null, JOptionPane.CLOSED_OPTION);
 			}
 		}
 	};
 
-	/*
-	 * private boolean isImage(File file) { String suffix = file.getName(); if
-	 * (suffix.endsWith(".jpg") || suffix.endsWith(".png") ||
-	 * suffix.endsWith(".gif") || suffix.endsWith(".bmp")) return true; else return
-	 * false; }
-	 */
-
-	private boolean isPng(File file) {
+	private boolean isImage(File file) {
 		String suffix = file.getName();
-		if (suffix.endsWith(".png"))
+		if (suffix.endsWith(".jpg") || suffix.endsWith(".png")/* || suffix.endsWith(".gif") */
+				|| suffix.endsWith(".bmp"))
 			return true;
 		else
 			return false;

@@ -52,6 +52,10 @@ public class GameIndex extends JFrame {
 		this.setJMenuBar(gameMenuBar);
 	}
 
+	public GameMenuBar getGameMenuBar() {
+		return gameMenuBar;
+	}
+
 	public GamePage getJf() {
 		return jf;
 	}
@@ -64,5 +68,10 @@ public class GameIndex extends JFrame {
 		// TODO Auto-generated method stub
 		GameIndex gameIndex = new GameIndex();
 		gameIndex.setVisible(true);
+		// System.out.println("gameMenuBar=" + gameIndex.getGameMenuBar().getHeight());
+		StaticData.setGAMEMENUBARHEIGHT(gameIndex.getGameMenuBar().getHeight());
+		StaticData.setGAMETITLEHEIGHT(gameIndex.getInsets().top);
+		StaticData.setDEFAULTBACKGROUNDCOLOR(gameIndex.getJf().getBackground());
+		// System.out.println(ColorUtils.rgb2Hex(gameIndex.getJf().getBackground()));
 	}
 }
