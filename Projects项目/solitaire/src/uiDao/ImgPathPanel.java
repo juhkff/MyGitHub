@@ -95,6 +95,7 @@ public class ImgPathPanel extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			super.mouseClicked(e);
+			jFileChooser.setSelectedFile(null);
 			jFileChooser.showDialog(new Label(), "”¶”√");
 			File file = jFileChooser.getSelectedFile();
 			if (file == null)
